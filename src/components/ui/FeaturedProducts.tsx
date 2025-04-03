@@ -12,9 +12,9 @@ const FeaturedProducts = () => {
   }, []);
   
   return (
-    <section className="py-12">
+    <section className="py-12 bg-shop-light-gray">
       <div className="container">
-        <h2 className="text-3xl font-medium mb-8 text-center">Featured Products</h2>
+        <h2 className="text-2xl font-medium mb-8 text-center uppercase tracking-wider">Featured Products</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
