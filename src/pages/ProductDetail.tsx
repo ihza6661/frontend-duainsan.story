@@ -1,0 +1,170 @@
+
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { Product, getProductById } from "@/lib/data";
+import { Button } from "@/components/ui/button";
+import { MinusIcon, PlusIcon, ArrowLeftIcon } from "lucide-react";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import { useCart } from "@/components/ui/Cart";
+
+const ProductDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const { addToCart } = useCart();
+  
+  useEffect(() => {
+    if (id) {
+      const foundProduct = getProductById(id);
+      setProduct(foundProduct || null);
+    }
+    setLoading(false);
+  }, [id]);
+  
+  const handleQuantityChange = (change: number) => {
+    const newQuantity = quantity + change;
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+    }
+  };
+  
+  const handleAddToCart = () => {
+    if (product) {
+      for (let i = 0; i < quantity; i++) {
+        addToCart(product);
+      }
+    }
+  };
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow flex items-center justify-center">
+          <div className="animate-pulse">Loading...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+  
+  if (!product) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow py-16">
+          <div className="container text-center">
+            <h1 className="text-3xl font-medium mb-6">Product Not Found</h1>
+            <p className="text-shop-dark-gray mb-8">
+              We couldn't find the product you're looking for.
+            </p>
+            <Button asChild>
+              <Link to="/products">
+                <ArrowLeftIcon className="mr-2 h-4 w-4" />
+                Back to Products
+              </Link>
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+  
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-grow py-8">
+        <div className="container">
+          <div className="mb-8">
+            <Button 
+              asChild
+              variant="ghost" 
+              className="text-shop-dark-gray hover:text-shop-accent"
+            >
+              <Link to="/products">
+                <ArrowLeftIcon className="mr-2 h-4 w-4" />
+                Back to Products
+              </Link>
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Product Image */}
+            <div className="bg-shop-light-gray rounded-lg overflow-hidden">
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            
+            {/* Product Details */}
+            <div>
+              <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
+              <p className="text-2xl text-shop-accent font-medium mb-6">
+                ${product.price.toFixed(2)}
+              </p>
+              
+              <div className="border-t border-b border-shop-medium-gray py-6 my-6">
+                <p className="text-shop-dark-gray mb-6">
+                  {product.description}
+                </p>
+                
+                <div className="flex items-center mb-6">
+                  <span className="mr-4 text-shop-dark-gray">Quantity</span>
+                  <div className="flex items-center border border-shop-medium-gray rounded-md">
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="icon"
+                      onClick={() => handleQuantityChange(-1)}
+                      className="h-10 w-10 text-shop-dark-gray hover:text-shop-accent"
+                      disabled={quantity <= 1}
+                    >
+                      <MinusIcon className="h-4 w-4" />
+                    </Button>
+                    
+                    <span className="w-10 text-center">{quantity}</span>
+                    
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="icon"
+                      onClick={() => handleQuantityChange(1)}
+                      className="h-10 w-10 text-shop-dark-gray hover:text-shop-accent"
+                    >
+                      <PlusIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                <Button 
+                  onClick={handleAddToCart}
+                  className="w-full bg-shop-accent hover:bg-shop-accent/90 text-white py-6"
+                >
+                  Add to Cart
+                </Button>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-medium mb-3">Product Details</h3>
+                <ul className="list-disc list-inside text-shop-dark-gray space-y-2">
+                  <li>Premium quality materials</li>
+                  <li>Designed for everyday use</li>
+                  <li>30-day money-back guarantee</li>
+                  <li>Free shipping on orders over $50</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default ProductDetail;
