@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -92,10 +91,15 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-['Jost'] antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-medium tracking-tight text-shop-text;
   }
 
@@ -123,12 +127,12 @@
   .product-card:hover .product-card-image {
     @apply scale-105;
   }
-  
+
   /* Smooth transition for buttons */
   .btn-transition {
     @apply transition-all duration-200;
   }
-  
+
   /* For sticky header */
   .sticky-header {
     @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b;

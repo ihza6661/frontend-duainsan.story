@@ -6,7 +6,7 @@ import CategoryGrid from "@/components/ui/CategoryGrid";
 import BestSellers from "@/components/ui/BestSellers";
 import Newsletter from "@/components/ui/Newsletter";
 
-const Index = () => {
+const ShopByCollection = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -21,4 +21,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default ShopByCollection;

@@ -46,7 +46,7 @@ const Header = () => {
               : "hidden"
             } md:flex md:static md:shadow-none md:border-0 md:w-auto md:bg-transparent md:p-0
           `}>
-            <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 uppercase text-xs tracking-wider">
+            <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 uppercase text-sm tracking-wider">
               <li>
                 <Link 
                   to="/products" 

@@ -9,8 +9,8 @@ const BestSellers = () => {
   const bestSellerProducts = products.slice(0, 6);
   
   return (
-    <section className="py-16 bg-white">
-      <div className="container">
+    <section className="py-10 bg-white">
+      <div className="px-6">
         <div className="text-center mb-12">
           <h2 className="text-2xl uppercase tracking-wider font-medium">Our Bestsellers</h2>
         </div>

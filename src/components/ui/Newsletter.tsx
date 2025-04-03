@@ -13,7 +13,7 @@ const Newsletter = () => {
   };
   
   return (
-    <section className="py-16 bg-shop-light-gray">
+    <section className="py-16 bg-[#f3f0ea]">
       <div className="container">
         <div className="text-center max-w-xl mx-auto">
           <h2 className="text-2xl uppercase tracking-wider font-medium mb-3">Join our newsletter</h2>
@@ -24,7 +24,7 @@ const Newsletter = () => {
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row max-w-md mx-auto">
             <input 
               type="email" 
-              placeholder="Your email address" 
+              placeholder="Email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="flex-grow px-4 py-2 border border-shop-medium-gray focus:outline-none focus:border-black"
@@ -32,7 +32,7 @@ const Newsletter = () => {
             />
             <Button 
               type="submit" 
-              className="bg-black hover:bg-black/90 text-white px-6 py-2 rounded-none sm:rounded-r mt-2 sm:mt-0"
+              className="bg-black font-normal tracking-widest hover:bg-black/90 px-6 py-2 rounded-none sm:rounded-r mt-2 sm:mt-0"
             >
               SUBSCRIBE
             </Button>

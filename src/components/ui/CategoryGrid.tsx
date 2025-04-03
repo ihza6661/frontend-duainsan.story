@@ -49,13 +49,13 @@ const categories: Category[] = [
 
 const CategoryGrid = () => {
   return (
-    <section className="pb-16">
-      <div className="container px-0 md:px-4 max-w-7xl">
+    <section className="">
+      <div className="">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {categories.map((category) => (
             <div key={category.id} className="relative group overflow-hidden">
               <Link to={category.link} className="block">
-                <div className="relative h-[400px] overflow-hidden">
+                <div className="relative h-[550px] overflow-hidden">
                   <img 
                     src={category.image} 
                     alt={category.name} 
