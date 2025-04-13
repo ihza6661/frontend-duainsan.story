@@ -1,20 +1,27 @@
-
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Product, products } from "@/lib/data";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const BestSellers = () => {
   // Filter some products to showcase as bestsellers
   const bestSellerProducts = products.slice(0, 6);
-  
+
   return (
     <section className="py-10 bg-white">
-      <div className="px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl uppercase tracking-wider font-medium">Our Bestsellers</h2>
+      <div className="">
+        <div className="text-center mb-6">
+          <h2 className="text-xl uppercase tracking-wider font-normal">
+            Our Bestsellers
+          </h2>
         </div>
-        
+
         <Carousel
           opts={{
             align: "start",
@@ -22,9 +29,12 @@ const BestSellers = () => {
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-4">
+          <CarouselContent className="m-2">
             {bestSellerProducts.map((product) => (
-              <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
+              <CarouselItem
+                key={product.id}
+                className="pl-2 md:basis-1/2 lg:basis-1/4"
+              >
                 <ProductCard product={product} />
               </CarouselItem>
             ))}
@@ -36,7 +46,10 @@ const BestSellers = () => {
         </Carousel>
 
         <div className="text-center mt-8">
-          <Link to="/products" className="text-sm uppercase tracking-wider border-b border-black pb-1 hover:opacity-70 transition-opacity">
+          <Link
+            to="/products"
+            className="text-sm uppercase tracking-wider border-b border-black pb-1 hover:opacity-70 transition-opacity"
+          >
             View All
           </Link>
         </div>
@@ -50,9 +63,9 @@ const ProductCard = ({ product }: { product: Product }) => {
     <Card className="border-none overflow-hidden rounded-none h-full">
       <div className="aspect-[3/4] overflow-hidden">
         <Link to={`/product/${product.id}`}>
-          <img 
-            src={product.image} 
-            alt={product.name} 
+          <img
+            src={product.image}
+            alt={product.name}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </Link>
@@ -66,10 +79,16 @@ const ProductCard = ({ product }: { product: Product }) => {
         </h3>
         <p className="text-sm font-medium">${product.price.toFixed(2)}</p>
         <div className="flex mt-1 space-x-1">
-          {['black', 'red', 'blue'].map((color) => (
-            <span 
+          {["black", "red", "blue"].map((color) => (
+            <span
               key={color}
-              className={`w-3 h-3 rounded-full bg-${color === 'black' ? 'black' : color === 'red' ? 'red-500' : 'blue-600'}`}
+              className={`w-3 h-3 rounded-full bg-${
+                color === "black"
+                  ? "black"
+                  : color === "red"
+                  ? "red-500"
+                  : "blue-600"
+              }`}
             />
           ))}
         </div>

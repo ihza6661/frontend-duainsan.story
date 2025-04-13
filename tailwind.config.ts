@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -64,7 +63,7 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				shop: {
-					'accent': '#4A90E2',
+					'accent': '#000000',
 					'light-gray': '#F6F6F7',
 					'medium-gray': '#EAEAEA',
 					'dark-gray': '#666666',

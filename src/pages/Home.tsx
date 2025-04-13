@@ -1,86 +1,198 @@
-import { Link } from 'react-router-dom';
-import Header from '@/components/layout/Header';
+import { Link } from "react-router-dom";
+import Newsletter from "@/components/ui/Newsletter";
 
 const Home = () => {
   const categories = [
-    { id: 1, name: 'Elektronik', image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80' },
-    { id: 2, name: 'Fashion', image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80' },
-    { id: 3, name: 'Rumah Tangga', image: 'https://images.unsplash.com/photo-1484101403633-562f84f5d8f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80' },
+    { id: 1, name: "DRESSES", image: "/banner1.webp", itemCount: 45 },
+    { id: 2, name: "TOPS", image: "/banner2.webp", itemCount: 32 },
   ];
 
-  const popularProducts = [
-    { id: 1, name: 'Smartphone X', price: 'Rp 8.999.000', image: 'https://images.unsplash.com/photo-1511707171634-5f6c7a0c0f4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80' },
-    { id: 2, name: 'Laptop Pro', price: 'Rp 15.999.000', image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80' },
-    { id: 3, name: 'Headphone Premium', price: 'Rp 2.999.000', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80' },
+  const bestSellers = [
+    {
+      id: 1,
+      name: "Cobalt trousers with wide-down leg",
+      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      price: 79.99,
+    },
+    {
+      id: 2,
+      name: "Cobalt trousers with wide-down leg",
+      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      price: 79.99,
+    },
+    {
+      id: 3,
+      name: "Cobalt trousers with wide-down leg",
+      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      price: 79.99,
+    },
+    {
+      id: 4,
+      name: "Cobalt trousers with wide-down leg",
+      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      price: 79.99,
+    },
+    {
+      id: 5,
+      name: "Cobalt trousers with wide-down leg",
+      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      price: 79.99,
+    },
+    {
+      id: 6,
+      name: "Cobalt trousers with wide-down leg",
+      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      price: 79.99,
+    },
+  ];
+
+  const journalPosts = [
+    {
+      id: 1,
+      title: "Spring Fashion Trends",
+      image: "/journal/journal1.webp",
+    },
+    { id: 2, title: "Summer Style Guide", image: "/journal/journal2.webp" },
+    {
+      id: 3,
+      title: "Autumn Collection Preview",
+      image: "/journal/journal3.webp",
+    },
   ];
 
   return (
-    <div className="min-h-screen">
-      <Header />
+    <div className="min-h-screen w-full overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative h-[500px] bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-        <div className="container h-full flex items-center">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold mb-4">Temukan Produk Terbaik</h1>
-            <p className="text-xl mb-8">Belanja online dengan mudah dan aman. Berbagai produk berkualitas dengan harga terbaik.</p>
-            <Link to="/products" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors">
-              Mulai Belanja
-            </Link>
-          </div>
+      <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-screen">
+        <img
+          src="https://images.unsplash.com/photo-1742475701265-c55a6506722b?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Hero"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white font-light tracking-widest text-center px-4">
+            CASABLANCAS
+          </h1>
         </div>
       </section>
-
       {/* Categories Section */}
-      <section className="py-16">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-8">Kategori Populer</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="w-full">
+        <div className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
             {categories.map((category) => (
               <Link
                 key={category.id}
                 to={`/category/${category.id}`}
-                className="group relative h-64 rounded-lg overflow-hidden"
+                className="group"
               >
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <h3 className="text-white text-2xl font-bold">{category.name}</h3>
+                <div className="relative aspect-[4/5] md:aspect-[2/2]">
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-4 md:bottom-8 lg:bottom-10 left-0 right-0 flex items-center justify-center">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-white px-4 md:px-6 py-2 relative group">
+                      {category.name}
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                    </h3>
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Popular Products Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-8">Produk Terpopuler</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {popularProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                  <p className="text-blue-600 font-bold">{product.price}</p>
-                  <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                    Tambah ke Keranjang
-                  </button>
-                </div>
+      {/* Bestsellers */}
+      <section className="w-full">
+        <div className="px-4">
+          <h2 className="text-lg sm:text-xl font-normal mb-4 sm:mb-8 text-center uppercase tracking-widest pt-6 sm:pt-8">
+            Our Bestsellers
+          </h2>
+          <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
+            {bestSellers.map((item) => (
+              <div
+                key={item.id}
+                className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
+              >
+                <Link to={`/collection/${item.id}`} className="group block">
+                  <div className="relative w-full overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                  <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
+                    {item.name}
+                  </h4>
+                  <p className="text-sm sm:text-base">${item.price}</p>
+                </Link>
               </div>
+            ))}
+          </div>
+
+          {/* View All Button */}
+          <div className="text-center mt-4 pb-8 sm:pb-12">
+            <Link
+              to="/collection/bestsellers"
+              className="inline-block font-normal border-b border-black text-gray-800 hover:text-black transition duration-200"
+            >
+              View All
+            </Link>
+          </div>
+        </div>
+      </section>
+      {/* Sale Banner */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-neutral-100">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-6">
+            SALE UP TO 50% FOR ALL COLLECTIONS
+          </h2>
+          <p className="text-xs sm:text-sm mb-6 sm:mb-8 font-light">
+            From elegant dresses to chic skirts and cozy jumpers!
+          </p>
+          <Link
+            to="/sale"
+            className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
+          >
+            CHECK NOW
+          </Link>
+        </div>
+      </section>
+
+      {/* Journal */}
+      <section className="pt-10 sm:pt-12 md:pt-16">
+        <div className="">
+          <h4 className="text-center font-normal text-xs sm:text-sm">
+            Fashion Blog
+          </h4>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal mb-6 sm:mb-8 text-center uppercase tracking-widest">
+            Journal
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+            {journalPosts.map((post) => (
+              <Link key={post.id} to={`/journal/${post.id}`} className="group">
+                <div className="relative aspect-[3/4]">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-white/80 backdrop-blur-sm">
+                    <p className="text-xs sm:text-sm font-light">
+                      {post.title}
+                    </p>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
+      <Newsletter />
     </div>
   );
 };
 
-export default Home; 
+export default Home;

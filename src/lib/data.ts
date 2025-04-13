@@ -27,16 +27,6 @@ export const products: Product[] = [
     inStock: true
   },
   {
-    id: "2",
-    name: "Ergonomic Office Chair",
-    description: "Premium ergonomic chair with breathable mesh back, adjustable lumbar support, and smooth-rolling casters.",
-    price: 299.99,
-    image: "https://images.unsplash.com/photo-1505843490701-5c4b83a1d314?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1976&q=80",
-    category: "Home Office",
-    featured: true,
-    inStock: true
-  },
-  {
     id: "3",
     name: "Wireless Bluetooth Earbuds",
     description: "Truly wireless earbuds with immersive sound, active noise cancellation, and a compact charging case.",
@@ -44,16 +34,6 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1970&q=80",
     category: "Electronics",
     featured: true,
-    inStock: true
-  },
-  {
-    id: "4",
-    name: "Smart Home Speaker",
-    description: "Elegant smart speaker with crystal clear audio and voice assistant integration for your connected home.",
-    price: 149.99,
-    image: "https://images.unsplash.com/photo-1589003511263-bf99f0c5addb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
-    category: "Electronics",
-    featured: false,
     inStock: true
   },
   {
