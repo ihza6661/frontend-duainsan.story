@@ -12,6 +12,7 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
+import Lookbook from "./pages/Lookbook";
 
 const queryClient = new QueryClient();
 
@@ -37,13 +38,10 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Index />} />
               <Route path="/products" element={<Products />} />
-              <Route
-                path="/products/category/:category"
-                element={<Products />}
-              />
+              <Route path="/products/category/:category" element={<Products />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="/lookbook" element={<Lookbook />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
