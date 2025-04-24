@@ -18,7 +18,7 @@ const BestSellers = () => {
       <div className="">
         <div className="text-center mb-6">
           <h2 className="text-xl uppercase tracking-wider font-normal">
-            Our Bestsellers
+             our bestseller
           </h2>
         </div>
 

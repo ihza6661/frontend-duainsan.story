@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import Newsletter from "@/components/ui/Newsletter";
+import { products } from "@/lib/data";
+
 
 const Home = () => {
   const categories = [
@@ -7,44 +9,44 @@ const Home = () => {
     { id: 2, name: "TOPS", image: "/banner2.webp", itemCount: 32 },
   ];
 
-  const bestSellers = [
-    {
-      id: 1,
-      name: "Cobalt trousers with wide-down leg",
-      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      price: 79.99,
-    },
-    {
-      id: 2,
-      name: "Cobalt trousers with wide-down leg",
-      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      price: 79.99,
-    },
-    {
-      id: 3,
-      name: "Cobalt trousers with wide-down leg",
-      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      price: 79.99,
-    },
-    {
-      id: 4,
-      name: "Cobalt trousers with wide-down leg",
-      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      price: 79.99,
-    },
-    {
-      id: 5,
-      name: "Cobalt trousers with wide-down leg",
-      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      price: 79.99,
-    },
-    {
-      id: 6,
-      name: "Cobalt trousers with wide-down leg",
-      image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      price: 79.99,
-    },
-  ];
+  // const bestSellers = [
+  //   {
+  //     id: 1,
+  //     name: "Cobalt trousers with wide-down leg",
+  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+  //     price: 79.99,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Cobalt trousers with wide-down leg",
+  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+  //     price: 79.99,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Cobalt trousers with wide-down leg",
+  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+  //     price: 79.99,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Cobalt trousers with wide-down leg",
+  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+  //     price: 79.99,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Cobalt trousers with wide-down leg",
+  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+  //     price: 79.99,
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Cobalt trousers with wide-down leg",
+  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+  //     price: 79.99,
+  //   },
+  // ];
 
   const journalPosts = [
     {
@@ -110,26 +112,28 @@ const Home = () => {
             Our Bestsellers
           </h2>
           <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
-            {bestSellers.map((item) => (
-              <div
-                key={item.id}
-                className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
-              >
-                <Link to={`/collection/${item.id}`} className="group block">
-                  <div className="relative w-full overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                  <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
-                    {item.name}
-                  </h4>
-                  <p className="text-sm sm:text-base">${item.price}</p>
-                </Link>
+          {products
+        .filter((item) => item.bestseller)
+        .map((item) => (
+          <div
+            key={item.id}
+            className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
+          >
+            <Link to={`/product/${item.id}`} className="group block">
+              <div className="relative w-full overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-auto object-cover"
+                />
               </div>
-            ))}
+              <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
+                {item.name}
+              </h4>
+              <p className="text-sm sm:text-base">${item.price}</p>
+            </Link>
+          </div>
+        ))}
           </div>
 
           {/* View All Button */}

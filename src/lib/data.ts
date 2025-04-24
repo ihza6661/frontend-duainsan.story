@@ -8,6 +8,7 @@ export interface Product {
   category: string;
   featured: boolean;
   inStock: boolean;
+  bestseller?: boolean;
 }
 
 export interface CartItem {
@@ -18,23 +19,25 @@ export interface CartItem {
 export const products: Product[] = [
   {
     id: "1",
-    name: "Minimalist Desk Lamp",
-    description: "A sleek, adjustable desk lamp with a clean design and warm lighting perfect for any workspace.",
+    name: "Cobalt trousers with wide-down leg",
+    description: "",
     price: 89.99,
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-    category: "Home Office",
+    image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+    category: "Women Bottom",
     featured: true,
-    inStock: true
+    inStock: true,
+    bestseller: true
   },
   {
-    id: "3",
-    name: "Wireless Bluetooth Earbuds",
-    description: "Truly wireless earbuds with immersive sound, active noise cancellation, and a compact charging case.",
-    price: 129.99,
-    image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1970&q=80",
-    category: "Electronics",
+    id: "2",
+    name: "Cobalt Shirt with wide-down leg",
+    description: "",
+    price: 89.99,
+    image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
+    category: "Women Bottom",
     featured: true,
-    inStock: true
+    inStock: true,
+    bestseller: true
   },
   {
     id: "5",
@@ -44,7 +47,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1970&q=80",
     category: "Kitchen",
     featured: true,
-    inStock: true
+    inStock: true,
+    bestseller: true
   },
   {
     id: "6",
@@ -54,7 +58,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     category: "Accessories",
     featured: false,
-    inStock: true
+    inStock: true,
+    bestseller: true
   },
   {
     id: "7",
@@ -80,9 +85,9 @@ export const products: Product[] = [
 
 export const categories = [
   "All",
-  "Home Office",
-  "Electronics",
-  "Kitchen",
+  "Woman Bottom",
+  "Woman Top",
+  "Dress",
   "Accessories"
 ];
 
