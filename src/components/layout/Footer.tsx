@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import '../../index.css';
+
+
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,46 +16,47 @@ const Footer = () => {
               Products
             </h3>
             <ul className="">
-              <li>
-                <Link
-                  to="/products/category/dress"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Dress
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/category/skirt"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Skirt
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/category/blazers"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Blazers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/category/trousers"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Trousers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/category/jumpers"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Jumpers
-                </Link>
-              </li>
+            <li>
+  <Link
+    to="/products/category/dress"
+    className="text-gray-800 text-sm link-underline-animation tracking-wide"
+  >
+    Dress
+  </Link>
+</li>
+<li>
+  <Link
+    to="/products/category/skirt"
+    className="text-gray-800 text-sm link-underline-animation tracking-wide"
+  >
+    Skirt
+  </Link>
+</li>
+<li>
+  <Link
+    to="/products/category/blazers"
+    className="text-gray-800 text-sm link-underline-animation tracking-wide"
+  >
+    Blazers
+  </Link>
+</li>
+<li>
+  <Link
+    to="/products/category/trousers"
+    className="text-gray-800 text-sm link-underline-animation tracking-wide"
+  >
+    Trousers
+  </Link>
+</li>
+<li>
+  <Link
+    to="/products/category/jumpers"
+    className="text-gray-800 text-sm link-underline-animation tracking-wide"
+  >
+    Jumpers
+  </Link>
+</li>
+
             </ul>
           </div>
 
@@ -60,30 +65,31 @@ const Footer = () => {
               Service
             </h3>
             <ul className="">
-              <li>
-                <Link
-                  to="/faq"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/shipping"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Shipping
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Contact
-                </Link>
-              </li>
+            <li>
+  <Link
+    to="/faq"
+    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
+  >
+    FAQ
+  </Link>
+</li>
+<li>
+  <Link
+    to="/shipping"
+    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
+  >
+    Shipping
+  </Link>
+</li>
+<li>
+  <Link
+    to="/contact"
+    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
+  >
+    Contact
+  </Link>
+</li>
+
             </ul>
           </div>
 
@@ -92,30 +98,31 @@ const Footer = () => {
               Information
             </h3>
             <ul className="">
-              <li>
-                <Link
-                  to="/about"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/refunds"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Returns and Refunds
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/legal"
-                  className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide"
-                >
-                  Legal Area
-                </Link>
-              </li>
+            <li>
+  <Link
+    to="/about"
+    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
+  >
+    About Us
+  </Link>
+</li>
+<li>
+  <Link
+    to="/refunds"
+    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
+  >
+    Returns and Refunds
+  </Link>
+</li>
+<li>
+  <Link
+    to="/legal"
+    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
+  >
+    Legal Area
+  </Link>
+</li>
+
             </ul>
           </div>
 
@@ -124,10 +131,10 @@ const Footer = () => {
               About Us
             </h3>
             <p className="text-shop-dark-gray text-sm mb-4">
-              We curate our items with the help of an amazing source of content
-              and products. Visit our store pages to find out where all the
-              products come from.
-            </p>
+  We curate our items with the help of an amazing source of content and products.
+  Visit our <Link to="/about" className=" text-black underline">about page</Link> to find out where all the products come from.
+</p>
+
             <div className="flex items-center space-x-4 mt-4">
               <a
                 href="#"
@@ -215,14 +222,6 @@ const Footer = () => {
             © {currentYear} CASABLANCAS. All rights reserved.
           </p>
 
-          {/* <div className="flex items-center justify-center mt-4 md:mt-0 space-x-2">
-            <img src="https://cdn.shopify.com/s/files/1/0610/7242/7936/files/visa_40x.png?v=1655455919" alt="Visa" width="32" />
-            <img src="https://cdn.shopify.com/s/files/1/0610/7242/7936/files/master_40x.png?v=1655455919" alt="Mastercard" width="32" />
-            <img src="https://cdn.shopify.com/s/files/1/0610/7242/7936/files/amex_40x.png?v=1655455919" alt="American Express" width="32" />
-            <img src="https://cdn.shopify.com/s/files/1/0610/7242/7936/files/paypal_40x.png?v=1655455918" alt="PayPal" width="32" />
-            <img src="https://cdn.shopify.com/s/files/1/0610/7242/7936/files/diners_40x.png?v=1655455919" alt="Diners Club" width="32" />
-            <img src="https://cdn.shopify.com/s/files/1/0610/7242/7936/files/discover_40x.png?v=1655455918" alt="Discover" width="32" />
-          </div> */}
         </div>
 
         <div className="mt-16 flex justify-center">

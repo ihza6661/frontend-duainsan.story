@@ -22,7 +22,7 @@ const Header = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 w-full transition-transform duration-300 ${
           isVisible ? "translate-y-0" : "-translate-y-full"
-        } bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60`}
+        } bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border border-b`}
       >
         <div className="container px-4 flex items-center justify-between h-14 md:h-16">
           <div className="flex items-center">
@@ -64,7 +64,7 @@ const Header = () => {
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link
               to="/"
-              className="text-xl md:text-2xl font-medium uppercase tracking-widest text-start"
+              className="text-xl md:text-2xl font-normal uppercase tracking-widest text-start"
             >
               CASABLANCAS
             </Link>
