@@ -37,7 +37,7 @@ export default function Cart() {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mt-16 mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Keranjang Belanja</h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -98,7 +98,7 @@ export default function Cart() {
                 </div>
                 <div className="flex justify-between">
                   <span>Pengiriman</span>
-                  <span>Gratis</span>
+                  <span>Dihitung Nanti</span>
                 </div>
                 <div className="border-t pt-2 mt-2">
                   <div className="flex justify-between font-bold">

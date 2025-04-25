@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SearchIcon, ShoppingCartIcon, UserIcon, MenuIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { SearchIcon, ShoppingBag, UserIcon, MenuIcon } from "lucide-react";
 import { useCart } from "@/components/ui/Cart";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import Sidebar from "./Sidebar";
@@ -74,14 +73,14 @@ const Header = () => {
           <div className="flex items-center">
             <div className="flex items-center">
               <button className="hidden md:flex items-center justify-center w-10 h-10">
-                <SearchIcon className="h-5 w-5" />
+                <SearchIcon  strokeWidth={1} className="h-5 w-5" />
               </button>
               <button className="flex items-center justify-center w-6 h-6 md:w-10 md:h-10">
-                <UserIcon className="h-4 w-4 md:h-5 md:w-5" />
+                <UserIcon strokeWidth={1} className="h-4 w-4 md:h-5 md:w-5" />
               </button>
               <Link to="/cart">
                 <button className="relative flex items-center justify-center w-6 h-6 md:w-10 md:h-10">
-                  <ShoppingCartIcon className="h-5 w-5" />
+                  <ShoppingBag strokeWidth={1} className="h-5 w-5" />
                   {totalItems > 0 && (
                     <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] md:text-xs rounded-full h-4 w-4 md:h-5 md:w-5 flex items-center justify-center">
                       {totalItems}
