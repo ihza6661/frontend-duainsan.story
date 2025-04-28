@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Product, getProductById } from "@/lib/data";
@@ -138,7 +137,7 @@ const ProductDetail = () => {
 
           <SustainabilityBanner />
 
-          <RelatedProducts products={product} />
+          <RelatedProducts product={product} />
 
           <BrandSlider />
           <LuxuryFashionSlider />
