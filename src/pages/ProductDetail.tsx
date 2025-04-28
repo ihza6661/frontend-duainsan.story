@@ -11,6 +11,14 @@ import { products } from "@/lib/data";
 import CenterModeSlider from "@/components/ui/CenterModeSlider";
 import LuxuryFashionSlider from "@/components/ui/LuxuryFashionSlider";
 import BrandSlider from "@/components/ui/BrandSlider";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -104,6 +112,28 @@ const ProductDetail = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow py-8">
+        <div className="container mb-8">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/products">Products</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{product?.name || 'Product Details'}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
         <div className="">
           <div className="mb-8">
             <Button
