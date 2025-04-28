@@ -42,15 +42,16 @@ export default function LookbookPage() {
       </div>
 
       <div className="text-center py-12 space-y-8">
-        <p className="text-4xl sm:text-7xl font-normal tracking-wider">
-          From elegant dresses 🤍 to <br /> chic skirts 🤍 and cozy 🤍 <br />{" "}
-          jumpers!
-        </p>
-        <button className="relative py-1 text-sm text-black border-b border-gray-700 transition group">
-          VIEW ALL COLLECTIONS
-          <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
-        </button>
-      </div>
+  <p className="p-2 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-wider">
+    From elegant dresses 🤍 to <br /> chic skirts 🤍 and cozy <br />
+    jumpers!
+  </p>
+  <button className="relative py-1 text-sm text-black border-b border-gray-700 transition group">
+    VIEW ALL COLLECTIONS
+    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full"></span>
+  </button>
+</div>
+
 
       <div className="flex flex-col md:flex-row w-full h-[70vh]">
         {/* Left Side - Cosy & Comfort */}
@@ -102,13 +103,20 @@ export default function LookbookPage() {
                 className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
               >
                 <Link to={`/product/${item.id}`} className="group block">
-                  <div className="relative w-full overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
+                <div className="relative w-full overflow-hidden">
+  {item.images && item.images.length > 0 ? (
+    <img
+      src={item.images[0]} // Only show the first image for card preview
+      alt={item.name}
+      className="w-full h-auto object-cover"
+    />
+  ) : (
+    <div className="w-full h-48 flex items-center justify-center text-gray-400">
+      No image
+    </div>
+  )}
+</div>
+
                   <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
                     {item.name}
                   </h4>

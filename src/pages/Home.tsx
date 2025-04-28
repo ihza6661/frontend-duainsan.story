@@ -122,7 +122,7 @@ const Home = () => {
             <Link to={`/product/${item.id}`} className="group block">
               <div className="relative w-full overflow-hidden">
                 <img
-                  src={item.image}
+                  src={item.images[0]}
                   alt={item.name}
                   className="w-full h-auto object-cover"
                 />

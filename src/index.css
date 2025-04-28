@@ -188,3 +188,49 @@
 .link-underline-animation:hover::after {
   transform: scaleX(1);
 }
+
+/* brand slider style */
+
+.slider {
+  background-color: rgb(241, 237, 233);
+  width: 100%;
+  height: var(--height);
+  overflow: hidden;
+  position: relative;
+  padding: 40px;
+}
+
+.slider .list {
+  display: flex;
+  width: fit-content;
+  animation: scroll 20s linear infinite;
+  gap: 50px;
+}
+
+.slider .item {
+  flex: 0 0 auto;
+  width: var(--width);
+  height: var(--height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.5s;
+  white-space: nowrap
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--width) * var(--quantity)));
+  }
+}
+
+/* Pause animation when hovering */
+.slider:hover .list {
+  animation-play-state: paused;
+}
+.slider .item:hover {
+  filter: grayscale(0);
+}
