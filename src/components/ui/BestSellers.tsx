@@ -64,7 +64,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div className="aspect-[3/4] overflow-hidden">
         <Link to={`/product/${product.id}`}>
           <img
-            src={product.image}
+            src={product.images[0]}
             alt={product.name}
             className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
           />
