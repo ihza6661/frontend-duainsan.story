@@ -65,7 +65,7 @@ export default function LuxuryFashionSlider() {
           </div>
         ))}
        <div className="absolute bottom-0 w-full flex justify-center">
-  <button className="bg-black/80 text-white text-lg py-2 px-6 shadow-lg transition w-full sm:w-auto uppercase">
+  <button className="bg-white/80 text-black text-lg py-2 px-6 shadow-lg transition w-full sm:w-auto uppercase">
     Check Collection
   </button>
 </div>
