@@ -27,7 +27,7 @@ const ProductCard = ({ product, featured = false }: ProductCardProps) => {
     >
       <div className="relative overflow-hidden aspect-square">
         <img
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           className="product-card-image w-full h-full object-cover"
         />

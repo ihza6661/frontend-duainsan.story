@@ -1,74 +1,39 @@
-
-import { PlusIcon, MinusIcon, XIcon } from "lucide-react";
+import { Product } from "@/lib/data";
+import { useCart } from "./Cart";
 import { Button } from "@/components/ui/button";
-import { CartItem as CartItemType } from "@/lib/data";
+import { X } from "lucide-react";
 
 interface CartItemProps {
-  item: CartItemType;
-  onUpdateQuantity: (itemId: string, newQuantity: number) => void;
-  onRemove: (itemId: string) => void;
+  product: Product;
 }
 
-const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
-  const handleQuantityChange = (change: number) => {
-    const newQuantity = item.quantity + change;
-    if (newQuantity > 0) {
-      onUpdateQuantity(item.product.id, newQuantity);
-    }
+const CartItem = ({ product }: CartItemProps) => {
+  const { removeFromCart } = useCart();
+
+  const handleRemoveFromCart = () => {
+    removeFromCart(product.id);
   };
-  
+
   return (
-    <div className="flex items-center py-4 border-b border-shop-medium-gray">
-      <div className="w-20 h-20 flex-shrink-0 bg-shop-light-gray rounded-md overflow-hidden">
-        <img 
-          src={item.product.image} 
-          alt={item.product.name} 
-          className="w-full h-full object-cover"
-        />
+    <div className="flex items-center justify-between py-4 border-b border-gray-200">
+      <div className="flex items-center">
+        <div className="h-24 w-24 mr-4 overflow-hidden rounded-md bg-gray-100">
+          <img
+            src={product.images[0]}
+            alt={product.name}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div>
+          <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
+          <p className="mt-1 text-sm text-gray-500">${product.price.toFixed(2)}</p>
+        </div>
       </div>
-      
-      <div className="ml-4 flex-grow">
-        <h3 className="text-shop-text font-medium">{item.product.name}</h3>
-        <p className="text-shop-accent">${item.product.price.toFixed(2)}</p>
-      </div>
-      
-      <div className="flex items-center border border-shop-medium-gray rounded-md">
-        <Button 
-          type="button" 
-          variant="ghost" 
-          size="icon"
-          onClick={() => handleQuantityChange(-1)}
-          className="h-8 w-8 text-shop-dark-gray hover:text-shop-accent"
-        >
-          <MinusIcon className="h-4 w-4" />
-        </Button>
-        
-        <span className="w-8 text-center">{item.quantity}</span>
-        
-        <Button 
-          type="button" 
-          variant="ghost" 
-          size="icon"
-          onClick={() => handleQuantityChange(1)}
-          className="h-8 w-8 text-shop-dark-gray hover:text-shop-accent"
-        >
-          <PlusIcon className="h-4 w-4" />
+      <div className="flex flex-col items-end">
+        <Button size="icon" variant="ghost" onClick={handleRemoveFromCart}>
+          <X className="h-4 w-4" />
         </Button>
       </div>
-      
-      <div className="ml-4 w-20 text-right">
-        <p className="font-medium">${(item.product.price * item.quantity).toFixed(2)}</p>
-      </div>
-      
-      <Button 
-        type="button" 
-        variant="ghost" 
-        size="icon"
-        onClick={() => onRemove(item.product.id)}
-        className="ml-2 text-shop-dark-gray hover:text-shop-accent"
-      >
-        <XIcon className="h-4 w-4" />
-      </Button>
     </div>
   );
 };
