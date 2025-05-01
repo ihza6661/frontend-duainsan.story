@@ -1,140 +1,178 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import '../../index.css';
-
-
-
+import "../../index.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // State for toggling sections on mobile
+  const [openSection, setOpenSection] = useState(null);
+
+  const toggleSection = (section) => {
+    setOpenSection(openSection === section ? null : section);
+  };
+
   return (
-    <footer className="bg-white pt-16 pb-8 border-t">
-      <div className="px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 mb-12 gap-8">
+    <footer className="bg-white pt-8 sm:pt:16 pb-8 border-t">
+      <div className="px-4 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 mb-12 gap-4 sm:gap-8">
+          {/* Example for one section - repeat similar for others */}
           <div>
-            <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
+            <button
+              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-xl uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              onClick={() => toggleSection("products")}
+            >
               Products
-            </h3>
-            <ul className="">
-            <li>
-  <Link
-    to="/products/category/dress"
-    className="text-gray-800 text-sm link-underline-animation tracking-wide"
-  >
-    Dress
-  </Link>
-</li>
-<li>
-  <Link
-    to="/products/category/skirt"
-    className="text-gray-800 text-sm link-underline-animation tracking-wide"
-  >
-    Skirt
-  </Link>
-</li>
-<li>
-  <Link
-    to="/products/category/blazers"
-    className="text-gray-800 text-sm link-underline-animation tracking-wide"
-  >
-    Blazers
-  </Link>
-</li>
-<li>
-  <Link
-    to="/products/category/trousers"
-    className="text-gray-800 text-sm link-underline-animation tracking-wide"
-  >
-    Trousers
-  </Link>
-</li>
-<li>
-  <Link
-    to="/products/category/jumpers"
-    className="text-gray-800 text-sm link-underline-animation tracking-wide"
-  >
-    Jumpers
-  </Link>
-</li>
+              <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
+  {openSection === "products" ? "−" : "+"}
+</span>
 
+
+            </button>
+            <ul
+              className={`transition-all ease-in-out duration-1000 overflow-hidden md:block ${
+                openSection === "products"
+                  ? "max-h-96"
+                  : "max-h-0 md:max-h-full"
+              }`}
+            >
+              <li>
+                <Link
+                  to="/products/category/dress"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Dress
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/category/skirt"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Skirt
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/category/blazers"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Blazers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/category/trousers"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Trousers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/category/jumpers"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Jumpers
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Repeat the same pattern for Service and Information */}
           <div>
-            <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
+            <button
+              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-xl uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              onClick={() => toggleSection("service")}
+            >
               Service
-            </h3>
-            <ul className="">
-            <li>
-  <Link
-    to="/faq"
-    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
-  >
-    FAQ
-  </Link>
-</li>
-<li>
-  <Link
-    to="/shipping"
-    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
-  >
-    Shipping
-  </Link>
-</li>
-<li>
-  <Link
-    to="/contact"
-    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
-  >
-    Contact
-  </Link>
-</li>
+              <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
+  {openSection === "service" ? "−" : "+"}
+</span>
 
+            </button>
+
+            <ul
+              className={`transition-all duration-300 overflow-hidden md:block ${
+                openSection === "service" ? "max-h-96" : "max-h-0 md:max-h-full"
+              }`}
+            >
+              <li>
+                <Link to="/faq" className="text-gray-800 text-sm block py-1">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shipping"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Shipping
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
+            <button
+              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-xl uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              onClick={() => toggleSection("info")}
+            >
               Information
-            </h3>
-            <ul className="">
-            <li>
-  <Link
-    to="/about"
-    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
-  >
-    About Us
-  </Link>
-</li>
-<li>
-  <Link
-    to="/refunds"
-    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
-  >
-    Returns and Refunds
-  </Link>
-</li>
-<li>
-  <Link
-    to="/legal"
-    className="text-gray-800 hover:text-black text-sm transition-colors tracking-wide link-underline-animation"
-  >
-    Legal Area
-  </Link>
-</li>
+              <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
+  {openSection === "info" ? "−" : "+"}
+</span>
 
+            </button>
+
+            <ul
+              className={`transition-all duration-300 overflow-hidden md:block ${
+                openSection === "info" ? "max-h-96" : "max-h-0 md:max-h-full"
+              }`}
+            >
+              <li>
+                <Link to="/about" className="text-gray-800 text-sm block py-1">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/refunds"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Returns and Refunds
+                </Link>
+              </li>
+              <li>
+                <Link to="/legal" className="text-gray-800 text-sm block py-1">
+                  Legal Area
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* The About Us block (unchanged since it's not a dropdown) */}
           <div>
             <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
               About Us
             </h3>
             <p className="text-shop-dark-gray text-sm mb-4">
-  We curate our items with the help of an amazing source of content and products.
-  Visit our <Link to="/about" className=" text-black underline">about page</Link> to find out where all the products come from.
-</p>
-
+              We curate our items with the help of an amazing source of content
+              and products. Visit our{" "}
+              <Link to="/about" className="text-black underline">
+                about page
+              </Link>{" "}
+              to find out where all the products come from.
+            </p>
+            {/* Social media icons remain unchanged */}
             <div className="flex items-center space-x-4 mt-4">
               <a
                 href="#"
@@ -217,11 +255,11 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Bottom copyright and branding */}
         <div className="border-t border-shop-medium-gray pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-xs text-shop-dark-gray">
             © {currentYear} CASABLANCAS. All rights reserved.
           </p>
-
         </div>
 
         <div className="mt-16 flex justify-center">

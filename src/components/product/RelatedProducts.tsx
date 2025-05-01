@@ -19,11 +19,12 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
     : products.filter(item => item.bestseller && item.id !== product.id).slice(0, 4);
 
   return (
-    <div className="px-4 pb-16">
+    <section className="py-10 bg-white">
+
       <h2 className="text-lg sm:text-2xl font-normal mb-4 sm:mb-6 text-center uppercase tracking-widest pt-6 sm:pt-16">
         You May Also Like
       </h2>
-      <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
+      <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10 m-6">
         {productsToShow.map((item) => (
           <div
             key={item.id}
@@ -33,7 +34,7 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

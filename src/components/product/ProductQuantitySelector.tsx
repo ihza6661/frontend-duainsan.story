@@ -14,13 +14,13 @@ const ProductQuantitySelector = ({
   return (
     <div className="flex items-center mb-6">
       <span className="mr-4 text-shop-dark-gray">Quantity</span>
-      <div className="flex items-center border border-shop-medium-gray rounded-md">
+      <div className="flex items-center border border-shop-medium-gray">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={() => onQuantityChange(-1)}
-          className="h-10 w-10 text-shop-dark-gray hover:text-shop-accent"
+          className="h-10 w-10 text-shop-dark-gray"
           disabled={quantity <= 1}
         >
           <MinusIcon className="h-4 w-4" />
@@ -33,7 +33,7 @@ const ProductQuantitySelector = ({
           variant="ghost"
           size="icon"
           onClick={() => onQuantityChange(1)}
-          className="h-10 w-10 text-shop-dark-gray hover:text-shop-accent"
+          className="h-10 w-10 text-shop-dark-gray"
         >
           <PlusIcon className="h-4 w-4" />
         </Button>

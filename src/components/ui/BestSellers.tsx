@@ -33,7 +33,7 @@ const BestSellers = () => {
             {bestSellerProducts.map((product) => (
               <CarouselItem
                 key={product.id}
-                className="pl-2 md:basis-1/2 lg:basis-1/4"
+                className=" md:basis-1/2 lg:basis-1/4"
               >
                 <ProductCard product={product} />
               </CarouselItem>
@@ -61,12 +61,12 @@ const BestSellers = () => {
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="border-none overflow-hidden rounded-none h-full">
-      <div className="aspect-[3/4] overflow-hidden">
+      <div className="aspect-[3/5] overflow-hidden">
         <Link to={`/product/${product.id}`}>
           <img
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
+            className=""
           />
         </Link>
       </div>

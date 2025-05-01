@@ -19,13 +19,9 @@ const ProductCard = ({ product, featured = false }: ProductCardProps) => {
   return (
     <Link
       to={`/product/${product.id}`}
-      className={`group product-card block bg-white rounded-lg overflow-hidden transition-all duration-300 h-full ${
-        featured
-          ? "shadow-md hover:shadow-lg"
-          : "border border-shop-medium-gray hover:border-shop-accent"
-      }`}
+      className="group product-card block bg-white overflow-hidden transition-all duration-300 h-full"
     >
-      <div className="relative overflow-hidden aspect-square">
+      <div className="relative overflow-hidden">
         <img
           src={product.images[0]}
           alt={product.name}

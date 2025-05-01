@@ -54,7 +54,6 @@ const ProductDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
         <main className="flex-grow flex items-center justify-center">
           <div className="animate-pulse">Loading...</div>
         </main>
@@ -66,7 +65,6 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
         <main className="flex-grow py-16">
           <div className="container text-center">
             <h1 className="text-3xl font-medium mb-6">Product Not Found</h1>
@@ -89,8 +87,26 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow py-8">
-        <div className="container mb-8">
+      <main className="flex-grow">
+          <ProductHero
+            product={product}
+            quantity={quantity}
+            onQuantityChange={handleQuantityChange}
+            onAddToCart={handleAddToCart}
+          />
+
+          <ProductServices />
+
+          <SustainabilityBanner />
+
+          <RelatedProducts product={product} />
+
+          <BrandSlider />
+          <LuxuryFashionSlider />
+
+          {/* PRODUCT RECOMENDATION */}
+          
+          <div className="px-8 my-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -111,39 +127,7 @@ const ProductDetail = () => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-
-        <div className="">
-          <div className="mb-8">
-            <Button
-              asChild
-              variant="ghost"
-              className="text-shop-dark-gray hover:text-shop-accent"
-            >
-              <Link to="/products">
-                <ArrowLeftIcon className="mr-2 h-4 w-4" />
-                Back to Products
-              </Link>
-            </Button>
-          </div>
-
-          <ProductHero
-            product={product}
-            quantity={quantity}
-            onQuantityChange={handleQuantityChange}
-            onAddToCart={handleAddToCart}
-          />
-
-          <ProductServices />
-
-          <SustainabilityBanner />
-
-          <RelatedProducts product={product} />
-
-          <BrandSlider />
-          <LuxuryFashionSlider />
-        </div>
       </main>
-      <Footer />
     </div>
   );
 };

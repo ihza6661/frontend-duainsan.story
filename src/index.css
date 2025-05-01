@@ -165,6 +165,7 @@
   background: transparent;
 }
 
+/* hover underline style  */
 
 .link-underline-animation {
   position: relative;
@@ -203,7 +204,7 @@
 .slider .list {
   display: flex;
   width: fit-content;
-  animation: scroll 20s linear infinite;
+  animation: scroll 30s linear infinite;
   gap: 50px;
 }
 

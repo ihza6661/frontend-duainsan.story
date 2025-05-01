@@ -14,7 +14,7 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
   }
 
   return (
-    <div className="bg-shop-light-gray rounded-lg overflow-hidden">
+    <div className="rounded-lg overflow-hidden">
       {images.length > 1 ? (
         <div className="grid grid-cols-1 gap-2">
           {images.map((imgSrc, index) => (

@@ -47,8 +47,7 @@ const Products = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <div className="min-h-screen flex flex-col pt-16">
       <main className="flex-grow py-8">
         <div className="container">
           <h1 className="text-3xl font-medium mb-8">
@@ -67,8 +66,8 @@ const Products = () => {
                       variant={selectedCategory === cat ? "default" : "ghost"}
                       className={`w-full justify-start text-left ${
                         selectedCategory === cat 
-                          ? "bg-shop-accent text-white hover:bg-shop-accent/90" 
-                          : "text-shop-dark-gray hover:text-shop-text"
+                          ? "bg-shop-accent text-white hover:bg-shop-accent/80" 
+                          : "text-shop-dark-gray hover:text-shop-text hover:bg-shop-light-gray"
                       }`}
                       onClick={() => handleCategoryChange(cat)}
                     >
@@ -99,7 +98,7 @@ const Products = () => {
                 </select>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {products.map((product) => (
                   <div key={product.id} className="animate-fade-in">
                     <ProductCard product={product} />
@@ -118,7 +117,6 @@ const Products = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

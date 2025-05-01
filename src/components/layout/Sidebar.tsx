@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-[300px] bg-white z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 h-full w-full sm:w-[500px] bg-white z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <div className="flex justify-between items-center mb-6 border-b pb-2">
             <h2 className="text-lg uppercase tracking-wider">Menu</h2>
             <button onClick={onClose}>
-              <XIcon className="h-6 w-6" />
+              <XIcon className="h-4 w-4" />
             </button>
           </div>
 
@@ -48,10 +48,12 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <nav className="flex-1 space-y-4">
             {/* Shop Dropdown */}
             <div>
-              <button
-                className="w-full text-left text-sm uppercase tracking-wider flex items-center justify-between"
-                onClick={() => setShopOpen(!shopOpen)}
-              >
+            <button
+  className={`w-full text-left text-sm uppercase tracking-widest flex items-center justify-between ${
+    shopOpen ? "text-gray-500" : ""
+  }`}
+  onClick={() => setShopOpen(!shopOpen)}
+>
                 Shop
                 <span
                   className="text-lg transform transition-transform duration-200"
@@ -61,8 +63,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                 </span>
               </button>
               <div
-                className={`pl-4 mt-2 space-y-2 overflow-hidden transition-all duration-200 ${
-                  shopOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                className={` space-y-4 overflow-hidden transition-all duration-200 ${
+                  shopOpen ? "max-h-96 opacity-100 mt-4 mb-8" : "max-h-0 opacity-0"
                 }`}
               >
                 {shopItems.map((item) => (

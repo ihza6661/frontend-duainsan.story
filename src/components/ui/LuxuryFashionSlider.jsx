@@ -24,14 +24,13 @@ export default function LuxuryFashionSlider() {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     mode: "free-snap",
-    slides: { perView: 2 },
+    slides: { perView: 1 }, // Default for mobile
     breakpoints: {
-      1024: {
-        slides: { perView: 1 }, // On tablet and smaller devices, show 1 slide
+      "(min-width: 768px)": {
+        slides: { perView: 1, spacing: 10 },
       },
-      768: {
-        slides: { perView: 1 }, // On smaller mobile screens, show 1 slide
-        spacing: 10, // Optional: add spacing between slides on mobile
+      "(min-width: 1024px)": {
+        slides: { perView: 2 },
       },
     },
   });
