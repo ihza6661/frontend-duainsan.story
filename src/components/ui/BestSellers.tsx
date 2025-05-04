@@ -61,7 +61,7 @@ const BestSellers = () => {
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="border-none overflow-hidden rounded-none h-full">
-      <div className="aspect-[3/5] overflow-hidden">
+      <div className="aspect-[2/3] overflow-hidden">
         <Link to={`/product/${product.id}`}>
           <img
             src={product.images[0]}
@@ -70,7 +70,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           />
         </Link>
       </div>
-      <CardContent className="px-0 pt-4 pb-6 space-y-2">
+      <CardContent className="px-2 pt-4 pb-6 space-y-2">
         <div className="text-xs uppercase text-gray-500">New</div>
         <h3 className="font-medium text-sm">
           <Link to={`/product/${product.id}`} className="hover:underline">

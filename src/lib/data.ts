@@ -59,6 +59,48 @@ export const products: Product[] = [
     inStock: true,
     bestseller: true
   },
+  {
+    id: "4",
+    name: "Chiffon dress with three frills",
+    description: "",
+    price: 98.99,
+    images: [
+      "/products/Chiffon dress with three frills.webp",
+      "/products/Chiffon dress with three frills.webp-2.webp"
+    ],
+    category: "Dress",
+    featured: true,
+    inStock: true,
+    bestseller: true
+  },
+  {
+    id: "5",
+    name: "Casual dress",
+    description: "",
+    price: 98.99,
+    images: [
+      "/products/casual_dress.webp",
+      "/products/casual_dress.webp_2.webp"
+    ],
+    category: "Dress",
+    featured: true,
+    inStock: true,
+    bestseller: true
+  },
+  {
+    id: "6",
+    name: "Flared dress with an envelope neckline",
+    description: "",
+    price: 98.99,
+    images: [
+      "/products/Flared dress with an envelope neckline.webp",
+      "/products/Flared dress with an envelope neckline_2.webp"
+    ],
+    category: "Dress",
+    featured: true,
+    inStock: true,
+    bestseller: true
+  },
 ];
 
 
