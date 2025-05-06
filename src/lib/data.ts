@@ -80,7 +80,7 @@ export const products: Product[] = [
     price: 98.99,
     images: [
       "/products/casual_dress.webp",
-      "/products/casual_dress.webp_2.webp"
+      "/products/casual_dress_2.webp"
     ],
     category: "Dress",
     featured: true,
