@@ -18,10 +18,12 @@ const ProductHero = ({
   onAddToCart,
 }: ProductHeroProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
-      <ProductGallery images={product.images} productName={product.name} />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <div className="md:h-full">
+        <ProductGallery images={product.images} productName={product.name} />
+      </div>
 
-      <div className="sticky container top-24 self-start max-w-[500px]">
+      <div className="md:sticky md:top-24 h-fit md:self-start md:max-w-[500px]">
         <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
         <p className="text-2xl text-shop-accent font-medium mb-6">
           ${product.price.toFixed(2)}
