@@ -87,13 +87,13 @@ const Home = () => {
                 to={`/category/${category.id}`}
                 className="group"
               >
-                <div className="relative aspect-[4/5] md:aspect-[2/2]">
+                <div className="relative aspect-[4/3] md:aspect-[2/2]">
                   <img
                     src={category.image}
                     alt={category.name}
-                    className="w-full h-full object-cover"
+                    className="w-full object-cover"
                   />
-                  <div className="absolute bottom-4 md:bottom-8 lg:bottom-10 left-0 right-0 flex items-center justify-center">
+                  <div className="absolute bottom-5 md:bottom-8 lg:bottom-40 left-0 right-0 flex items-center justify-center">
                     <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-white px-4 md:px-6 py-2 relative group">
                       {category.name}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>

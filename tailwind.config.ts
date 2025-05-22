@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			screens: {
-        'tablet-custom': '1000px', // misal 960px
+        'tablet-custom': '1000px'
       },
 			colors: {
 				border: 'hsl(var(--border))',
