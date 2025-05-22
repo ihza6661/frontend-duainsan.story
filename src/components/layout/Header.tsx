@@ -53,26 +53,27 @@ const Header = () => {
               >
                 <img src={MenuIcon} alt="Search Icon" />
               </button>
-              <nav className="flex items-center space-x-4 tracking-widest">
-                <Link
-                  to="/shop"
-                  className="text-sm uppercase link-underline-animation"
-                >
-                  Shop
-                </Link>
-                <Link
-                  to="/lookbook"
-                  className="text-sm uppercase link-underline-animation"
-                >
-                  Lookbook
-                </Link>
-                <Link
-                  to="/sale"
-                  className="text-sm uppercase link-underline-animation"
-                >
-                  Sale
-                </Link>
-              </nav>
+             <nav className="hidden tablet-custom:flex items-center space-x-4 tracking-widest">
+  <Link
+    to="/shop"
+    className="text-sm uppercase link-underline-animation"
+  >
+    Shop
+  </Link>
+  <Link
+    to="/lookbook"
+    className="text-sm uppercase link-underline-animation"
+  >
+    Lookbook
+  </Link>
+  <Link
+    to="/sale"
+    className="text-sm uppercase link-underline-animation"
+  >
+    Sale
+  </Link>
+</nav>
+
             </div>
           </div>
 

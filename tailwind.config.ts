@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			screens: {
+        'tablet-custom': '1000px', // misal 960px
+      },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
