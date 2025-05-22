@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Product, getProductById } from "@/lib/data";
@@ -88,6 +89,7 @@ const ProductDetail = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
+        <div className="container px-4 py-8">
           <ProductHero
             product={product}
             quantity={quantity}
@@ -103,10 +105,9 @@ const ProductDetail = () => {
 
           <BrandSlider />
           <LuxuryFashionSlider />
+        </div>
 
-          {/* PRODUCT RECOMENDATION */}
-          
-          <div className="px-8 my-6">
+        <div className="container px-4 my-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -128,6 +129,7 @@ const ProductDetail = () => {
           </Breadcrumb>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

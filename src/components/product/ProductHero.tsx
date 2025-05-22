@@ -23,7 +23,7 @@ const ProductHero = ({
         <ProductGallery images={product.images} productName={product.name} />
       </div>
 
-      <div className="md:sticky md:top-24 h-fit md:self-start md:max-w-[500px]">
+      <div className="sticky top-24 h-fit self-start max-w-[500px]">
         <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
         <p className="text-2xl text-shop-accent font-medium mb-6">
           ${product.price.toFixed(2)}
