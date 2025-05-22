@@ -17,7 +17,7 @@ export default function LookbookPage() {
         </p>
       </div>
 
-      <div className="columns-[350px]">
+      <div className="columns-[500px]">
         {lookbookItems.map((src, index) => (
           <div key={index} className="relative overflow-hidden">
             <img src={src} alt={`Look ${index + 1}`} className="py-2" />
@@ -91,7 +91,7 @@ export default function LookbookPage() {
       </div>
 
       <div className="px-4 pb-16">
-        <h2 className="text-lg sm:text-2xl font-normal mb-4 sm:mb-6 text-center uppercase tracking-widest pt-6 sm:pt-16">
+        <h2 className="text-lg sm:text-xl font-normal mb-4 sm:mb-6 text-center uppercase tracking-widest pt-6 sm:pt-16">
           Fall into Comfort
         </h2>
         <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">

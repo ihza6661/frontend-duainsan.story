@@ -87,7 +87,7 @@ const Home = () => {
                 to={`/category/${category.id}`}
                 className="group"
               >
-                <div className="relative aspect-[4/3] md:aspect-[2/2]">
+                <div className="relative aspect-[4/3]">
                   <img
                     src={category.image}
                     alt={category.name}

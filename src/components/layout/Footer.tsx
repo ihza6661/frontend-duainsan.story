@@ -257,15 +257,15 @@ const Footer = () => {
 
         {/* Bottom copyright and branding */}
         <div className="border-t border-shop-medium-gray pt-8 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-xs text-shop-dark-gray">
+          {/* <p className="text-xs text-shop-dark-gray">
             © {currentYear} CASABLANCAS. All rights reserved.
-          </p>
+          </p> */}
         </div>
 
         <div className="mt-16 flex justify-center">
           <Link
             to="/"
-            className="text-5xl font-light uppercase tracking-widest"
+            className="sm:text-5xl text-4xl font-light uppercase tracking-widest"
           >
             CASABLANCAS
           </Link>
