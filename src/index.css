@@ -90,6 +90,12 @@
     @apply border-border;
   }
 
+  html, body {
+    @apply overflow-x-hidden; /* Prevent horizontal scrolling */
+    width: 100%;
+    position: relative;
+  }
+
   body {
     @apply bg-background text-foreground font-['Jost'] antialiased;
   }

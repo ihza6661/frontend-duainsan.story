@@ -1,8 +1,10 @@
+
 #root {
-  max-width: 1280px;
+  max-width: 100%; /* Changed from 1280px to 100% */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .logo {
