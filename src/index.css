@@ -91,7 +91,6 @@
   }
 
   html, body {
-    @apply overflow-x-hidden; /* Prevent horizontal scrolling */
     width: 100%;
     position: relative;
   }
@@ -240,4 +239,13 @@
 }
 .slider .item:hover {
   filter: grayscale(0);
+}
+
+
+/* Make Swiper pagination bullets black */
+.swiper-pagination-bullet {
+  background-color: #000 !important;
+}
+.swiper-pagination-bullet-active {
+  background-color: #000 !important;
 }

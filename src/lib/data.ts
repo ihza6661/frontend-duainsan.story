@@ -24,7 +24,6 @@ export const products: Product[] = [
     price: 89.99,
     images: [
       "/products/Cobalt-trousers-with-wide-down-leg.webp",
-      "/products/Cobalt-trousers-2.webp"
     ],
     category: "Women Bottom",
     featured: true,
