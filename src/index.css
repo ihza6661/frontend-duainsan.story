@@ -210,7 +210,7 @@
   display: flex;
   width: fit-content;
   animation: scroll 30s linear infinite;
-  gap: 50px;
+  gap: 85px;
 }
 
 .slider .item {

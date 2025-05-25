@@ -106,7 +106,7 @@ const ProductDetail = () => {
 
           {/* PRODUCT RECOMENDATION */}
           
-          <div className="px-8 my-6">
+          <div className="px-4 sm:px-8 my-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>

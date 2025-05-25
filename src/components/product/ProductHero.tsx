@@ -19,6 +19,7 @@ const ProductHero = ({
   onAddToCart,
 }: ProductHeroProps) => {
   const [showDescription, setShowDescription] = useState(false);
+  const [showWashAndCare, setShowWashAndCare] = useState(false);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
@@ -74,6 +75,25 @@ const ProductHero = ({
           {showDescription && (
             <p className="mt-6 text-xs text-gray-700">
               This is the description text that appears when the button is
+              clicked.
+            </p>
+          )}
+        </div>
+        <div className="py-4 border-y">
+          <button
+            onClick={() => setShowWashAndCare(!showWashAndCare)}
+            className="text-black flex flex-row justify-between w-full items-center"
+          >
+            <p className="text-base tracking-widest">WASH & CARE</p>
+            {showWashAndCare ? (
+              <Minus className="w-5 h-5" />
+            ) : (
+              <Plus className="w-5 h-5" />
+            )}
+          </button>
+          {showWashAndCare && (
+            <p className="mt-6 text-xs text-gray-700">
+              This is the WashAndCare text that appears when the button is
               clicked.
             </p>
           )}
