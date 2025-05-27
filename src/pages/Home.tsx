@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Newsletter from "@/components/ui/Newsletter";
 import { products } from "@/lib/data";
+import VogueQuote from "@/components/layout/VogueQuote";
+import ExploreTheNewestTrend from "@/components/layout/ExploreTheNewestTrend";
 
 
 const Home = () => {
@@ -147,23 +149,29 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* Sale Banner */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-neutral-100">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-6">
-            SALE UP TO 50% FOR ALL COLLECTIONS
-          </h2>
-          <p className="text-xs sm:text-sm mb-6 sm:mb-8 font-light">
-            From elegant dresses to chic skirts and cozy jumpers!
-          </p>
-          <Link
-            to="/sale"
-            className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
-          >
-            CHECK NOW
-          </Link>
-        </div>
-      </section>
+      <section className="min-h-screen py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
+  <div className="container mx-auto px-4 sm:px-6 text-center">
+    <p className="mb-6 text-base sm:text-lg">Discover the best deal</p>
+    <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
+      SALE UP TO 50% FOR ALL COLLECTIONS
+    </h2>
+    <Link
+      to="/sale"
+      className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
+    >
+      CHECK NOW
+    </Link>
+  </div>
+</section>
+
+        <ExploreTheNewestTrend/>
+
+
+
+  <VogueQuote/>
+
 
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">
@@ -194,6 +202,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       <Newsletter />
     </div>
   );
