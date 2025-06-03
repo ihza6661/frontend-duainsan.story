@@ -19,15 +19,13 @@ const Footer = () => {
           {/* Example for one section - repeat similar for others */}
           <div>
             <button
-              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-xl uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("products")}
             >
               Products
               <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
-  {openSection === "products" ? "−" : "+"}
-</span>
-
-
+                {openSection === "products" ? "−" : "+"}
+              </span>
             </button>
             <ul
               className={`transition-all ease-in-out duration-1000 overflow-hidden md:block ${
@@ -82,14 +80,13 @@ const Footer = () => {
           {/* Repeat the same pattern for Service and Information */}
           <div>
             <button
-              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-xl uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("service")}
             >
               Service
               <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
-  {openSection === "service" ? "−" : "+"}
-</span>
-
+                {openSection === "service" ? "−" : "+"}
+              </span>
             </button>
 
             <ul
@@ -123,14 +120,13 @@ const Footer = () => {
 
           <div>
             <button
-              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-xl uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("info")}
             >
               Information
               <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
-  {openSection === "info" ? "−" : "+"}
-</span>
-
+                {openSection === "info" ? "−" : "+"}
+              </span>
             </button>
 
             <ul

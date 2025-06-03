@@ -4,7 +4,6 @@ import { products } from "@/lib/data";
 import VogueQuote from "@/components/layout/VogueQuote";
 import ExploreTheNewestTrend from "@/components/layout/ExploreTheNewestTrend";
 
-
 const Home = () => {
   const categories = [
     { id: 1, name: "DRESSES", image: "/banner1.webp", itemCount: 45 },
@@ -114,28 +113,28 @@ const Home = () => {
             Our Bestsellers
           </h2>
           <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
-          {products
-        .filter((item) => item.bestseller)
-        .map((item) => (
-          <div
-            key={item.id}
-            className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
-          >
-            <Link to={`/product/${item.id}`} className="group block">
-              <div className="relative w-full overflow-hidden">
-                <img
-                  src={item.images[0]}
-                  alt={item.name}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-              <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
-                {item.name}
-              </h4>
-              <p className="text-sm sm:text-base">${item.price}</p>
-            </Link>
-          </div>
-        ))}
+            {products
+              .filter((item) => item.bestseller)
+              .map((item) => (
+                <div
+                  key={item.id}
+                  className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
+                >
+                  <Link to={`/product/${item.id}`} className="group block">
+                    <div className="relative w-full overflow-hidden">
+                      <img
+                        src={item.images[0]}
+                        alt={item.name}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
+                    <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
+                      {item.name}
+                    </h4>
+                    <p className="text-sm sm:text-base">${item.price}</p>
+                  </Link>
+                </div>
+              ))}
           </div>
 
           {/* View All Button */}
@@ -152,26 +151,23 @@ const Home = () => {
 
       {/* Sale Banner */}
       <section className="min-h-screen py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
-  <div className="container mx-auto px-4 sm:px-6 text-center">
-    <p className="mb-6 text-base sm:text-lg">Discover the best deal</p>
-    <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
-      SALE UP TO 50% FOR ALL COLLECTIONS
-    </h2>
-    <Link
-      to="/sale"
-      className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
-    >
-      CHECK NOW
-    </Link>
-  </div>
-</section>
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <p className="mb-6 text-base sm:text-lg">Discover the best deal</p>
+          <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
+            SALE UP TO 50% FOR ALL COLLECTIONS
+          </h2>
+          <Link
+            to="/sale"
+            className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
+          >
+            CHECK NOW
+          </Link>
+        </div>
+      </section>
 
-        <ExploreTheNewestTrend/>
+      <ExploreTheNewestTrend />
 
-
-
-  <VogueQuote/>
-
+      <VogueQuote />
 
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">

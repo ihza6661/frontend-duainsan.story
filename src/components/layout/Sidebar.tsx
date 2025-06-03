@@ -48,12 +48,12 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <nav className="flex-1 space-y-4">
             {/* Shop Dropdown */}
             <div>
-            <button
-  className={`w-full text-left text-sm uppercase tracking-widest flex items-center justify-between ${
-    shopOpen ? "text-gray-500" : ""
-  }`}
-  onClick={() => setShopOpen(!shopOpen)}
->
+              <button
+                className={`w-full text-left text-sm uppercase tracking-widest flex items-center justify-between ${
+                  shopOpen ? "text-gray-500" : ""
+                }`}
+                onClick={() => setShopOpen(!shopOpen)}
+              >
                 Shop
                 <span
                   className="text-lg transform transition-transform duration-200"
@@ -64,7 +64,9 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               </button>
               <div
                 className={` space-y-4 overflow-hidden transition-all duration-200 ${
-                  shopOpen ? "max-h-96 opacity-100 mt-4 mb-8" : "max-h-0 opacity-0"
+                  shopOpen
+                    ? "max-h-96 opacity-100 mt-4 mb-8"
+                    : "max-h-0 opacity-0"
                 }`}
               >
                 {shopItems.map((item) => (

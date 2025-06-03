@@ -39,7 +39,7 @@ const Header = () => {
               className="text-shop-text md:hidden"
               onClick={() => setSidebarOpen(true)}
             >
-              <img src={MenuIcon} alt="Menu Icon" className="w-6"/>
+              <img src={MenuIcon} alt="Menu Icon" className="w-6" />
             </button>
             <button className="flex items-center justify-center w-6 h-6 md:hidden ml-1">
               <img src={Search} alt="Search Icon" />
@@ -53,27 +53,26 @@ const Header = () => {
               >
                 <img src={MenuIcon} alt="Search Icon" />
               </button>
-             <nav className="hidden tablet-custom:flex items-center space-x-4 tracking-widest">
-  <Link
-    to="/shop"
-    className="text-sm uppercase link-underline-animation"
-  >
-    Shop
-  </Link>
-  <Link
-    to="/lookbook"
-    className="text-sm uppercase link-underline-animation"
-  >
-    Lookbook
-  </Link>
-  <Link
-    to="/sale"
-    className="text-sm uppercase link-underline-animation"
-  >
-    Sale
-  </Link>
-</nav>
-
+              <nav className="hidden tablet-custom:flex items-center space-x-4 tracking-widest">
+                <Link
+                  to="/shop"
+                  className="text-sm uppercase link-underline-animation"
+                >
+                  Shop
+                </Link>
+                <Link
+                  to="/lookbook"
+                  className="text-sm uppercase link-underline-animation"
+                >
+                  Lookbook
+                </Link>
+                <Link
+                  to="/sale"
+                  className="text-sm uppercase link-underline-animation"
+                >
+                  Sale
+                </Link>
+              </nav>
             </div>
           </div>
 

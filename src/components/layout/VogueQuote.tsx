@@ -4,17 +4,19 @@ const VogueQuote = () => {
   return (
     <div className="bg-[#f1ede9] min-h-96 flex flex-col justify-center items-center text-center px-4 py-12 relative">
       {/* VOGUE Title */}
-<img
-  src="/logo/vogue-logo.avif"
-  alt="vogue"
-  className="w-[100px] md:w-[140px]"
-/>
+      <img
+        src="/logo/vogue-logo.avif"
+        alt="vogue"
+        className="w-[100px] md:w-[140px]"
+      />
 
       {/* Quote */}
       <div className="w-[340px] md:w-[500px] lg:w-[900px] xl:w-[1200px]">
-      <p className="my-6 text-center text-[1.1rem] md:text-2xl max-w-5xl  text-black font-normal leading-relaxed tracking-wide>">
-        “A brand that challenges the industry. A brand that has a chance to stage a revolution. A brand whose creators see it as a step towards a better world”
-      </p>
+        <p className="my-6 text-center text-[1.1rem] md:text-2xl max-w-5xl  text-black font-normal leading-relaxed tracking-wide>">
+          “A brand that challenges the industry. A brand that has a chance to
+          stage a revolution. A brand whose creators see it as a step towards a
+          better world”
+        </p>
       </div>
 
       {/* Dots */}
