@@ -11,7 +11,7 @@ const VogueQuote = () => {
       />
 
       {/* Quote */}
-      <div className="w-[340px] md:w-[500px] lg:w-[900px] xl:w-[1200px]">
+      <div className="w-[340px] md:w-[500px] lg:w-[900px] xl:w-[1000px]">
         <p className="my-6 text-center text-[1.1rem] md:text-2xl max-w-5xl  text-black font-normal leading-relaxed tracking-wide>">
           “A brand that challenges the industry. A brand that has a chance to
           stage a revolution. A brand whose creators see it as a step towards a

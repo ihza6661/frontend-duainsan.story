@@ -196,32 +196,37 @@
 }
 
 /* brand slider style */
-
 .slider {
-  background-color: rgb(241, 237, 233);
   width: 100%;
-  height: var(--height);
   overflow: hidden;
-  position: relative;
-  padding: 40px;
+  background: #ffffff;
+  padding: 2rem 0;
 }
 
 .slider .list {
   display: flex;
-  width: fit-content;
-  animation: scroll 30s linear infinite;
-  gap: 85px;
+  width: max-content;
+  animation: scroll 20s linear infinite;
 }
+
 
 .slider .item {
   flex: 0 0 auto;
-  width: var(--width);
-  height: var(--height);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: filter 0.5s;
-  white-space: nowrap
+  padding: 0 2rem;
+}
+
+.slider .item img {
+  height: 150px;
+  width: auto;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+
+.slider .item img:hover {
+  filter: grayscale(0%);
 }
 
 @keyframes scroll {
@@ -229,17 +234,17 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-1 * var(--width) * var(--quantity)));
+    transform: translateX(-33.3333%);
   }
 }
 
-/* Pause animation when hovering */
+
+/* Optional pause on hover */
 .slider:hover .list {
   animation-play-state: paused;
 }
-.slider .item:hover {
-  filter: grayscale(0);
-}
+
+
 
 
 /* Make Swiper pagination bullets black */

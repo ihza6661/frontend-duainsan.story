@@ -3,51 +3,14 @@ import Newsletter from "@/components/ui/Newsletter";
 import { products } from "@/lib/data";
 import VogueQuote from "@/components/layout/VogueQuote";
 import ExploreTheNewestTrend from "@/components/layout/ExploreTheNewestTrend";
+import BrandSlider from "@/components/ui/BrandSlider";
+import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 
 const Home = () => {
   const categories = [
     { id: 1, name: "DRESSES", image: "/banner1.webp", itemCount: 45 },
     { id: 2, name: "TOPS", image: "/banner2.webp", itemCount: 32 },
   ];
-
-  // const bestSellers = [
-  //   {
-  //     id: 1,
-  //     name: "Cobalt trousers with wide-down leg",
-  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-  //     price: 79.99,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Cobalt trousers with wide-down leg",
-  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-  //     price: 79.99,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Cobalt trousers with wide-down leg",
-  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-  //     price: 79.99,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Cobalt trousers with wide-down leg",
-  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-  //     price: 79.99,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Cobalt trousers with wide-down leg",
-  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-  //     price: 79.99,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Cobalt trousers with wide-down leg",
-  //     image: "/products/Cobalt-trousers-with-wide-down-leg.webp",
-  //     price: 79.99,
-  //   },
-  // ];
 
   const journalPosts = [
     {
@@ -112,7 +75,7 @@ const Home = () => {
           <h2 className="text-lg sm:text-xl font-normal mb-4 sm:mb-8 text-center uppercase tracking-widest pt-6 sm:pt-8">
             Our Bestsellers
           </h2>
-          <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
+          <div className="flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
             {products
               .filter((item) => item.bestseller)
               .map((item) => (
@@ -128,7 +91,7 @@ const Home = () => {
                         className="w-full h-auto object-cover"
                       />
                     </div>
-                    <h4 className="mt-2 text-sm sm:text-md font-normal text-gray-800">
+                    <h4 className="mt-2 text-base sm:text-md font-normal text-gray-800">
                       {item.name}
                     </h4>
                     <p className="text-sm sm:text-base">${item.price}</p>
@@ -141,9 +104,9 @@ const Home = () => {
           <div className="text-center mt-4 pb-8 sm:pb-12">
             <Link
               to="/collection/bestsellers"
-              className="inline-block font-normal border-b border-black text-gray-800 hover:text-black transition duration-200"
+              className="text-lg inline-block font-normal border-b border-black text-gray-800 hover:text-black transition duration-200"
             >
-              View All
+              VIEW ALL
             </Link>
           </div>
         </div>
@@ -198,7 +161,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      <ActualBrandSlider/>
       <Newsletter />
     </div>
   );
