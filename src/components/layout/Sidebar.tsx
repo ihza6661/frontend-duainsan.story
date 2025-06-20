@@ -45,7 +45,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 space-y-4">
+          <nav className="flex-1 space-y-4 tracking-widest">
             {/* Shop Dropdown */}
             <div>
               <button
@@ -85,7 +85,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             {/* Other Links */}
             <Link
               to="/sale"
-              className="block text-sm uppercase tracking-wider border-t pt-4"
+              className="block text-sm uppercase tracking-widest border-t pt-4"
               onClick={onClose}
             >
               Sale
@@ -93,7 +93,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             <Link
               to="/new-arrival"
-              className="block text-sm uppercase tracking-wider border-t pt-4"
+              className="block text-sm uppercase tracking-widest border-t pt-4"
               onClick={onClose}
             >
               New Arrival
@@ -101,7 +101,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             <Link
               to="/lookbook"
-              className="block text-sm uppercase tracking-wider border-t pt-4"
+              className="block text-sm uppercase tracking-widest border-t pt-4"
               onClick={onClose}
             >
               Lookbook

@@ -15,6 +15,7 @@ import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 import Lookbook from "./pages/Lookbook";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/products" element={<Products />} />
               <Route path="/products/category/:category" element={<Products />} />
               <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/lookbook" element={<Lookbook />} />
               <Route path="*" element={<NotFound />} />

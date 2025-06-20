@@ -54,12 +54,19 @@ const Header = () => {
                 <img src={MenuIcon} alt="Search Icon" />
               </button>
               <nav className="hidden tablet-custom:flex items-center space-x-4 tracking-widest">
-                <Link
+                {/* <Link
                   to="/shop"
                   className="text-sm uppercase link-underline-animation"
                 >
                   Shop
-                </Link>
+                </Link> */}
+                <button
+                  onClick={() => setSidebarOpen(true)}
+                 className="text-sm uppercase link-underline-animation"
+                >
+                  Shop
+                </button>
+
                 <Link
                   to="/lookbook"
                   className="text-sm uppercase link-underline-animation"
@@ -90,9 +97,18 @@ const Header = () => {
               <button className="hidden md:flex items-center justify-center w-8 h-10">
                 <img src={Search} alt="Search Icon" />
               </button>
-              <button className="relative flex items-center justify-center w-8 h-10">
+             <Link
+              to="/login" 
+              className="relative flex items-center justify-center w-8 h-10">
                 <img src={UserIcon} alt="User Icon" />
-              </button>
+              </Link>
+              {/* <Link
+              to="/lookbook"
+              className="block text-sm uppercase tracking-widest border-t pt-4"
+              onClick={onClose}
+            >
+              Lookbook
+            </Link> */}
               <Link to="/cart">
                 <button className="relative flex items-center justify-center w-8 h-10">
                   <img src={ShoppingBag} alt="Shopping Bag" />
