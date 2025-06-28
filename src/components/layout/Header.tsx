@@ -64,20 +64,20 @@ const Header = () => {
                   onClick={() => setSidebarOpen(true)}
                  className="text-sm uppercase link-underline-animation"
                 >
-                  Shop
+                  Products
                 </button>
 
                 <Link
                   to="/lookbook"
                   className="text-sm uppercase link-underline-animation"
                 >
-                  Lookbook
+                  Templates
                 </Link>
                 <Link
                   to="/sale"
                   className="text-sm uppercase link-underline-animation"
                 >
-                  Sale
+                  Custom Design
                 </Link>
               </nav>
             </div>
@@ -86,9 +86,9 @@ const Header = () => {
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link
               to="/"
-              className="text-xl md:text-2xl font-normal uppercase tracking-widest text-start"
+              className="text-xl md:text-2xl font-normal uppercase tracking-widest text-start text-nowrap"
             >
-              CASABLANCAS
+              TERRARIUM HANTARAN
             </Link>
           </div>
 
@@ -102,13 +102,6 @@ const Header = () => {
               className="relative flex items-center justify-center w-8 h-10">
                 <img src={UserIcon} alt="User Icon" />
               </Link>
-              {/* <Link
-              to="/lookbook"
-              className="block text-sm uppercase tracking-widest border-t pt-4"
-              onClick={onClose}
-            >
-              Lookbook
-            </Link> */}
               <Link to="/cart">
                 <button className="relative flex items-center justify-center w-8 h-10">
                   <img src={ShoppingBag} alt="Shopping Bag" />

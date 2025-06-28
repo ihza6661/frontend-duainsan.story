@@ -8,8 +8,8 @@ import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 
 const Home = () => {
   const categories = [
-    { id: 1, name: "DRESSES", image: "/banner1.webp", itemCount: 45 },
-    { id: 2, name: "TOPS", image: "/banner2.webp", itemCount: 32 },
+    { id: 1, name: "Hantaran", image: "/hantaran.jpg", itemCount: 45 },
+    { id: 2, name: "Wedding & Engagement", image: "/hero.jpg", itemCount: 32 },
   ];
 
   const journalPosts = [
@@ -29,46 +29,76 @@ const Home = () => {
   return (
     <div className="min-h-screen w-full overflow-hidden">
       {/* Hero Section */}
-      <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-screen">
-        <img
-          src="https://images.unsplash.com/photo-1742475701265-c55a6506722b?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Hero"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white font-light tracking-widest text-center px-4">
-            CASABLANCAS
-          </h1>
-        </div>
-      </section>
+<section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+  {/* Background Image */}
+  <img
+    src="hero.jpg"
+    alt="Invitation Background"
+    className="absolute inset-0 w-full h-full object-cover object-center z-0"
+  />
+
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-pink-200/10 via-white/10 to-white z-10" />
+
+  {/* Content */}
+  <div className="relative z-20 text-center max-w-2xl w-full pt-24 sm:pt-32 lg:pt-48">
+    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
+      Create Your Perfect Invitation
+    </h1>
+    
+    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-700 mb-6">
+      Invitation Design Made Simple & Beautiful
+    </h2>
+    
+    <p className="text-base sm:text-lg text-gray-600 mb-6 px-4 sm:px-8">
+      Pick a design, personalize it, and wow your guests.
+    </p>
+    
+    <p className="text-sm sm:text-base font-medium text-gray-700 mb-8 px-4 sm:px-8">
+      Instant downloads & custom orders available.
+    </p>
+
+    {/* CTA Button */}
+    <a
+      href="/shop"
+      className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
+    >
+      Browse Designs
+    </a>
+  </div>
+</section>
+
+
+
       {/* Categories Section */}
       <section className="w-full">
-        <div className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.id}`}
-                className="group"
-              >
-                <div className="relative aspect-[4/3]">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full object-cover"
-                  />
-                  <div className="absolute bottom-5 md:bottom-8 lg:bottom-40 left-0 right-0 flex items-center justify-center">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-white px-4 md:px-6 py-2 relative group">
-                      {category.name}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                    </h3>
-                  </div>
-                </div>
-              </Link>
-            ))}
+  <div className="w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+      {categories.map((category) => (
+        <Link
+          key={category.id}
+          to={`/category/${category.id}`}
+          className="group"
+        >
+          <div className="relative aspect-square">
+            <img
+              src={category.image}
+              alt={category.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bottom-5 md:bottom-8 lg:bottom-15 left-0 right-0 flex items-center justify-center">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-black px-4 md:px-6 py-2 relative group">
+                {category.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full shadow-xl"></span>
+              </h3>
+            </div>
           </div>
-        </div>
-      </section>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
+
       {/* Bestsellers */}
       <section className="w-full">
         <div className="px-4">
@@ -115,25 +145,28 @@ const Home = () => {
       {/* Sale Banner */}
       <section className="min-h-screen py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
         <div className="container mx-auto px-4 sm:px-6 text-center">
-          <p className="mb-6 text-base sm:text-lg">Discover the best deal</p>
+          {/* <p className="mb-6 text-base sm:text-lg">Discover the best deal</p> */}
           <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
-            SALE UP TO 50% FOR ALL COLLECTIONS
+            450+ Pilihan Tema Beragam Kategori Acara
           </h2>
-          <Link
+          <h3>
+            Cocok untuk Kamu yang ingin membuat website undangan nikah & acara apapun. Tersedia 450+ tema undangan beragam kategori tinggal pilih, edit, dan kirim undangan websitemu.
+          </h3>
+          {/* <Link
             to="/sale"
             className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
           >
             CHECK NOW
-          </Link>
+          </Link> */}
         </div>
       </section>
 
-      <ExploreTheNewestTrend />
+      {/* <ExploreTheNewestTrend /> */}
 
-      <VogueQuote />
+      {/* <VogueQuote /> */}
 
       {/* Journal */}
-      <section className="pt-10 sm:pt-12 md:pt-16">
+      {/* <section className="pt-10 sm:pt-12 md:pt-16">
         <div className="">
           <h4 className="text-center font-normal text-xs sm:text-sm">
             Fashion Blog
@@ -160,9 +193,9 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </section>
-      <ActualBrandSlider/>
-      <Newsletter />
+      </section> */}
+      {/* <ActualBrandSlider/> */}
+      {/* <Newsletter /> */}
     </div>
   );
 };

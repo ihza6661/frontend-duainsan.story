@@ -8,16 +8,65 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-  const [shopOpen, setShopOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [priceOpen, setPriceOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(false);
 
   const shopItems = [
-    { name: "View All", path: "/shop" },
-    { name: "Dress", path: "/shop/dress" },
-    { name: "Blazer", path: "/shop/blazer" },
-    { name: "Skirt", path: "/shop/skirt" },
-    { name: "Trousers", path: "/shop/trousers" },
-    { name: "Jumper", path: "/shop/jumper" },
+    { name: "Undangan Website", path: "/shop/dress" },
+    { name: "Undangan Cetak", path: "/shop/blazer" },
   ];
+
+  const priceItems = [
+    { name: "Undangan Website", path: "/shop/dress" },
+    { name: "Undangan Cetak", path: "/shop/blazer" },
+    { name: "Latest Promo", path: "/shop/blazer" },
+  ];
+
+  const companyItems = [
+    { name: "Contact", path: "/shop/dress" },
+    { name: "About", path: "/shop/blazer" },
+  ];
+
+  const renderDropdown = (
+    label: string,
+    isOpen: boolean,
+    toggleOpen: () => void,
+    items: { name: string; path: string }[]
+  ) => (
+    <div>
+      <button
+        className={`w-full text-left text-sm uppercase tracking-widest flex items-center justify-between ${
+          isOpen ? "text-gray-500" : ""
+        }`}
+        onClick={toggleOpen}
+      >
+        {label}
+        <span
+          className="text-lg transform transition-transform duration-200"
+          style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
+        >
+          +
+        </span>
+      </button>
+      <div
+        className={`space-y-4 overflow-hidden transition-all duration-200 ${
+          isOpen ? "max-h-96 opacity-100 mt-4 mb-8" : "max-h-0 opacity-0"
+        }`}
+      >
+        {items.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className="block text-sm"
+            onClick={onClose}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -46,66 +95,9 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
           {/* Navigation */}
           <nav className="flex-1 space-y-4 tracking-widest">
-            {/* Shop Dropdown */}
-            <div>
-              <button
-                className={`w-full text-left text-sm uppercase tracking-widest flex items-center justify-between ${
-                  shopOpen ? "text-gray-500" : ""
-                }`}
-                onClick={() => setShopOpen(!shopOpen)}
-              >
-                Shop
-                <span
-                  className="text-lg transform transition-transform duration-200"
-                  style={{ transform: shopOpen ? "rotate(45deg)" : "none" }}
-                >
-                  +
-                </span>
-              </button>
-              <div
-                className={` space-y-4 overflow-hidden transition-all duration-200 ${
-                  shopOpen
-                    ? "max-h-96 opacity-100 mt-4 mb-8"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                {shopItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="block text-sm"
-                    onClick={onClose}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Other Links */}
-            <Link
-              to="/sale"
-              className="block text-sm uppercase tracking-widest border-t pt-4"
-              onClick={onClose}
-            >
-              Sale
-            </Link>
-
-            <Link
-              to="/new-arrival"
-              className="block text-sm uppercase tracking-widest border-t pt-4"
-              onClick={onClose}
-            >
-              New Arrival
-            </Link>
-
-            <Link
-              to="/lookbook"
-              className="block text-sm uppercase tracking-widest border-t pt-4"
-              onClick={onClose}
-            >
-              Lookbook
-            </Link>
+            {renderDropdown("Products", productsOpen, () => setProductsOpen(!productsOpen), shopItems)}
+            {renderDropdown("Price", priceOpen, () => setPriceOpen(!priceOpen), priceItems)}
+            {renderDropdown("Company", companyOpen, () => setCompanyOpen(!companyOpen), companyItems)}
           </nav>
 
           {/* Footer */}
