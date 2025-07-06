@@ -8,8 +8,10 @@ import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 
 const Home = () => {
   const categories = [
-    { id: 1, name: "Hantaran", image: "/hantaran.jpg", itemCount: 45 },
-    { id: 2, name: "Wedding & Engagement", image: "/hero.jpg", itemCount: 32 },
+    { id: 1, name: "", image: "/hantaran.jpg", itemCount: 45 },
+    { id: 2, name: "Undangan Cetak", image: "/hero.jpg", itemCount: 32 },
+    { id: 3, name: "", image: "/undangan-digital.jpg", itemCount: 32 },
+
   ];
 
   const journalPosts = [
@@ -46,13 +48,13 @@ const Home = () => {
       Create Your Perfect Invitation
     </h1>
     
-    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-700 mb-6">
+    {/* <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-700 mb-6">
       Invitation Design Made Simple & Beautiful
     </h2>
     
     <p className="text-base sm:text-lg text-gray-600 mb-6 px-4 sm:px-8">
       Pick a design, personalize it, and wow your guests.
-    </p>
+    </p> */}
     
     <p className="text-sm sm:text-base font-medium text-gray-700 mb-8 px-4 sm:px-8">
       Instant downloads & custom orders available.
@@ -63,11 +65,35 @@ const Home = () => {
       href="/shop"
       className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
     >
+      Consult now
+    </a>
+    <a
+      href="/shop"
+      className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
+    >
       Browse Designs
     </a>
   </div>
 </section>
 
+    {/* Sale Banner */}
+      <section className="min-h-screen py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          {/* <p className="mb-6 text-base sm:text-lg">Discover the best deal</p> */}
+          <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
+            Bermacam Pilihan Tema Beragam Kategori Acara
+          </h2>
+          <h3>
+            Cocok untuk Kamu yang ingin membuat website undangan nikah & acara apapun. Tersedia banyak tema undangan beragam kategori tinggal pilih, edit, dan kirim undangan websitemu.
+          </h3>
+          {/* <Link
+            to="/sale"
+            className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
+          >
+            CHECK NOW
+          </Link> */}
+        </div>
+      </section>
 
 
       {/* Categories Section */}
@@ -142,24 +168,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sale Banner */}
-      <section className="min-h-screen py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          {/* <p className="mb-6 text-base sm:text-lg">Discover the best deal</p> */}
-          <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
-            450+ Pilihan Tema Beragam Kategori Acara
-          </h2>
-          <h3>
-            Cocok untuk Kamu yang ingin membuat website undangan nikah & acara apapun. Tersedia 450+ tema undangan beragam kategori tinggal pilih, edit, dan kirim undangan websitemu.
-          </h3>
-          {/* <Link
-            to="/sale"
-            className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
-          >
-            CHECK NOW
-          </Link> */}
-        </div>
-      </section>
+  
 
       {/* <ExploreTheNewestTrend /> */}
 

@@ -50,6 +50,14 @@ const Footer = () => {
                   Undangan Cetak
                 </Link>
               </li>
+               <li>
+                <Link
+                  to="/products/category/skirt"
+                  className="text-gray-800 text-sm block py-1"
+                >
+                  Hantaran
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -80,7 +88,7 @@ const Footer = () => {
                   to="/shipping"
                   className="text-gray-800 text-sm block py-1"
                 >
-                  Shipping
+                  Pengiriman
                 </Link>
               </li>
               <li>
@@ -88,7 +96,7 @@ const Footer = () => {
                   to="/contact"
                   className="text-gray-800 text-sm block py-1"
                 >
-                  Contact
+                  Kontak
                 </Link>
               </li>
             </ul>
@@ -139,9 +147,9 @@ const Footer = () => {
             <p className="text-shop-dark-gray text-sm mb-4">
               Solusi undangan digital website custom, bebaskan imajinasimu buat desain undangan yang memukau hanya menggunakan telpon pintar kamu. Kunjungi{" "}
               <Link to="/about" className="text-black underline">
-                Halaman Kami
+                Halaman Kami.
               </Link>{" "}
-              to find out where all the products come from.
+  
             </p>
             {/* Social media icons remain unchanged */}
             <div className="flex items-center space-x-4 mt-4">

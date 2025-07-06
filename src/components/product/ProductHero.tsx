@@ -34,7 +34,15 @@ const ProductHero = ({
         </p>
 
         <div className="pb-6 my-4">
-          <p className="mb-6">{product.description}</p>
+      <p className="mb-6">
+  {product.description.split('\n').map((line, index) => (
+    <span key={index}>
+      {line}
+      <br />
+    </span>
+  ))}
+</p>
+
 
           <ProductQuantitySelector
             quantity={quantity}

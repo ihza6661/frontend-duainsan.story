@@ -19,27 +19,27 @@ export interface CartItem {
 export const products: Product[] = [
   {
     id: "1",
-    name: "Cobalt trousers with wide-down leg",
-    description: "",
+    name: "Plant Theme Invitation",
+description: "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
+
     price: 89.99,
     images: [
-      "/products/Cobalt-trousers-with-wide-down-leg.webp",
+      "/products/p1.jpg",
     ],
-    category: "Women Bottom",
+    category: "Undangan Cetak",
     featured: true,
     inStock: true,
     bestseller: true
   },
   {
     id: "2",
-    name: "A detachable dress at the waist with pleats",
+    name: "Yellow Theme Invitation",
     description: "",
     price: 98.99,
     images: [
-      "/products/A-detachable-dress-at-the-waist with-pleats.webp",
-      "/products/A-detachable-dress-at-the-waist with-pleats-2.webp"
+      "/products/p2.jpg"
     ],
-    category: "Dress",
+    category: "Undangan Cetak",
     featured: true,
     inStock: true,
     bestseller: true
@@ -50,10 +50,9 @@ export const products: Product[] = [
     description: "",
     price: 98.99,
     images: [
-      "/products/A-line-mini-dress with-long-sleeves.webp",
-      "/products/A-line-mini-dress with-long-sleeves-2.webp"
+      "/products/p3.jpg",
     ],
-    category: "Dress",
+    category: "Undangan Cetak",
     featured: true,
     inStock: true,
     bestseller: true
@@ -64,10 +63,9 @@ export const products: Product[] = [
     description: "",
     price: 98.99,
     images: [
-      "/products/Chiffon dress with three frills.webp",
-      "/products/Chiffon dress with three frills.webp-2.webp"
+      "/products/p4.jpg"
     ],
-    category: "Dress",
+    category: "Undangan Cetak",
     featured: true,
     inStock: true,
     bestseller: true
@@ -78,10 +76,9 @@ export const products: Product[] = [
     description: "",
     price: 98.99,
     images: [
-      "/products/casual_dress.webp",
-      "/products/casual_dress_2.webp"
+      "/products/p5.jpg"
     ],
-    category: "Dress",
+    category: "Undangan Cetak",
     featured: true,
     inStock: true,
     bestseller: true
@@ -92,10 +89,9 @@ export const products: Product[] = [
     description: "",
     price: 98.99,
     images: [
-      "/products/Flared dress with an envelope neckline.webp",
-      "/products/Flared dress with an envelope neckline_2.webp"
+      "/products/p6.jpg",
     ],
-    category: "Dress",
+    category: "Undangan Cetak",
     featured: true,
     inStock: true,
     bestseller: true
@@ -104,11 +100,10 @@ export const products: Product[] = [
 
 
 export const categories = [
-  "All",
-  "Woman Bottom",
-  "Woman Top",
-  "Dress",
-  "Accessories"
+  "Undangan Digital",
+  "Undangan Cetak",
+  "Hantaran",
+  "Undangan Ulang Tahun",
 ];
 
 export function getProductById(id: string): Product | undefined {

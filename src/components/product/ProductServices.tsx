@@ -12,7 +12,7 @@ const services = [
   {
     icon: <img src={payment} alt="Payment" className="w-8 h-8" />,
     title: "PAYMENT",
-    description: "Credit card, Klarna or PayPal",
+    description: "Credit card, QRIS or COD",
   },
   {
     icon: <img src={shipping} alt="Shipping" className="w-8 h-8" />,
@@ -26,8 +26,8 @@ const services = [
   },
   {
     icon: <img src={wonderCard} alt="Wonder Card" className="w-8 h-8" />,
-    title: "WONDER CARD",
-    description: "Special discount club card",
+    title: "PRE ORDER 25 HARI",
+    description: "Special discount",
   },
 ];
 

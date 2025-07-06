@@ -97,12 +97,12 @@ const ProductDetail = () => {
 
           <ProductServices />
 
-          <SustainabilityBanner />
+          {/* <SustainabilityBanner /> */}
 
           <RelatedProducts product={product} />
 
           <BrandSlider />
-          <LuxuryFashionSlider />
+          {/* <LuxuryFashionSlider /> */}
 
           {/* PRODUCT RECOMENDATION */}
           
