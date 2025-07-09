@@ -61,10 +61,8 @@ const ProductHero = ({
 
         <div>
           <ul className="text-sm list-disc list-inside mb-10">
-            <li>Premium quality materials</li>
-            <li>Designed for everyday use</li>
-            <li>30-day money-back guarantee</li>
-            <li>Free shipping on orders over $50</li>
+            <li>Premium quality Pappers Available</li>
+            <li>Gratis Ongkir Untuk Orderan Diatas Rp.500.000</li>
           </ul>
         </div>
 
