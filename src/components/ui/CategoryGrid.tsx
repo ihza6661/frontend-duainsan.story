@@ -9,46 +9,25 @@ interface Category {
 
 const categories: Category[] = [
   {
-    id: "dress",
-    name: "DRESS",
+    id: "1",
+    name: "1",
     image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1020&q=80",
+      "/hantaran.jpg",
     link: "/products/category/dress",
   },
   {
-    id: "blazers",
-    name: "BLAZERS",
+    id: "2",
+    name: "2",
     image:
-      "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1020&q=80",
+      "/hero.jpg",
     link: "/products/category/blazers",
   },
   {
-    id: "trousers",
-    name: "TROUSERS",
+    id: "3",
+    name: "3",
     image:
-      "https://images.unsplash.com/photo-1551048632-24e444b48a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1020&q=80",
+      "/hantaran.jpg",
     link: "/products/category/trousers",
-  },
-  {
-    id: "jumpers",
-    name: "JUMPERS",
-    image:
-      "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1020&q=80",
-    link: "/products/category/jumpers",
-  },
-  {
-    id: "skirt",
-    name: "SKIRT",
-    image:
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1020&q=80",
-    link: "/products/category/skirt",
-  },
-  {
-    id: "sale",
-    name: "SALE",
-    image:
-      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1020&q=80",
-    link: "/products/category/sale",
   },
 ];
 

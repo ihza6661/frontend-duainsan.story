@@ -14,8 +14,9 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
-import Lookbook from "./pages/Lookbook";
+import Gallery from "./pages/Gallery";
 import LoginPage from "./pages/LoginPage";
+import ShopByCollection from "./pages/ShopByCollection";
 
 const queryClient = new QueryClient();
 
@@ -46,7 +47,8 @@ const App = () => (
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/lookbook" element={<Lookbook />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/collection" element={<ShopByCollection />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>

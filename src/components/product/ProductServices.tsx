@@ -10,26 +10,27 @@ import wonderCard from "/logo/wonder-card.avif";
 
 const services = [
   {
-    icon: <img src={payment} alt="Payment" className="w-8 h-8" />,
-    title: "PAYMENT",
-    description: "Credit card, QRIS or COD",
+    icon: <img src={payment} alt="Pembayaran" className="w-8 h-8" />,
+    title: "PEMBAYARAN",
+    description: "Kartu kredit, QRIS, atau COD",
   },
   {
-    icon: <img src={shipping} alt="Shipping" className="w-8 h-8" />,
-    title: "SHIPPING & DELIVERY",
-    description: "24h Green delivery",
+    icon: <img src={shipping} alt="Pengiriman" className="w-8 h-8" />,
+    title: "PENGIRIMAN & PENGANTARAN",
+    description: "Pengiriman 24 jam",
   },
   {
-    icon: <img src={returnIcon} alt="Return" className="w-8 h-8" />,
-    title: "FREE RETURN",
-    description: "We have free return & exchange",
+    icon: <img src={returnIcon} alt="Pengembalian" className="w-8 h-8" />,
+    title: "PENGEMBALIAN GRATIS",
+    description: "Kami menyediakan pengembalian & penukaran gratis",
   },
   {
-    icon: <img src={wonderCard} alt="Wonder Card" className="w-8 h-8" />,
+    icon: <img src={wonderCard} alt="Kartu Wonder" className="w-8 h-8" />,
     title: "PRE ORDER 25 HARI",
-    description: "Special discount",
+    description: "Diskon spesial",
   },
 ];
+
 
 const ProductServices = () => {
   return (

@@ -13,19 +13,20 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [companyOpen, setCompanyOpen] = useState(false);
 
   const shopItems = [
-    { name: "Undangan Website", path: "/shop/dress" },
     { name: "Undangan Cetak", path: "/shop/blazer" },
   ];
 
   const priceItems = [
-    { name: "Undangan Website", path: "/shop/dress" },
     { name: "Undangan Cetak", path: "/shop/blazer" },
     { name: "Latest Promo", path: "/shop/blazer" },
   ];
 
   const companyItems = [
     { name: "Contact", path: "/shop/dress" },
-    { name: "About", path: "/shop/blazer" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Collection", path: "/collection" },
+    { name: "About", path: "/about" },
+          
   ];
 
   const renderDropdown = (
@@ -95,10 +96,27 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
           {/* Navigation */}
           <nav className="flex-1 space-y-4 tracking-widest">
-            {renderDropdown("Products", productsOpen, () => setProductsOpen(!productsOpen), shopItems)}
-            {renderDropdown("Price", priceOpen, () => setPriceOpen(!priceOpen), priceItems)}
-            {renderDropdown("Company", companyOpen, () => setCompanyOpen(!companyOpen), companyItems)}
+            {renderDropdown(
+              "Products",
+              productsOpen,
+              () => setProductsOpen(!productsOpen),
+              shopItems
+            )}
+            {renderDropdown(
+              "Price",
+              priceOpen,
+              () => setPriceOpen(!priceOpen),
+              priceItems
+            )}
+            {renderDropdown(
+              "Company",
+              companyOpen,
+              () => setCompanyOpen(!companyOpen),
+              companyItems
+            )}
           </nav>
+
+        
 
           {/* Footer */}
           <div className="mt-8 space-y-3 text-sm">

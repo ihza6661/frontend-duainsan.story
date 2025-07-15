@@ -88,25 +88,25 @@ const ProductDetail = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-          <ProductHero
-            product={product}
-            quantity={quantity}
-            onQuantityChange={handleQuantityChange}
-            onAddToCart={handleAddToCart}
-          />
+        <ProductHero
+          product={product}
+          quantity={quantity}
+          onQuantityChange={handleQuantityChange}
+          onAddToCart={handleAddToCart}
+        />
 
-          <ProductServices />
+        <ProductServices />
 
-          {/* <SustainabilityBanner /> */}
+        {/* <SustainabilityBanner /> */}
 
-          <RelatedProducts product={product} />
+        <RelatedProducts product={product} />
 
-          <BrandSlider />
-          {/* <LuxuryFashionSlider /> */}
+        <BrandSlider />
+        {/* <LuxuryFashionSlider /> */}
 
-          {/* PRODUCT RECOMENDATION */}
-          
-          <div className="px-4 sm:px-8 my-6">
+        {/* PRODUCT RECOMENDATION */}
+
+        <div className="px-4 sm:px-8 my-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>

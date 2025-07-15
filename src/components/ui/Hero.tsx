@@ -9,7 +9,7 @@ const Hero = () => {
             Shop by Collection
           </h2>
           <p className="text-shop-dark-gray mb-2">
-            Discover the Latest Fashion Collections and Shop with Ease.
+            Discover the Latest Design Collections and Shop with Ease.
           </p>
         </div>
       </div>

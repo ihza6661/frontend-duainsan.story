@@ -3,12 +3,12 @@ import { products } from "@/lib/data";
 import Newsletter from "@/components/ui/Newsletter";
 import ExploreTheNewestTrend from "@/components/layout/ExploreTheNewestTrend";
 
-const lookbookItems = Array.from(
+const Gallery = Array.from(
   { length: 15 },
   (_, i) => `/lookbook/look${i + 1}.webp`
 );
 
-export default function LookbookPage() {
+export default function AllProductsPage() {
   return (
     <div className="pt-24 w-full">
       <div className="text-center space-y-4">
@@ -19,7 +19,7 @@ export default function LookbookPage() {
       </div>
 
       <div className="columns-[500px]">
-        {lookbookItems.map((src, index) => (
+        {Gallery.map((src, index) => (
           <div key={index} className="relative overflow-hidden">
             <img src={src} alt={`Look ${index + 1}`} className="py-2" />
             <div className="absolute top-4 right-2 bg-white p-2 cursor-pointer">
@@ -42,7 +42,7 @@ export default function LookbookPage() {
         ))}
       </div>
 
-      {/* <ExploreTheNewestTrend /> */}
+      <ExploreTheNewestTrend />
 
      
 

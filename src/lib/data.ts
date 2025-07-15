@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -20,101 +19,103 @@ export const products: Product[] = [
   {
     id: "1",
     name: "Plant Theme Invitation",
-description: "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
+    description:
+      "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
 
     price: 89.99,
-    images: [
-      "/products/p1.jpg",
-    ],
-    category: "Undangan Cetak",
+    images: ["/products/p1.jpg"],
+    category: "Wedding",
     featured: true,
     inStock: true,
-    bestseller: true
+    bestseller: true,
   },
   {
     id: "2",
     name: "Yellow Theme Invitation",
-    description: "",
+    description: `Package XH.15.1\n
+Main Invitation: Hardcover\n
+Material: Milano White\n
+Envelope: Aster Sangria Red\n
+What you get:\n
+- Additional card 2 pcs (8 x 14 cm)\n
+- Rumbai Tassel\n
+Processing time:\n
+- Design: 3-10 days service (5x approval design)\n
+- Production: 25 days service (excluding holidays)`,
+
+
     price: 98.99,
-    images: [
-      "/products/p2.jpg"
-    ],
-    category: "Undangan Cetak",
+    images: ["/products/p2.jpg"],
+    category: "Wedding",
     featured: true,
     inStock: true,
-    bestseller: true
+    bestseller: true,
   },
   {
     id: "3",
     name: "A-line mini dress with long sleeves",
-    description: "",
+    description:
+      "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
+
     price: 98.99,
-    images: [
-      "/products/p3.jpg",
-    ],
-    category: "Undangan Cetak",
+    images: ["/products/p3.jpg"],
+    category: "Wedding",
     featured: true,
     inStock: true,
-    bestseller: true
+    bestseller: true,
   },
   {
     id: "4",
     name: "Chiffon dress with three frills",
-    description: "",
+    description:
+      "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
+
     price: 98.99,
-    images: [
-      "/products/p4.jpg"
-    ],
-    category: "Undangan Cetak",
+    images: ["/products/p4.jpg"],
+    category: "Wedding",
     featured: true,
     inStock: true,
-    bestseller: true
+    bestseller: true,
   },
   {
     id: "5",
     name: "Casual dress",
-    description: "",
+    description:
+      "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
+
     price: 98.99,
-    images: [
-      "/products/p5.jpg"
-    ],
-    category: "Undangan Cetak",
+    images: ["/products/p5.jpg"],
+    category: "Wedding",
     featured: true,
     inStock: true,
-    bestseller: true
+    bestseller: true,
   },
   {
     id: "6",
     name: "Flared dress with an envelope neckline",
-    description: "",
+    description:
+      "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
+
     price: 98.99,
-    images: [
-      "/products/p6.jpg",
-    ],
-    category: "Undangan Cetak",
+    images: ["/products/p6.jpg"],
+    category: "Wedding",
     featured: true,
     inStock: true,
-    bestseller: true
+    bestseller: true,
   },
 ];
 
-
-export const categories = [
-  "Undangan Digital",
-  "Undangan Cetak",
-  "Hantaran",
-  "Undangan Ulang Tahun",
-];
+export const categories = ["Wedding", "Birthday", "Hantaran"];
 
 export function getProductById(id: string): Product | undefined {
-  return products.find(product => product.id === id);
+  return products.find((product) => product.id === id);
 }
 
 export function getProductsByCategory(category: string): Product[] {
   if (category === "All") return products;
-  return products.filter(product => product.category === category);
+  return products.filter((product) => product.category === category);
 }
 
 export function getFeaturedProducts(): Product[] {
-  return products.filter(product => product.featured);
+  return products.filter((product) => product.featured);
 }
