@@ -45,7 +45,7 @@ Processing time:\n
 
 
     price: 98.99,
-    images: ["/products/p2.jpg"],
+    images: ["/products/p2.jpg","/products/p2-2.jpg","/products/p2-3.jpg"],
     category: "Wedding",
     featured: true,
     inStock: true,
@@ -53,12 +53,12 @@ Processing time:\n
   },
   {
     id: "3",
-    name: "A-line mini dress with long sleeves",
+    name: "SH",
     description:
       "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
 
     price: 98.99,
-    images: ["/products/p3.jpg"],
+    images: ["/products/1.webp","/products/2.webp","/products/3.webp","/products/4.webp","/products/5.webp"],
     category: "Wedding",
     featured: true,
     inStock: true,
@@ -66,12 +66,12 @@ Processing time:\n
   },
   {
     id: "4",
-    name: "Chiffon dress with three frills",
+    name: "Card Holder V1.1",
     description:
       "Main Invitation: Hardcover\nMaterial: Milano White\nEnvelope: Aster Sangria Red",
 
     price: 98.99,
-    images: ["/products/p4.jpg"],
+    images: ["/products/p2.webp","/products/p2-2.webp","/products/p2-2.webp"],
     category: "Wedding",
     featured: true,
     inStock: true,

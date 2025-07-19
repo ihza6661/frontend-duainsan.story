@@ -27,6 +27,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const { addToCart } = useCart();
+  
 
   useEffect(() => {
     if (id) {
@@ -43,13 +44,18 @@ const ProductDetail = () => {
     }
   };
 
-  const handleAddToCart = () => {
-    if (product) {
-      for (let i = 0; i < quantity; i++) {
-        addToCart(product);
-      }
+const handleAddToCart = (quantity: number) => {
+  if (product) {
+    if (quantity < 100) {
+      // toast.error("Minimum order quantity is 100.");
+      return;
     }
-  };
+
+    addToCart(product, quantity);
+  }
+};
+
+  
 
   if (loading) {
     return (

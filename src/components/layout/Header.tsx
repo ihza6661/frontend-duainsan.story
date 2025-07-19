@@ -12,6 +12,8 @@ const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const { cartItems } = useCart();
+  console.log("Header sees cartItems:", cartItems);
+
   const { isVisible } = useScrollDirection();
   const location = useLocation();
   const path = location.pathname;
@@ -37,10 +39,16 @@ const Header = () => {
       : "bg-white/95 text-black backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b"
     : "bg-white/95 text-black backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b";
 
-  const totalItems = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const totalItems = cartItems.reduce((total, item) => {
+    const quantity = Number(item.quantity);
+    if (isNaN(quantity)) {
+      console.warn("Invalid quantity in cart item:", item);
+      return total;
+    }
+    return total + quantity;
+  }, 0);
+
+  console.log("Header: totalItems = ", totalItems);
 
   return (
     <>
@@ -92,7 +100,7 @@ const Header = () => {
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link
               to="/"
-              className="text-xl md:text-2xl font-normal uppercase tracking-widest text-start text-nowrap"
+              className="text-md md:text-2xl font-normal uppercase tracking-widest text-start text-nowrap"
             >
               TERRARIUM HANTARAN
             </Link>
@@ -113,8 +121,8 @@ const Header = () => {
                 <button className="relative flex items-center justify-center w-8 h-10">
                   <img src={ShoppingBag} alt="Shopping Bag" />
                   {totalItems > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] md:text-xs rounded-full h-4 w-4 md:h-5 md:w-5 flex items-center justify-center">
-                      {totalItems}
+                    <span className="absolute -top-3 -right-1 bg-black text-white text-[10px] md:text-xs rounded-full h-4 w-4 md:h-5 md:w-5 flex items-center justify-center min-w-[30px] px-[2px]">
+                      {totalItems > 99 ? "99+" : totalItems}
                     </span>
                   )}
                 </button>

@@ -6,21 +6,26 @@ import ExploreTheNewestTrend from "@/components/layout/ExploreTheNewestTrend";
 import BrandSlider from "@/components/ui/BrandSlider";
 import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 import Categories from "@/components/layout/Categories";
+import CategoryGrid from "@/components/ui/CategoryGrid";
 
 const Home = () => {
  
 
-  const journalPosts = [
+  const highlight = [
     {
       id: 1,
-      title: "Spring Fashion Trends",
-      image: "/journal/journal1.webp",
+      title: "Red",
+      image: "/highlight/highlight1.jpg",
     },
-    { id: 2, title: "Summer Style Guide", image: "/journal/journal2.webp" },
+    {
+      id: 2,
+      title: "Green",
+      image: "/highlight/highlight2.jpg",
+    },
     {
       id: 3,
-      title: "Autumn Collection Preview",
-      image: "/journal/journal3.webp",
+      title: "Brown",
+      image: "/highlight/highlight3.jpg",
     },
   ];
 
@@ -124,25 +129,24 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <Categories/>
+<CategoryGrid/>
      
-      <ExploreTheNewestTrend />
+      {/* <ExploreTheNewestTrend /> */}
 
-      <VogueQuote />
+      {/* <VogueQuote /> */}
 
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">
         <div className="">
-          <h4 className="text-center font-normal text-xs sm:text-sm">
-            Fashion Blog
-          </h4>
+          {/* <h4 className="text-center font-normal text-xs sm:text-sm">
+            Design Blog
+          </h4> */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal mb-6 sm:mb-8 text-center uppercase tracking-widest">
-            Journal
+            Highlights
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {journalPosts.map((post) => (
-              <Link key={post.id} to={`/journal/${post.id}`} className="group">
+            {highlight.map((post) => (
+              <Link key={post.id} to={`/highlights/${post.id}`} className="group">
                 <div className="relative aspect-[3/4]">
                   <img
                     src={post.image}

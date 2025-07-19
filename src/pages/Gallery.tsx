@@ -14,7 +14,7 @@ export default function AllProductsPage() {
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-normal tracking-wide">SHOP THE LOOK</h1>
         <p className="text-sm pb-8 text-gray-600">
-          Explore our fashion inspirations for fine perfect style
+          Explore our design inspirations for fine perfect style
         </p>
       </div>
 
@@ -48,7 +48,7 @@ export default function AllProductsPage() {
 
       <div className="px-4 pb-16">
         <h2 className="text-lg sm:text-xl font-normal mb-4 sm:mb-6 text-center uppercase tracking-widest pt-6 sm:pt-16">
-          Fall into Comfort
+          Bestseller
         </h2>
         <div className="custom-scrollbar flex space-x-2 overflow-x-scroll pb-6 sm:pb-10">
           {products

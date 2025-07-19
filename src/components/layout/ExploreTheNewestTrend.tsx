@@ -1,36 +1,36 @@
 const ExploreTheNewestTrend = () => {
   return (
     <div className="text-center py-12 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto space-y-2 sm:space-y-6">
-      <p className="text-xs">
-        Explore the newest trends
+      <p className="text-base">
+        Discover the latest trends 
       </p>
 
       <p className="px-0 sm:px-0 md:px-0 lg:px-4 text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-wide leading-tight break-words">
-        From elegant dresses
+        elegant invitations 
         <span className="inline-block mx-2 align-middle">
           <img
-            src="1.avif"
+            src="1.jpg"
             alt=""
             className="w-10 h-10 sm:w-14 sm:h-14 md:w-[72px] md:h-[72px] lg:w-[89px] lg:h-[89px] rounded-full object-cover"
           />
         </span>
-        to chic skirts
+        and charming  
         <span className="inline-block mx-2 align-middle">
           <img
-            src="2.avif"
+            src="2.jpeg"
             alt=""
             className="w-10 h-10 sm:w-14 sm:h-14 md:w-[72px] md:h-[72px] lg:w-[89px] lg:h-[89px] rounded-full object-cover"
           />
         </span>
-        and cozy
+        card 
         <span className="inline-block mx-2 align-middle">
           <img
-            src="3.avif"
+            src="3.jpeg"
             alt=""
             className="w-10 h-10 sm:w-14 sm:h-14 md:w-[72px] md:h-[72px] lg:w-[89px] lg:h-[89px] rounded-full object-cover"
           />
         </span>
-        jumpers!
+        designs!
       </p>
 
       <button className="relative text-sm text-black border-b border-black transition-all duration-300 group hover:border-transparent">

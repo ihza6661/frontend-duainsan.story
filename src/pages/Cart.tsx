@@ -18,7 +18,7 @@ export default function Cart() {
       name: "Produk 1",
       price: 150000,
       quantity: 1,
-      image: "https://via.placeholder.com/150"
+      image: "/products/p1.jpg"
     }
   ]);
 
@@ -38,7 +38,7 @@ export default function Cart() {
 
   return (
     <div className="container mt-16 mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Keranjang Belanja</h1>
+      <h1 className="text-3xl mb-8">Keranjang Belanja Anda</h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -52,7 +52,7 @@ export default function Cart() {
                   <div className="flex items-center gap-2 mt-2">
                     <Button
                       variant="outline"
-                      size="sm"
+                      size="default"
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     >
                       -
@@ -65,14 +65,14 @@ export default function Cart() {
                     />
                     <Button
                       variant="outline"
-                      size="sm"
+                      size="default"
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
                       +
                     </Button>
                     <Button
-                      variant="destructive"
-                      size="sm"
+                      variant="outline"
+                      size="default"
                       onClick={() => removeItem(item.id)}
                       className="ml-auto"
                     >

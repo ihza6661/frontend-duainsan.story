@@ -10,21 +10,21 @@ interface Category {
 const categories: Category[] = [
   {
     id: "1",
-    name: "1",
+    name: "Undangan Cetak",
     image:
       "/hantaran.jpg",
     link: "/products/category/dress",
   },
   {
     id: "2",
-    name: "2",
+    name: "Undangan Digital",
     image:
       "/hero.jpg",
     link: "/products/category/blazers",
   },
   {
     id: "3",
-    name: "3",
+    name: "Hantaran",
     image:
       "/hantaran.jpg",
     link: "/products/category/trousers",
@@ -49,9 +49,9 @@ const CategoryGrid = () => {
                     <h3 className="text-3xl text-white shadow-sm font-medium mb-2 tracking-wider">
                       {category.name}
                     </h3>
-                    <span className="text-sm uppercase tracking-wider">
+                    {/* <span className="text-sm uppercase tracking-wider">
                       VIEW ALL
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </Link>

@@ -61,7 +61,9 @@ const BestSellers = () => {
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="border-none overflow-hidden rounded-none h-full">
-      <div className="aspect-[2/3] overflow-hidden">
+      {/* <div className="aspect-[2/3] overflow-hidden"> */}
+      <div className="overflow-hidden">
+
         <Link to={`/product/${product.id}`}>
           <img
             src={product.images[0]}
