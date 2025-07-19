@@ -7,6 +7,7 @@ import BrandSlider from "@/components/ui/BrandSlider";
 import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 import Categories from "@/components/layout/Categories";
 import CategoryGrid from "@/components/ui/CategoryGrid";
+import PromoBanner from "@/components/layout/PromoBanner";
 
 const Home = () => {
  
@@ -131,10 +132,10 @@ const Home = () => {
       </section>
 <CategoryGrid/>
      
-      {/* <ExploreTheNewestTrend /> */}
+      <ExploreTheNewestTrend />
 
       {/* <VogueQuote /> */}
-
+<PromoBanner/>
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">
         <div className="">
