@@ -13,21 +13,21 @@ const categories: Category[] = [
     name: "Undangan Cetak",
     image:
       "/hantaran.jpg",
-    link: "/products/category/dress",
+    link: "/products/category/Undangan Cetak",
   },
   {
     id: "2",
-    name: "Undangan Digital",
+    name: "Undangan Statis",
     image:
       "/hero.jpg",
-    link: "/products/category/blazers",
+    link: "/products/category/Undangan Statis",
   },
   {
     id: "3",
     name: "Hantaran",
     image:
       "/hantaran.jpg",
-    link: "/products/category/trousers",
+    link: "/products/category/Hantaran",
   },
 ];
 

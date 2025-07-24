@@ -21,7 +21,7 @@ const ProductCard = ({ product, featured = false }: ProductCardProps) => {
       to={`/product/${product.id}`}
       className="group product-card block bg-white overflow-hidden transition-all duration-300 h-full"
     >
-      <div className="relative overflow-hidden">
+      <div className="aspect-square relative w-full overflow-hidden bg-gray-100">
         <img
           src={product.images[0]}
           alt={product.name}
@@ -37,8 +37,7 @@ const ProductCard = ({ product, featured = false }: ProductCardProps) => {
           ${product.price.toFixed(2)}
         </p>
 
-        <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        </div>
+        <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
     </Link>
   );

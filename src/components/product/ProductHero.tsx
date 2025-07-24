@@ -15,7 +15,6 @@ interface ProductHeroProps {
   onAddToCart: (quantity: number) => void;
 }
 
-
 const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
   const [showDescription, setShowDescription] = useState(false);
   const [quantity, setQuantity] = useState(100);
@@ -33,7 +32,39 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
 
         <h1 className="text-xl tracking-wide my-4 uppercase">{product.name}</h1>
         <p className="text-lg text-shop-accent">${product.price.toFixed(2)}</p>
-
+        <div className="mt-2 py-4 border-y">
+          <button
+            onClick={() => setShowDescription(!showDescription)}
+            className="text-black flex flex-row justify-between w-full items-center"
+          >
+            <p className="text-base tracking-widest">DESCRIPTION</p>
+            {showDescription ? (
+              <Minus className="w-5 h-5" />
+            ) : (
+              <Plus className="w-5 h-5" />
+            )}
+          </button>
+          <div
+            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+              showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
+            }`}
+          >
+            <p className="text-normal text-gray-700">
+              {product.description.split("\n").map((line, index) => {
+                const trimmed = line.trim().toLowerCase();
+                const isBold =
+                  trimmed.startsWith("jenis bahan:") ||
+                  trimmed.startsWith("lama pengerjaan:");
+                return (
+                  <span key={index}>
+                    {isBold ? <strong>{line}</strong> : line}
+                    <br />
+                  </span>
+                );
+              })}
+            </p>
+          </div>
+        </div>
         <div className="pb-6 my-4">
           <p className="mb-6"></p>
           <div className="space-y-4">
@@ -68,40 +99,12 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             </Button>
           </div>
         </div>
-
+        
         <div>
-          <ul className="text-sm list-disc list-inside mb-10">
+          <ul className="text-xs list-disc list-inside mb-10">
             <li>Kertas kualitas terbaik tersedia</li>
             <li>Gratis Ongkir Untuk Orderan Diatas Rp.500.000</li>
           </ul>
-        </div>
-
-        <div className="py-4 border-y">
-          <button
-            onClick={() => setShowDescription(!showDescription)}
-            className="text-black flex flex-row justify-between w-full items-center"
-          >
-            <p className="text-base tracking-widest">DESCRIPTION</p>
-            {showDescription ? (
-              <Minus className="w-5 h-5" />
-            ) : (
-              <Plus className="w-5 h-5" />
-            )}
-          </button>
-          <div
-            className={`transition-all duration-300 ease-in-out overflow-hidden ${
-              showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
-            }`}
-          >
-            <p className="text-normal text-gray-700">
-              {product.description.split("\n").map((line, index) => (
-                <span key={index}>
-                  {line}
-                  <br />
-                </span>
-              ))}
-            </p>
-          </div>
         </div>
       </div>
     </div>

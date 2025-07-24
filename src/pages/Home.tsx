@@ -10,8 +10,6 @@ import CategoryGrid from "@/components/ui/CategoryGrid";
 import PromoBanner from "@/components/layout/PromoBanner";
 
 const Home = () => {
- 
-
   const highlight = [
     {
       id: 1,
@@ -33,52 +31,51 @@ const Home = () => {
   return (
     <div className="min-h-screen w-full overflow-hidden">
       {/* Hero Section */}
-<section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
-  {/* Background Image */}
-  <img
-    src="hero.jpg"
-    alt="Invitation Background"
-    className="absolute inset-0 w-full h-full object-cover object-center z-0"
-  />
+      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+        {/* Background Image */}
+        <img
+          src="hero.jpg"
+          alt="Invitation Background"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
+        />
 
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-b from-pink-200/10 via-white/10 to-white z-10" />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-200/10 via-white/10 to-white z-10" />
 
-  {/* Content */}
-  <div className="relative z-20 text-center max-w-2xl w-full pt-24 sm:pt-32 lg:pt-48">
-    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
-      Create Your Perfect Invitation
-    </h1>
-    
-    <p className="text-sm sm:text-base font-medium text-gray-700 mb-8 px-4 sm:px-8">
-      Instant downloads & custom orders available.
-    </p>
+        {/* Content */}
+        <div className="relative z-20 text-center max-w-2xl w-full pt-24 sm:pt-32 lg:pt-48">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
+            Create Your Perfect Invitation
+          </h1>
 
-    {/* CTA Button */}
-    <a
-      href="/shop"
-      className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
-    >
-      Consult now
-    </a>
-    <a
-      href="/shop"
-      className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
-    >
-      Browse Designs
-    </a>
-  </div>
-</section>
+          <p className="text-sm sm:text-base font-medium text-gray-700 mb-8 px-4 sm:px-8">
+            Instant downloads & custom orders available.
+          </p>
 
-    {/* Sale Banner */}
+          {/* CTA Button */}
+          <a
+            href="/shop"
+            className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
+          >
+            Consult now
+          </a>
+          <a
+            href="/shop"
+            className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
+          >
+            Browse Designs
+          </a>
+        </div>
+      </section>
+
+      {/* Sale Banner */}
       <section className=" py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           {/* <p className="mb-6 text-base sm:text-lg">Discover the best deal</p> */}
           <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
-           The Perfect Pair Invitation & Souvenir
+            The Perfect Pair Invitation & Souvenir
           </h2>
-          <h3>
-          </h3>
+          <h3></h3>
           {/* <Link
             to="/sale"
             className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
@@ -88,7 +85,7 @@ const Home = () => {
         </div>
       </section>
 
- {/* Bestsellers */}
+      {/* Bestsellers */}
       <section className="w-full">
         <div className="px-4">
           <h2 className="text-lg sm:text-xl font-normal mb-4 sm:mb-8 text-center uppercase tracking-widest pt-6 sm:pt-8">
@@ -103,13 +100,14 @@ const Home = () => {
                   className="flex-none w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/4 h-full"
                 >
                   <Link to={`/product/${item.id}`} className="group block">
-                    <div className="relative w-full overflow-hidden">
+                    <div className="aspect-square relative w-full overflow-hidden bg-gray-100">
                       <img
                         src={item.images[0]}
                         alt={item.name}
-                        className="w-full h-auto object-cover"
+                        className="w-full h-full object-cover"
                       />
                     </div>
+
                     <h4 className="mt-2 text-base sm:text-md font-normal text-gray-800">
                       {item.name}
                     </h4>
@@ -130,12 +128,12 @@ const Home = () => {
           </div>
         </div>
       </section>
-<CategoryGrid/>
-     
+      <CategoryGrid />
+
       <ExploreTheNewestTrend />
 
       {/* <VogueQuote /> */}
-<PromoBanner/>
+      <PromoBanner />
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">
         <div className="">
@@ -147,7 +145,11 @@ const Home = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {highlight.map((post) => (
-              <Link key={post.id} to={`/highlights/${post.id}`} className="group">
+              <Link
+                key={post.id}
+                to={`/highlights/${post.id}`}
+                className="group"
+              >
                 <div className="relative aspect-[3/4]">
                   <img
                     src={post.image}
@@ -165,7 +167,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <ActualBrandSlider/>
+      <ActualBrandSlider />
       <Newsletter />
     </div>
   );

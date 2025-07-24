@@ -24,7 +24,7 @@ const Header = () => {
       setIsAtTop(window.scrollY === 0);
     };
 
-    handleScroll(); // check on mount
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -39,16 +39,7 @@ const Header = () => {
       : "bg-white/95 text-black backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b"
     : "bg-white/95 text-black backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b";
 
-  const totalItems = cartItems.reduce((total, item) => {
-    const quantity = Number(item.quantity);
-    if (isNaN(quantity)) {
-      console.warn("Invalid quantity in cart item:", item);
-      return total;
-    }
-    return total + quantity;
-  }, 0);
-
-  console.log("Header: totalItems = ", totalItems);
+  const totalItems = cartItems.length;
 
   return (
     <>
@@ -102,7 +93,7 @@ const Header = () => {
               to="/"
               className="text-md md:text-2xl font-normal uppercase tracking-widest text-start text-nowrap"
             >
-              TERRARIUM HANTARAN
+              DUAINSAN.STORY
             </Link>
           </div>
 

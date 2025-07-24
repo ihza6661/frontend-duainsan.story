@@ -13,16 +13,19 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [companyOpen, setCompanyOpen] = useState(false);
 
   const shopItems = [
-    { name: "Undangan Cetak", path: "/shop/blazer" },
+    { name: "Undangan Cetak", path: "/shop/cetak" },
+    { name: "Undangan Digital Statis", path: "/shop/statis" },
+    { name: "Hantaran", path: "/shop/hantaran" },
   ];
 
   const priceItems = [
-    { name: "Undangan Cetak", path: "/shop/blazer" },
-    { name: "Latest Promo", path: "/shop/blazer" },
+    { name: "Undangan Cetak", path: "shop/cetak" },
+    { name: "Undangan Digital Statis", path: "/shop/statis" },
+    { name: "Latest Promo", path: "/shop/promo" },
   ];
 
   const companyItems = [
-    { name: "Contact", path: "/shop/dress" },
+    { name: "Contact", path: "/contact" },
     { name: "Gallery", path: "/gallery" },
     { name: "Collection", path: "/collection" },
     { name: "About", path: "/about" },
@@ -37,8 +40,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   ) => (
     <div>
       <button
-        className={`w-full text-left text-sm uppercase tracking-widest flex items-center justify-between ${
-          isOpen ? "text-gray-500" : ""
+        className={`text-shop-accent w-full text-left text-base uppercase tracking-widest flex items-center justify-between ${
+          isOpen ? "text-gray-400" : ""
         }`}
         onClick={toggleOpen}
       >
@@ -59,7 +62,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <Link
             key={item.path}
             to={item.path}
-            className="block text-sm"
+            className="block text-sm text-shop-text"
             onClick={onClose}
           >
             {item.name}

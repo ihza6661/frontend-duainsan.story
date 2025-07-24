@@ -18,7 +18,7 @@ const BestSellers = () => {
       <div className="">
         <div className="text-center mb-6">
           <h2 className="text-xl uppercase tracking-wider font-normal">
-             our bestseller
+            our bestseller
           </h2>
         </div>
 
@@ -62,13 +62,12 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="border-none overflow-hidden rounded-none h-full">
       {/* <div className="aspect-[2/3] overflow-hidden"> */}
-      <div className="overflow-hidden">
-
+      <div className="overflow-hidden h-[350px]">
         <Link to={`/product/${product.id}`}>
           <img
             src={product.images[0]}
             alt={product.name}
-            className=""
+            className="w-full h-full object-cover"
           />
         </Link>
       </div>

@@ -13,7 +13,6 @@ const ProductQuantitySelector = ({
   onQuantityChange,
   onReset,
 }: ProductQuantitySelectorProps) => {
-  const { clearCart } = useCart(); // Use cart context
 
   return (
     <div className="flex flex-col gap-4 mb-6">
@@ -54,15 +53,6 @@ const ProductQuantitySelector = ({
           </Button>
         </div>
       </div>
-      <Button
-        type="button"
-        variant="destructive"
-        onClick={clearCart}
-        className="self-start flex items-center gap-2 rounded"
-      >
-        <Trash2Icon className="w-4 h-4" />
-        Kosongkan Keranjang
-      </Button>
     </div>
   );
 };

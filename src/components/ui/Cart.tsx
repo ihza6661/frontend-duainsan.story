@@ -6,15 +6,16 @@ interface CartContextType {
   cartItems: CartItem[];
   addToCart: (product: Product, quantity?: number) => void;
   updateQuantity: (productId: string, quantity: number) => void;
-  removeFromCart: (productId: string) => void;
+  removeItem: (productId: number) => void;
   clearCart: () => void;
   cartTotal: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // ✅ Load cart immediately from localStorage during initial render
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     try {
       const savedCart = localStorage.getItem("cart");
@@ -27,7 +28,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [cartTotal, setCartTotal] = useState<number>(0);
 
-  // ✅ Save cart to localStorage and calculate total whenever cart changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
 
@@ -38,52 +38,55 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCartTotal(total);
   }, [cartItems]);
 
-const addToCart = (product: Product, quantity: number = 1) => {
-  setCartItems(prevItems => {
-    const existingItemIndex = prevItems.findIndex(
-      item => item.product.id === product.id
-    );
+  const addToCart = (product: Product, quantity: number = 1) => {
+    setCartItems((prevItems) => {
+      const existingItemIndex = prevItems.findIndex(
+        (item) => item.product.id === product.id
+      );
 
-    let updatedItems;
+      let updatedItems;
 
-    if (existingItemIndex > -1) {
-      const existingQuantity = Number(prevItems[existingItemIndex].quantity);
-      updatedItems = [...prevItems];
-      updatedItems[existingItemIndex] = {
-        ...updatedItems[existingItemIndex],
-        quantity: existingQuantity + Number(quantity),
-      };
-    } else {
-      updatedItems = [...prevItems, { product, quantity: Number(quantity) }];
-    }
+      if (existingItemIndex > -1) {
+        const existingQuantity = Number(prevItems[existingItemIndex].quantity);
+        updatedItems = [...prevItems];
+        updatedItems[existingItemIndex] = {
+          ...updatedItems[existingItemIndex],
+          quantity: existingQuantity + Number(quantity),
+        };
+      } else {
+        updatedItems = [...prevItems, { product, quantity: Number(quantity) }];
+      }
 
-    return updatedItems;
-  });
+      return updatedItems;
+    });
 
-  toast.success(`${product.name} added to cart (x${quantity})`);
-};
-
+    toast.success(`${product.name} added to cart (x${quantity})`);
+  };
 
   const updateQuantity = (productId: string, quantity: number) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.product.id === productId
-          ? { ...item, quantity }
-          : item
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.product.id === productId ? { ...item, quantity } : item
       )
     );
   };
 
-  const removeFromCart = (productId: string) => {
-    setCartItems(prevItems =>
-      prevItems.filter(item => item.product.id !== productId)
-    );
-    toast.info("Item removed from cart");
+  const removeItem = (id: number) => {
+    setCartItems((items) => {
+      const updatedItems = items.filter(
+        (item) => Number(item.product.id) !== id
+      );
+
+      localStorage.setItem("cart", JSON.stringify(updatedItems));
+
+      return updatedItems;
+    });
   };
 
   const clearCart = () => {
     setCartItems([]);
     localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify({}));
     toast.info("Cart cleared");
   };
 
@@ -93,9 +96,9 @@ const addToCart = (product: Product, quantity: number = 1) => {
         cartItems,
         addToCart,
         updateQuantity,
-        removeFromCart,
+        removeItem,
         clearCart,
-        cartTotal
+        cartTotal,
       }}
     >
       {children}
