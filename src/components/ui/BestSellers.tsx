@@ -62,7 +62,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="border-none overflow-hidden rounded-none h-full">
       {/* <div className="aspect-[2/3] overflow-hidden"> */}
-      <div className="overflow-hidden h-[350px]">
+      <div className="overflow-hidden h-[500px]">
         <Link to={`/product/${product.id}`}>
           <img
             src={product.images[0]}
@@ -83,13 +83,12 @@ const ProductCard = ({ product }: { product: Product }) => {
           {["black", "red", "blue"].map((color) => (
             <span
               key={color}
-              className={`w-3 h-3 rounded-full bg-${
-                color === "black"
-                  ? "black"
-                  : color === "red"
+              className={`w-3 h-3 rounded-full bg-${color === "black"
+                ? "black"
+                : color === "red"
                   ? "red-500"
                   : "blue-600"
-              }`}
+                }`}
             />
           ))}
         </div>

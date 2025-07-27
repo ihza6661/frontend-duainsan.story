@@ -126,8 +126,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             <Link to="/login" className="block" onClick={onClose}>
               Log in
             </Link>
-            <Link to="/faq" className="block" onClick={onClose}>
-              FAQ
+            <Link to="/CaraPesan" className="block" onClick={onClose}>
+              Cara Memesan
             </Link>
             <Link to="/shipping" className="block" onClick={onClose}>
               Shipping

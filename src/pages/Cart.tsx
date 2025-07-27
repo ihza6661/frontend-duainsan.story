@@ -10,6 +10,7 @@ import {
 import { Trash2Icon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/components/ui/Cart";
+import InvitationNameModal from "./InvitationForm";
 
 interface CartItem {
   product: any;
@@ -24,9 +25,14 @@ export default function Cart() {
     0
   );
 
+    const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
   return (
     <div className="container mt-20 mx-auto px-4 py-8">
-      <h1 className="text-xl">Keranjang Belanja Anda</h1>
+      <h1 className="text-xl py-2">Keranjang Belanja Anda</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -121,7 +127,9 @@ export default function Cart() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Lanjut ke Pembayaran</Button>
+              <Button onClick={openModal} className="w-full">Lanjut ke Pembayaran</Button>
+                    {/* Modal opens conditionally */}
+      <InvitationNameModal isOpen={showModal} onClose={closeModal} />
             </CardFooter>
           </Card>
         </div>

@@ -17,6 +17,8 @@ import Cart from "./pages/Cart";
 import Gallery from "./pages/Gallery";
 import LoginPage from "./pages/LoginPage";
 import ShopByCollection from "./pages/ShopByCollection";
+import CaraMemesan from "./pages/CaraMemesan";
+import FloatingIcons from "./components/ui/WhatsAppFloat";
 
 const queryClient = new QueryClient();
 
@@ -49,12 +51,14 @@ const App = () => (
               <Route path="/cart" element={<Cart />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/collection" element={<ShopByCollection />} />
+              <Route path="/CaraPesan" element={<CaraMemesan />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
         </BrowserRouter>
       </CartProvider>
     </TooltipProvider>
+    <FloatingIcons />
   </QueryClientProvider>
 );
 

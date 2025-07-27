@@ -8,6 +8,8 @@ import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 import Categories from "@/components/layout/Categories";
 import CategoryGrid from "@/components/ui/CategoryGrid";
 import PromoBanner from "@/components/layout/PromoBanner";
+import WhyDuaInsan from "@/components/layout/WhyDuaInsan";
+import OrderSteps from "@/pages/CaraMemesan";
 
 const Home = () => {
   const highlight = [
@@ -131,9 +133,11 @@ const Home = () => {
       <CategoryGrid />
 
       <ExploreTheNewestTrend />
+      <WhyDuaInsan />
 
+      <OrderSteps />
       {/* <VogueQuote /> */}
-      <PromoBanner />
+      {/* <PromoBanner /> */}
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">
         <div className="">

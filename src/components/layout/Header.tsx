@@ -89,12 +89,15 @@ const Header = () => {
           </div>
 
           <div className="absolute left-1/2 transform -translate-x-1/2">
-            <Link
-              to="/"
-              className="text-md md:text-2xl font-normal uppercase tracking-widest text-start text-nowrap"
-            >
-              DUAINSAN.STORY
-            </Link>
+        <Link
+  to="/"
+  className="text-md md:text-4xl font-semibold font-fancy tracking-widest text-start text-nowrap italic text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
+>
+  DuaInsan.Story
+</Link>
+
+
+
           </div>
 
           <div className="flex items-center">

@@ -3,7 +3,7 @@ import '../../index.css';
 const Slider = () => {
   const items = Array.from({ length: 10 }, (_, idx) => (
     <div className="item text-lg tracking-widest" key={idx}>
-      TERRARIUM HANTARAN
+      DUAINSTAN.STORY
     </div>
   ));
 

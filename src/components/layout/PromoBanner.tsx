@@ -1,6 +1,6 @@
 const PromoBanner = () => {
   return (
-    <div className="bg-gradient-to-br from-[#f8f6f3] to-[#e9e4dd] min-h-96 flex flex-col justify-center items-center text-center px-6 py-16 relative shadow-inner rounded-xl">
+    <div className="bg-gradient-to-br from-[#f8f6f3] to-[#e9e4dd] min-h-96 flex flex-col justify-center items-center text-center px-6 py-16 relative">
       <h1 className="text-4xl font-extrabold text-gray-800 tracking-wide mb-4">PROMO</h1>
 
       {/* Quote */}

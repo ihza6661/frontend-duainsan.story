@@ -28,23 +28,22 @@ const Footer = () => {
               </span>
             </button>
             <ul
-              className={`transition-all ease-in-out duration-1000 overflow-hidden md:block ${
-                openSection === "products"
+              className={`transition-all ease-in-out duration-1000 overflow-hidden md:block ${openSection === "products"
                   ? "max-h-96"
                   : "max-h-0 md:max-h-full"
-              }`}
+                }`}
             >
               <li>
                 <Link
-                  to="/products/category/dress"
+                  to="/products/category/undangan digital"
                   className="text-gray-800 text-sm block py-1"
                 >
-                  Undangan Website
+                  Undangan Digital
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/products/category/skirt"
+                  to="/products/category/undangan cetak"
                   className="text-gray-800 text-sm block py-1"
                 >
                   Undangan Cetak
@@ -52,7 +51,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/products/category/skirt"
+                  to="/products/category/hantaran"
                   className="text-gray-800 text-sm block py-1"
                 >
                   Hantaran
@@ -74,9 +73,8 @@ const Footer = () => {
             </button>
 
             <ul
-              className={`transition-all duration-300 overflow-hidden md:block ${
-                openSection === "service" ? "max-h-96" : "max-h-0 md:max-h-full"
-              }`}
+              className={`transition-all duration-300 overflow-hidden md:block ${openSection === "service" ? "max-h-96" : "max-h-0 md:max-h-full"
+                }`}
             >
               <li>
                 <Link to="/faq" className="text-gray-800 text-sm block py-1">
@@ -114,9 +112,8 @@ const Footer = () => {
             </button>
 
             <ul
-              className={`transition-all duration-300 overflow-hidden md:block ${
-                openSection === "info" ? "max-h-96" : "max-h-0 md:max-h-full"
-              }`}
+              className={`transition-all duration-300 overflow-hidden md:block ${openSection === "info" ? "max-h-96" : "max-h-0 md:max-h-full"
+                }`}
             >
               <li>
                 <Link to="/about" className="text-gray-800 text-sm block py-1">
@@ -215,9 +212,10 @@ const Footer = () => {
         <div className="mt-16 flex justify-center">
           <Link
             to="/"
-            className="sm:text-5xl text-4xl font-light uppercase tracking-widest"
+            // className="sm:text-5xl text-4xl font-light uppercase tracking-widest"
+            className="text-xl md:text-3xl font-semibold font-fancy tracking-widest text-start italic text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
           >
-            DUAINSAN.STORY
+            DuaInsan.Story
           </Link>
         </div>
       </div>
