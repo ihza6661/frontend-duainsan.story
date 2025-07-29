@@ -16,6 +16,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     { name: "Undangan Cetak", path: "/shop/cetak" },
     { name: "Undangan Digital Statis", path: "/shop/statis" },
     { name: "Hantaran", path: "/shop/hantaran" },
+    { name: "Keleksi", path: "/collection" },
   ];
 
   const priceItems = [

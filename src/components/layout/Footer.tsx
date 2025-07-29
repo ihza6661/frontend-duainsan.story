@@ -22,7 +22,7 @@ const Footer = () => {
               className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("products")}
             >
-              Products
+              Produk
               <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
                 {openSection === "products" ? "−" : "+"}
               </span>
@@ -66,7 +66,7 @@ const Footer = () => {
               className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("service")}
             >
-              Service
+              Layanan
               <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
                 {openSection === "service" ? "−" : "+"}
               </span>
@@ -105,7 +105,7 @@ const Footer = () => {
               className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("info")}
             >
-              Information
+              Informasi
               <span className="text-4xl text-gray-600 font-thin md:hidden ml-2">
                 {openSection === "info" ? "−" : "+"}
               </span>
@@ -139,7 +139,7 @@ const Footer = () => {
           {/* The About Us block (unchanged since it's not a dropdown) */}
           <div>
             <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
-              About Us
+              Tentang Kami
             </h3>
             <p className="text-shop-dark-gray text-sm mb-4">
               Solusi undangan digital website custom, bebaskan imajinasimu buat

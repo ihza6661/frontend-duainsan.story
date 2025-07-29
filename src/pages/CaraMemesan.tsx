@@ -5,7 +5,7 @@ const steps = [
     number: 1,
     title: "Pilih Undangan Favoritmu",
     description:
-      "Masuk ke website invitationery.asia dan pilih desain undangan yang paling cocok dengan tema pernikahanmu.",
+      "Masuk ke website DuaInsan.Story dan pilih desain undangan yang paling cocok dengan tema pernikahanmu.",
   },
   {
     number: 2,
@@ -35,23 +35,27 @@ const steps = [
 
 const OrderSteps = () => {
   return (
-    <div className="w-full bg-[#F9FAFB] py-24 px-4">
+    <div className="w-full bg-[#F9FAFB] py-16 px-4 sm:px-6 md:px-8">
       <div className="max-w-4xl mx-auto font-sans">
-        <h2 className="text-shop-text text-center text-3xl font-serif italic mb-12">
+        <h2 className="text-shop-text text-center text-2xl sm:text-3xl lg:text-4xl font-serif italic mb-10">
           Cara <span className="">Memesan</span>?
         </h2>
         <div className="space-y-6">
           {steps.map((step) => (
             <div
               key={step.number}
-              className="text-shop-dark-gray flex items-start gap-4 p-4 rounded-lg backdrop-blur-md"
+              className="flex items-start gap-4 p-4 rounded-lg backdrop-blur-md bg-white/60 shadow-sm"
             >
-              <div className="bg-[#F3F0EA] rounded-full flex items-center justify-center w-10 h-10 font-bold ">
+              <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#F3F0EA] flex items-center justify-center font-bold text-shop-text text-sm sm:text-base">
                 {step.number}
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-1">{step.title}</h3>
-                <p className="text-sm text-shop-dark-gray">{step.description}</p>
+                <h3 className="font-semibold text-base sm:text-lg mb-1">
+                  {step.title}
+                </h3>
+                <p className="text-sm sm:text-base text-shop-dark-gray">
+                  {step.description}
+                </p>
               </div>
             </div>
           ))}

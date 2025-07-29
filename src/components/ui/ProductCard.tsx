@@ -33,8 +33,13 @@ const ProductCard = ({ product, featured = false }: ProductCardProps) => {
         <h3 className="text-base font-medium text-shop-text mt-2 mb-1">
           {product.name}
         </h3>
+
         <p className="text-shop-accent font- mb-3">
-          ${product.price.toFixed(2)}
+          {new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }).format(product.price)}
         </p>
 
         <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

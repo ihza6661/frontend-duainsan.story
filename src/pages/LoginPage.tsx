@@ -16,7 +16,7 @@ const LoginPage = () => {
     // <div className="min-h-2.5 flex flex-col items-center justify-center bg-white p-4">
       <div className="flex flex-col items-center bg-white py-32"> 
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-normal">LOGIN</h2>
+        <h2 className="text-2xl font-normal">MASUK</h2>
       </div>
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs">
@@ -65,18 +65,18 @@ const LoginPage = () => {
         </div>
         
         <div className="mb-6 text-right">
-          <a href="#" className="text-sm text-gray-600 hover:underline">Forgot your password?</a>
+          <a href="#" className="text-sm text-gray-600 hover:underline">Lupa Password?</a>
         </div>
         
         <button
           type="submit"
           className="w-full bg-black text-white py-3 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black mb-4 tracking-widest"
         >
-          SIGN IN
+          Masuk
         </button>
         
         <div className="text-center">
-          <a href="#" className="text-sm text-gray-600 hover:underline">Create account</a>
+          <a href="#" className="text-sm text-gray-600 hover:underline">Buat Akun</a>
         </div>
       </form>
     </div>

@@ -33,7 +33,7 @@ const BestSellers = () => {
             {bestSellerProducts.map((product) => (
               <CarouselItem
                 key={product.id}
-                className=" md:basis-1/2 lg:basis-1/4"
+                className="md:basis-1/2 lg:basis-1/4 h-auto"
               >
                 <ProductCard product={product} />
               </CarouselItem>
@@ -60,9 +60,9 @@ const BestSellers = () => {
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Card className="border-none overflow-hidden rounded-none h-full">
-      {/* <div className="aspect-[2/3] overflow-hidden"> */}
-      <div className="overflow-hidden h-[500px]">
+    <Card className="flex flex-col h-[550px]">
+      {/* Square Image */}
+      <div className="w-full aspect-square overflow-hidden">
         <Link to={`/product/${product.id}`}>
           <img
             src={product.images[0]}
@@ -71,24 +71,37 @@ const ProductCard = ({ product }: { product: Product }) => {
           />
         </Link>
       </div>
-      <CardContent className="px-2 pt-4 pb-6 space-y-2">
-        <div className="text-xs uppercase text-gray-500">New</div>
-        <h3 className="font-medium text-sm">
-          <Link to={`/product/${product.id}`} className="hover:underline">
-            {product.name}
-          </Link>
-        </h3>
-        <p className="text-sm font-medium">${product.price.toFixed(2)}</p>
-        <div className="flex mt-1 space-x-1">
+
+      {/* Content area — stretch to fill remaining space */}
+      <CardContent className="flex flex-col justify-between flex-grow px-4 py-4">
+        <div>
+          <div className="text-xs uppercase text-gray-500">New</div>
+          <h3 className="font-medium text-sm mt-1">
+            <Link to={`/product/${product.id}`} className="hover:underline">
+              {product.name}
+            </Link>
+          </h3>
+          <p className="text-sm font-medium">
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(product.price)}
+          </p>
+        </div>
+
+        {/* Color dots at bottom */}
+        <div className="flex mt-2 space-x-1">
           {["black", "red", "blue"].map((color) => (
             <span
               key={color}
-              className={`w-3 h-3 rounded-full bg-${color === "black"
-                ? "black"
-                : color === "red"
-                  ? "red-500"
-                  : "blue-600"
-                }`}
+              className={`w-3 h-3 rounded-full ${
+                color === "black"
+                  ? "bg-black"
+                  : color === "red"
+                  ? "bg-red-500"
+                  : "bg-blue-600"
+              }`}
             />
           ))}
         </div>

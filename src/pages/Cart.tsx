@@ -25,7 +25,7 @@ export default function Cart() {
     0
   );
 
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -38,7 +38,7 @@ export default function Cart() {
         <div className="lg:col-span-2">
           {cartItems.map((item) => (
             <Card key={item.product.id} className="mb-4">
-              <CardContent className="flex items-center gap-4 p-4">
+              <CardContent className="flex items-start gap-4 p-4">
                 <img
                   src={item.product.images[0]}
                   alt={item.product.name}
@@ -49,41 +49,48 @@ export default function Cart() {
                   <p className="text-gray-600">
                     Rp {item.product.price.toLocaleString()}
                   </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <Button
-                      variant="outline"
-                      size="default"
-                      onClick={() =>
-                        updateQuantity(item.product.id, item.quantity - 1)
-                      }
-                    >
-                      -
-                    </Button>
-                    <Input
-                      type="number"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        updateQuantity(
-                          item.product.id,
-                          parseInt(e.target.value) || 1
-                        )
-                      }
-                      className="w-24 text-center"
-                    />
-                    <Button
-                      variant="outline"
-                      size="default"
-                      onClick={() =>
-                        updateQuantity(item.product.id, item.quantity + 1)
-                      }
-                    >
-                      +
-                    </Button>
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    {/* Quantity Controls */}
+                    <div className="flex items-center gap-1 flex-1 max-w-[200px]">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="w-8 h-8"
+                        onClick={() =>
+                          updateQuantity(item.product.id, item.quantity - 1)
+                        }
+                      >
+                        -
+                      </Button>
+                      <Input
+                        type="number"
+                        value={item.quantity}
+                        onChange={(e) =>
+                          updateQuantity(
+                            item.product.id,
+                            parseInt(e.target.value) || 1
+                          )
+                        }
+                        className="text-center w-full h-8"
+                      />
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="w-8 h-8"
+                        onClick={() =>
+                          updateQuantity(item.product.id, item.quantity + 1)
+                        }
+                      >
+                        +
+                      </Button>
+                    </div>
+
+                    {/* Delete Button */}
                     <Button
                       variant="outline"
                       size="default"
                       onClick={() => removeItem(Number(item.product.id))}
-                      className="ml-auto"
+                      className="ml-auto sm:ml-0 sm:mt-0 mt-2 w-full sm:w-auto"
                     >
                       Hapus
                     </Button>
@@ -127,9 +134,11 @@ export default function Cart() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={openModal} className="w-full">Lanjut ke Pembayaran</Button>
-                    {/* Modal opens conditionally */}
-      <InvitationNameModal isOpen={showModal} onClose={closeModal} />
+              <Button onClick={openModal} className="w-full">
+                Lanjut ke Pembayaran
+              </Button>
+              {/* Modal opens conditionally */}
+              <InvitationNameModal isOpen={showModal} onClose={closeModal} />
             </CardFooter>
           </Card>
         </div>

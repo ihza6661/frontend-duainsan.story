@@ -7,6 +7,7 @@ import { Plus, Minus } from "lucide-react";
 import PaperTypeSelect from "./PaperTypeSelect";
 import InvitationSizeSelect from "./InvitationSizeSelect";
 import { ShoppingCart } from "lucide-react";
+import InvitationForm from "../layout/ExtraItemSelector";
 
 interface ProductHeroProps {
   product: Product;
@@ -31,7 +32,15 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
         </p>
 
         <h1 className="text-xl tracking-wide my-4 uppercase">{product.name}</h1>
-        <p className="text-lg text-shop-accent">${product.price.toFixed(2)}</p>
+
+        <p className="text-lg text-shop-accent">
+          {new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }).format(product.price)}
+        </p>
+
         <div className="mt-2 py-4 border-y">
           <button
             onClick={() => setShowDescription(!showDescription)}
@@ -45,9 +54,8 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             )}
           </button>
           <div
-            className={`transition-all duration-300 ease-in-out overflow-hidden ${
-              showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
-            }`}
+            className={`transition-all duration-300 ease-in-out overflow-hidden ${showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
+              }`}
           >
             <p className="text-normal text-gray-700">
               {product.description.split("\n").map((line, index) => {
@@ -89,6 +97,8 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             onReset={() => setQuantity(100)}
           />
 
+          <InvitationForm />
+
           <div className="flex justify-center items-center">
             <Button
               onClick={() => onAddToCart(quantity)}
@@ -99,7 +109,7 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             </Button>
           </div>
         </div>
-        
+
         <div>
           <ul className="text-xs list-disc list-inside mb-10">
             <li>Kertas kualitas terbaik tersedia</li>

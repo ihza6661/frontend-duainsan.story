@@ -12,14 +12,14 @@ const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>(category || "All");
   const [sortOption, setSortOption] = useState<string>("default");
-  
+
   useEffect(() => {
     if (category) {
       setSelectedCategory(category);
     }
-    
+
     let filteredProducts = getProductsByCategory(selectedCategory);
-    
+
     // Apply sorting
     switch (sortOption) {
       case "price-low-high":
@@ -38,37 +38,36 @@ const Products = () => {
         // Default sorting (featured first)
         break;
     }
-    
+
     setProducts(filteredProducts);
   }, [category, selectedCategory, sortOption]);
-  
+
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
   };
-  
+
   return (
     <div className="min-h-screen flex flex-col pt-16">
       <main className="flex-grow py-8">
         <div className="container">
           <h1 className="text-3xl font-medium mb-8">
-            {selectedCategory === "All" ? "All Products" : selectedCategory}
+            {selectedCategory === "All" ? "Semua Produk" : selectedCategory}
           </h1>
-          
+
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Filters */}
             <div className="lg:w-1/4">
               <div className="bg-white p-6 rounded-lg border border-shop-medium-gray mb-6">
-                <h2 className="text-lg font-medium mb-4">Categories</h2>
+                <h2 className="text-lg font-medium mb-4">Kategori</h2>
                 <div className="space-y-2">
                   {categories.map((cat) => (
                     <Button
                       key={cat}
                       variant={selectedCategory === cat ? "default" : "ghost"}
-                      className={`w-full justify-start text-left ${
-                        selectedCategory === cat 
-                          ? "bg-shop-accent text-white hover:bg-shop-accent/80" 
-                          : "text-shop-dark-gray hover:text-shop-text hover:bg-shop-light-gray"
-                      }`}
+                      className={`w-full justify-start text-left ${selectedCategory === cat
+                        ? "bg-shop-accent text-white hover:bg-shop-accent/80"
+                        : "text-shop-dark-gray hover:text-shop-text hover:bg-shop-light-gray"
+                        }`}
                       onClick={() => handleCategoryChange(cat)}
                     >
                       {cat}
@@ -77,15 +76,15 @@ const Products = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Products */}
             <div className="lg:w-3/4">
               <div className="flex justify-between items-center mb-6">
                 <p className="text-shop-dark-gray">
-                  Showing {products.length} products
+                  Menampilkan {products.length} produk
                 </p>
-                
-                <select 
+
+                <select
                   className="border border-shop-medium-gray rounded-md px-3 py-2"
                   value={sortOption}
                   onChange={(e) => setSortOption(e.target.value)}
@@ -97,7 +96,7 @@ const Products = () => {
                   <option value="name-z-a">Name: Z to A</option>
                 </select>
               </div>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {products.map((product) => (
                   <div key={product.id} className="animate-fade-in">
@@ -105,7 +104,7 @@ const Products = () => {
                   </div>
                 ))}
               </div>
-              
+
               {products.length === 0 && (
                 <div className="py-12 text-center">
                   <p className="text-lg text-shop-dark-gray">

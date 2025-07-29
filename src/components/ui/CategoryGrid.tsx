@@ -17,10 +17,11 @@ const categories: Category[] = [
   },
   {
     id: "2",
-    name: "Undangan Statis",
+    name: "Undangan Digital",
     image:
       "/hero.jpg",
-    link: "/products/category/Undangan Statis",
+    link: "/products/category/Undangan Digital",
+
   },
   {
     id: "3",

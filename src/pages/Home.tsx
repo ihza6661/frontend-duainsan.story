@@ -12,21 +12,22 @@ import WhyDuaInsan from "@/components/layout/WhyDuaInsan";
 import OrderSteps from "@/pages/CaraMemesan";
 
 const Home = () => {
+  const phoneNumber = "+6283151770146";
   const highlight = [
-    {
-      id: 1,
-      title: "Red",
-      image: "/highlight/highlight1.jpg",
-    },
+    // {
+    //   id: 1,
+    //   title: "Red",
+    //   image: "/highlight/1.png",
+    // },
     {
       id: 2,
       title: "Green",
-      image: "/highlight/highlight2.jpg",
+      image: "/highlight/2.png",
     },
     {
       id: 3,
       title: "Brown",
-      image: "/highlight/highlight3.jpg",
+      image: "/highlight/3.png",
     },
   ];
 
@@ -56,16 +57,16 @@ const Home = () => {
 
           {/* CTA Button */}
           <a
-            href="/shop"
+            href={`https://wa.me/${phoneNumber.replace("+", "")}`} // wa.me doesn't support "+" symbol
             className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
           >
-            Consult now
+            Chat Admin
           </a>
           <a
             href="/shop"
             className="inline-block font-semibold py-3 px-6 rounded-2xl shadow-lg hover:bg-gray-100 transition duration-300"
           >
-            Browse Designs
+            Lihat Koleksi
           </a>
         </div>
       </section>
@@ -113,7 +114,14 @@ const Home = () => {
                     <h4 className="mt-2 text-base sm:text-md font-normal text-gray-800">
                       {item.name}
                     </h4>
-                    <p className="text-sm sm:text-base">${item.price}</p>
+
+                    <p className="text-sm sm:text-base">
+                      {new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                        minimumFractionDigits: 0,
+                      }).format(item.price)}
+                    </p>
                   </Link>
                 </div>
               ))}
@@ -145,26 +153,27 @@ const Home = () => {
             Design Blog
           </h4> */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal mb-6 sm:mb-8 text-center uppercase tracking-widest">
-            Highlights
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+            Informasi          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
             {highlight.map((post) => (
               <Link
                 key={post.id}
                 to={`/highlights/${post.id}`}
                 className="group"
               >
-                <div className="relative aspect-[3/4]">
+                {/* <div className="relative aspect-[2/4]"> */}
+                <div className="relative aspect-[2/3] p-20 m-0">
+
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover"
+                    className="w-full object-contain rounded-2xl"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-white/80 backdrop-blur-sm">
-                    <p className="text-xs sm:text-sm font-light">
-                      {post.title}
-                    </p>
-                  </div>
+                  {/* <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-white/80 backdrop-blur-sm"> */}
+                  {/* <p className="text-xs sm:text-sm font-light"> */}
+                  {/*   {post.title} */}
+                  {/* </p> */}
+                  {/* </div> */}
                 </div>
               </Link>
             ))}

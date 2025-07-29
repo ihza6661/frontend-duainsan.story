@@ -89,12 +89,12 @@ const Header = () => {
           </div>
 
           <div className="absolute left-1/2 transform -translate-x-1/2">
-        <Link
-  to="/"
-  className="text-md md:text-4xl font-semibold font-fancy tracking-widest text-start text-nowrap italic text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
->
-  DuaInsan.Story
-</Link>
+            <Link
+              to="/"
+              className="text-md md:text-4xl font-semibold font-fancy tracking-widest text-start text-nowrap italic text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
+            >
+              DuaInsan.Story
+            </Link>
 
 
 
@@ -115,7 +115,7 @@ const Header = () => {
                 <button className="relative flex items-center justify-center w-8 h-10">
                   <img src={ShoppingBag} alt="Shopping Bag" />
                   {totalItems > 0 && (
-                    <span className="absolute -top-3 -right-1 bg-black text-white text-[10px] md:text-xs rounded-full h-4 w-4 md:h-5 md:w-5 flex items-center justify-center min-w-[30px] px-[2px]">
+                    <span className="absolute -top-2 sm:-top-3 -right-1 bg-black text-white text-[10px] md:text-xs rounded-full h-4 w-3 md:h-5 md:w-4 flex items-center justify-center min-w-[30px] px-[2px]">
                       {totalItems > 99 ? "99+" : totalItems}
                     </span>
                   )}
