@@ -10,25 +10,25 @@ interface Category {
 const categories: Category[] = [
   {
     id: "1",
-    name: "Undangan Cetak",
+    name: "Wedding",
     image:
-      "/hantaran.jpg",
-    link: "/products/category/Undangan Cetak",
+      "/category/wedding.jpg",
+    link: "/products/category/Wedding",
   },
-  {
-    id: "2",
-    name: "Undangan Digital",
-    image:
-      "/hero.jpg",
-    link: "/products/category/Undangan Digital",
+  // {
+  //   id: "2",
+  //   name: "Undangan Digital",
+  //   image:
+  //     "/hero.jpg",
+  //   link: "/products/category/Undangan Digital",
 
-  },
+  // },
   {
     id: "3",
-    name: "Hantaran",
+    name: "Guestbook",
     image:
-      "/hantaran.jpg",
-    link: "/products/category/Hantaran",
+      "/category/guestbook.jpg",
+    link: "/products/category/guestbook"
   },
 ];
 
@@ -36,11 +36,11 @@ const CategoryGrid = () => {
   return (
     <section className="">
       <div className="">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           {categories.map((category) => (
             <div key={category.id} className="relative group overflow-hidden">
               <Link to={category.link} className="block">
-                <div className="relative h-[550px] overflow-hidden">
+                <div className="relative h-[500px] overflow-hidden">
                   <img
                     src={category.image}
                     alt={category.name}

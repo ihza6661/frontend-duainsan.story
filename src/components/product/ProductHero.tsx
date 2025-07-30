@@ -8,6 +8,9 @@ import PaperTypeSelect from "./PaperTypeSelect";
 import InvitationSizeSelect from "./InvitationSizeSelect";
 import { ShoppingCart } from "lucide-react";
 import InvitationForm from "../layout/ExtraItemSelector";
+import ProductVariantSelect from "../layout/ProductVariantSelect";
+import { useEffect } from "react";
+import GuestbookSizeSelect from "./GuestbookTypeSelect";
 
 interface ProductHeroProps {
   product: Product;
@@ -22,6 +25,25 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
   const [paperType, setPaperType] = useState("");
   const [size, setSize] = useState("");
 
+  const [selectedVariantType, setSelectedVariantType] = useState("");
+
+  const selectedVariant = product.variants?.find(
+    (v) => v.type === selectedVariantType
+  );
+
+  useEffect(() => {
+    if (
+      product.type === "guestbook" &&
+      product.variants &&
+      product.variants.length > 0 &&
+      !selectedVariantType
+    ) {
+      setSelectedVariantType(product.variants[0].type);
+    }
+  }, [product, selectedVariantType]);
+
+  const [guestbookSize, setGuestbookSize] = useState("");
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
       <ProductGallery images={product.images} productName={product.name} />
@@ -32,14 +54,6 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
         </p>
 
         <h1 className="text-xl tracking-wide my-4 uppercase">{product.name}</h1>
-
-        <p className="text-lg text-shop-accent">
-          {new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,
-          }).format(product.price)}
-        </p>
 
         <div className="mt-2 py-4 border-y">
           <button
@@ -54,8 +68,9 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             )}
           </button>
           <div
-            className={`transition-all duration-300 ease-in-out overflow-hidden ${showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
-              }`}
+            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+              showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
+            }`}
           >
             <p className="text-normal text-gray-700">
               {product.description.split("\n").map((line, index) => {
@@ -73,20 +88,49 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             </p>
           </div>
         </div>
+
+        <p className="text-lg text-shop-accent pt-2">
+          {new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }).format(selectedVariant ? selectedVariant.price : product.price)}
+        </p>
+
         <div className="pb-6 my-4">
-          <p className="mb-6"></p>
-          <div className="space-y-4">
-            <InvitationSizeSelect value={size} onChange={setSize} />
-            <p className="text-sm text-gray-600 pb-4">
-              Ukuran dipilih: {size || "Belum dipilih"}
-            </p>
+          {product.type === "guestbook" && (
+            <div className="">
+              <ProductVariantSelect
+                value={selectedVariantType}
+                onChange={setSelectedVariantType}
+                variants={product.variants}
+              />
+            </div>
+          )}
+
+          {product?.category === "Wedding" && (
+            <div className="">
+              <InvitationSizeSelect value={size} onChange={setSize} />
+              {/* <p className="text-sm text-gray-600 pb-4">
+      Ukuran dipilih: {size || "Belum dipilih"}
+    </p> */}
+            </div>
+          )}
+
+          <div>
+            {product?.category === "guestbook" && (
+              <GuestbookSizeSelect
+                value={guestbookSize}
+                onChange={setGuestbookSize}
+              />
+            )}
           </div>
 
-          <div className="space-y-4">
+          <div className="">
             <PaperTypeSelect value={paperType} onChange={setPaperType} />
-            <p className="text-sm text-gray-600 pb-4">
+            {/* <p className="text-sm text-gray-600 pb-4">
               Jenis kertas dipilih: {paperType || "Belum dipilih"}
-            </p>
+            </p> */}
           </div>
 
           <ProductQuantitySelector
@@ -97,7 +141,7 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             onReset={() => setQuantity(100)}
           />
 
-          <InvitationForm />
+          {product.category === "Wedding" && <InvitationForm />}
 
           <div className="flex justify-center items-center">
             <Button
@@ -112,8 +156,10 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
 
         <div>
           <ul className="text-xs list-disc list-inside mb-10">
-            <li>Kertas kualitas terbaik tersedia</li>
-            <li>Gratis Ongkir Untuk Orderan Diatas Rp.500.000</li>
+            <li>Minimal Pemesanan 100 lembar</li>
+            <li>Beragam Opsi Kertas</li>
+            <li>Gratis E-Invitation Static</li>
+            {/* <li>Gratis Ongkir Untuk Orderan Diatas Rp.500.000</li> */}
           </ul>
         </div>
       </div>

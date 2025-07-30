@@ -15,7 +15,7 @@ const ProductQuantitySelector = ({
 }: ProductQuantitySelectorProps) => {
 
   return (
-    <div className="flex flex-col gap-4 mb-6">
+    <div className="flex flex-col gap-4 my-4">
       <div className="flex items-center">
         <span className="mr-4">Jumlah</span>
         <div className="flex items-center border border-shop-medium-gray rounded">

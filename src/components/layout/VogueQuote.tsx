@@ -2,10 +2,10 @@ import { ChevronRight } from "lucide-react";
 
 const VogueQuote = () => {
   return (
-    <div className="bg-[#f1ede9] min-h-96 flex flex-col justify-center items-center text-center px-4 py-12 relative">
+    <div className="min-h-32 flex flex-col justify-center items-center text-center px-4 py-4 relative">
       {/* VOGUE Title */}
       <img
-        src="/logo/vogue-logo.avif"
+        src="/brand_logo/duainsan.png"
         alt="vogue"
         className="w-[100px] md:w-[140px]"
       />
@@ -13,17 +13,15 @@ const VogueQuote = () => {
       {/* Quote */}
       <div className="w-[340px] md:w-[500px] lg:w-[900px] xl:w-[1000px]">
         <p className="my-6 text-center text-[1.1rem] md:text-2xl max-w-5xl  text-black font-normal leading-relaxed tracking-wide>">
-          “A brand that challenges the industry. A brand that has a chance to
-          stage a revolution. A brand whose creators see it as a step towards a
-          better world”
+          “A small Grapic design studio, Specialising in wedding stationery. <br /> Created With Love. Let's begin our STORY”
         </p>
       </div>
 
       {/* Dots */}
-      <div className="flex items-center gap-2 mt-10">
+      {/* <div className="flex items-center gap-2 mt-10">
         <span className="w-2 h-2 rounded-full bg-black inline-block"></span>
         <span className="w-2 h-2 rounded-full bg-gray-300 inline-block"></span>
-      </div>
+      </div> */}
 
       {/* Right Arrow */}
       {/* <button className="absolute right-12 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md">

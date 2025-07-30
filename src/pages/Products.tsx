@@ -90,10 +90,10 @@ const Products = () => {
                   onChange={(e) => setSortOption(e.target.value)}
                 >
                   <option value="default">Featured</option>
-                  <option value="price-low-high">Price: Low to High</option>
-                  <option value="price-high-low">Price: High to Low</option>
-                  <option value="name-a-z">Name: A to Z</option>
-                  <option value="name-z-a">Name: Z to A</option>
+                  <option value="price-low-high">Harga: Rendah ke Tinggi</option>
+                  <option value="price-high-low">Harga: Tinggi ke Rendah</option>
+                  <option value="name-a-z">Nama: A ke Z</option>
+                  <option value="name-z-a">Nama: Z ke A</option>
                 </select>
               </div>
 
@@ -108,7 +108,7 @@ const Products = () => {
               {products.length === 0 && (
                 <div className="py-12 text-center">
                   <p className="text-lg text-shop-dark-gray">
-                    No products found for this category.
+                    Produk tidak ditemukan untuk kategori ini.
                   </p>
                 </div>
               )}

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -12,8 +11,7 @@ type ExtraItem = {
 const extraItems: ExtraItem[] = [
   { id: "denah", name: "Denah", price: 1000 },
   { id: "kupon", name: "Kupon Souvenir", price: 300 },
-  { id: "guestbook_reg", name: "Guestbook Reguler", price: 100000 },
-  { id: "guestbook_popup", name: "Guestbook Popup", price: 120000 },
+  { id: "amplop_fancy", name: "Amplop Fancy", price: 1200 },
 ];
 
 export default function ExtraItemSelector() {
@@ -55,4 +53,3 @@ export default function ExtraItemSelector() {
     </div>
   );
 }
-

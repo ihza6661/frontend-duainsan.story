@@ -72,22 +72,23 @@ const Home = () => {
       </section>
 
       {/* Sale Banner */}
-      <section className=" py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          {/* <p className="mb-6 text-base sm:text-lg">Discover the best deal</p> */}
-          <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide">
-            The Perfect Pair Invitation & Souvenir
-          </h2>
-          <h3></h3>
-          {/* <Link
-            to="/sale"
-            className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base"
-          >
-            CHECK NOW
-          </Link> */}
-        </div>
-      </section>
+      {/* <section className=" py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f1ede9] flex items-center justify-center"> */}
+      {/*   <div className="container mx-auto px-4 sm:px-6 text-center"> */}
+      {/*     {/* <p className="mb-6 text-base sm:text-lg">Discover the best deal</p> */}
+      {/*     <h2 className="text-black text-3xl sm:text-4xl md:text-7xl font-normal mb-4 sm:mb-6 tracking-wide"> */}
+      {/*       The Perfect Pair Invitation & Souvenir */}
+      {/*     </h2> */}
+      {/*     <h3></h3> */}
+      {/*     {/* <Link */}
+      {/*       to="/sale" */}
+      {/*       className="inline-block px-4 py-3 sm:py-4 bg-black/90 text-white tracking-wider text-sm sm:text-base" */}
+      {/*     > */}
+      {/*       CHECK NOW */}
+      {/*     </Link> */}
+      {/*   </div> */}
+      {/* </section> */}
 
+      <CategoryGrid />
       {/* Bestsellers */}
       <section className="w-full">
         <div className="px-4">
@@ -138,22 +139,23 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <CategoryGrid />
+
 
       <ExploreTheNewestTrend />
       <WhyDuaInsan />
 
       <OrderSteps />
-      {/* <VogueQuote /> */}
+      <VogueQuote />
       {/* <PromoBanner /> */}
       {/* Journal */}
       <section className="pt-10 sm:pt-12 md:pt-16">
-        <div className="">
+        <div className="bg-[#f1ede9]">
           {/* <h4 className="text-center font-normal text-xs sm:text-sm">
             Design Blog
           </h4> */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal mb-6 sm:mb-8 text-center uppercase tracking-widest">
-            Informasi          </h2>
+          {/* <h2 className="text-xl sm:text-1xl md:text-2xl font-normal mb-6 sm:mb-8 text-center uppercase tracking-widest">
+            Informasi{" "}
+          </h2> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
             {highlight.map((post) => (
               <Link
@@ -161,19 +163,17 @@ const Home = () => {
                 to={`/highlights/${post.id}`}
                 className="group"
               >
-                {/* <div className="relative aspect-[2/4]"> */}
-                <div className="relative aspect-[2/3] p-20 m-0">
-
+                <div className="relative aspect-[2/3] p-5 sm:p-20 m-0">
                   <img
                     src={post.image}
                     alt={post.title}
                     className="w-full object-contain rounded-2xl"
                   />
-                  {/* <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-white/80 backdrop-blur-sm"> */}
-                  {/* <p className="text-xs sm:text-sm font-light"> */}
-                  {/*   {post.title} */}
-                  {/* </p> */}
-                  {/* </div> */}
+                  {/* <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-white/80 backdrop-blur-sm">
+                  <p className="text-xs sm:text-sm font-light">
+                    {post.title}
+                   </p> 
+                  </div> */}
                 </div>
               </Link>
             ))}
