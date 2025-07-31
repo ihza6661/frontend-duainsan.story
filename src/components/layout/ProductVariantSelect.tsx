@@ -1,4 +1,4 @@
-const ProductVariantSelect = ({ value, onChange, variants }) => {
+const GuestbookVariantSelect = ({ value, onChange, variants }) => {
   return (
     <div className="flex flex-col gap-2 pt-2">
       <label className="text-sm">Tipe Guestbook</label>
@@ -18,4 +18,4 @@ const ProductVariantSelect = ({ value, onChange, variants }) => {
   );
 };
 
-export default ProductVariantSelect;
+export default GuestbookVariantSelect;

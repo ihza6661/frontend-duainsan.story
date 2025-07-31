@@ -1,16 +1,17 @@
+import { useEffect } from "react";
 import { Product } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { Plus, Minus } from "lucide-react";
+import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
 import ProductGallery from "./ProductGallery";
 import ProductQuantitySelector from "./ProductQuantitySelector";
-import { useState } from "react";
-import { Plus, Minus } from "lucide-react";
 import PaperTypeSelect from "./PaperTypeSelect";
 import InvitationSizeSelect from "./InvitationSizeSelect";
-import { ShoppingCart } from "lucide-react";
-import InvitationForm from "../layout/ExtraItemSelector";
-import ProductVariantSelect from "../layout/ProductVariantSelect";
-import { useEffect } from "react";
+import ExtraItems from "../layout/ExtraItemSelector";
 import GuestbookSizeSelect from "./GuestbookTypeSelect";
+import GuestbookVariantSelect from "../layout/ProductVariantSelect";
+import ExtraItemSelector from "../layout/ExtraItemSelector";
 
 interface ProductHeroProps {
   product: Product;
@@ -24,9 +25,7 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
   const [quantity, setQuantity] = useState(100);
   const [paperType, setPaperType] = useState("");
   const [size, setSize] = useState("");
-
   const [selectedVariantType, setSelectedVariantType] = useState("");
-
   const selectedVariant = product.variants?.find(
     (v) => v.type === selectedVariantType
   );
@@ -100,7 +99,7 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
         <div className="pb-6 my-4">
           {product.type === "guestbook" && (
             <div className="">
-              <ProductVariantSelect
+              <GuestbookVariantSelect
                 value={selectedVariantType}
                 onChange={setSelectedVariantType}
                 variants={product.variants}
@@ -141,7 +140,7 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             onReset={() => setQuantity(100)}
           />
 
-          {product.category === "Wedding" && <InvitationForm />}
+          {product.category === "Wedding" && <ExtraItemSelector quantity={quantity} />}
 
           <div className="flex justify-center items-center">
             <Button
@@ -155,11 +154,10 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
         </div>
 
         <div>
-          <ul className="text-xs list-disc list-inside mb-10">
+          <ul className="text-sm list-disc list-inside mb-10">
             <li>Minimal Pemesanan 100 lembar</li>
             <li>Beragam Opsi Kertas</li>
             <li>Gratis E-Invitation Static</li>
-            {/* <li>Gratis Ongkir Untuk Orderan Diatas Rp.500.000</li> */}
           </ul>
         </div>
       </div>

@@ -14,7 +14,11 @@ const extraItems: ExtraItem[] = [
   { id: "amplop_fancy", name: "Amplop Fancy", price: 1200 },
 ];
 
-export default function ExtraItemSelector() {
+type ExtraItemSelectorProps = {
+  quantity: number;
+};
+
+export default function ExtraItemSelector({ quantity }: ExtraItemSelectorProps) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const handleToggle = (id: string) => {
@@ -27,6 +31,8 @@ export default function ExtraItemSelector() {
     const item = extraItems.find((item) => item.id === id);
     return sum + (item?.price || 0);
   }, 0);
+
+  const totalHargaTambahan = total * quantity;
 
   return (
     <div className="m-4 p-4 bg-white border rounded max-w-xl mx-auto">
@@ -41,14 +47,14 @@ export default function ExtraItemSelector() {
               onCheckedChange={() => handleToggle(item.id)}
             />
             <Label htmlFor={item.id} className="flex-1 font-normal text-xs">
-              {item.name} <span className="text-gray-500">Rp{item.price.toLocaleString()}</span>
+              {item.name} <span className="text-gray-500">Rp{item.price.toLocaleString("id-ID")}</span>
             </Label>
           </div>
         ))}
       </div>
 
       <div className="mt-6 text-right text-normal">
-        Total Tambahan: Rp{total.toLocaleString()}
+        Total Tambahan: Rp{totalHargaTambahan.toLocaleString("id-ID")}
       </div>
     </div>
   );

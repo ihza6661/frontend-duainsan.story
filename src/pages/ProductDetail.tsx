@@ -6,11 +6,8 @@ import { ArrowLeftIcon } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useCart } from "@/components/ui/Cart";
-import BrandSlider from "@/components/ui/BrandSlider";
-import LuxuryFashionSlider from "@/components/ui/LuxuryFashionSlider";
 import ProductServices from "@/components/product/ProductServices";
 import ProductHero from "@/components/product/ProductHero";
-import SustainabilityBanner from "@/components/product/SustainabilityBanner";
 import RelatedProducts from "@/components/product/RelatedProducts";
 import {
   Breadcrumb,
@@ -20,6 +17,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -100,12 +98,10 @@ const ProductDetail = () => {
 
         <ProductServices />
 
-        {/* <SustainabilityBanner /> */}
-
         <RelatedProducts product={product} />
 
-        <BrandSlider />
-        {/* <LuxuryFashionSlider /> */}
+        <ActualBrandSlider />
+
 
         {/* PRODUCT RECOMENDATION */}
 

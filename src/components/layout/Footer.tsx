@@ -35,28 +35,28 @@ const Footer = () => {
             >
               <li>
                 <Link
-                  to="/products/category/undangan digital"
+                  to="/products/category/Wedding"
                   className="text-gray-800 text-sm block py-1"
                 >
-                  Undangan Digital
+                  Wedding
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/products/category/undangan cetak"
+                  to="/products/category/Guestbook"
                   className="text-gray-800 text-sm block py-1"
                 >
-                  Undangan Cetak
+                  Guestbook
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   to="/products/category/hantaran"
                   className="text-gray-800 text-sm block py-1"
                 >
                   Hantaran
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -115,11 +115,11 @@ const Footer = () => {
               className={`transition-all duration-300 overflow-hidden md:block ${openSection === "info" ? "max-h-96" : "max-h-0 md:max-h-full"
                 }`}
             >
-              <li>
+              {/* <li>
                 <Link to="/about" className="text-gray-800 text-sm block py-1">
                   Pengembalian & Refund
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   to="/refunds"
@@ -139,16 +139,15 @@ const Footer = () => {
           {/* The About Us block (unchanged since it's not a dropdown) */}
           <div>
             <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
-              Tentang Kami
+              Sosial Media
             </h3>
-            <p className="text-shop-dark-gray text-sm mb-4">
-              Solusi undangan digital website custom, bebaskan imajinasimu buat
-              desain undangan yang memukau hanya menggunakan telpon pintar kamu.
+            {/* <p className="text-shop-dark-gray text-sm mb-4">
+              Solusi undangan custom.
               Kunjungi{" "}
               <Link to="/about" className="text-black underline">
                 Halaman Kami.
               </Link>{" "}
-            </p>
+            </p> */}
             {/* Social media icons remain unchanged */}
             <div className="flex items-center space-x-4 mt-4">
               <a

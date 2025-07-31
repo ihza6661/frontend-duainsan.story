@@ -121,7 +121,7 @@ const Home = () => {
                         style: "currency",
                         currency: "IDR",
                         minimumFractionDigits: 0,
-                      }).format(item.price)}
+                      }).format(item.variants?.[0]?.price ?? item.price ?? 0)}
                     </p>
                   </Link>
                 </div>
@@ -139,7 +139,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
 
       <ExploreTheNewestTrend />
       <WhyDuaInsan />

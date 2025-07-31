@@ -10,7 +10,7 @@ import {
 import { Trash2Icon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/components/ui/Cart";
-import InvitationNameModal from "./InvitationForm";
+import InvitationNameModal from "../components/modal/InvitationForm";
 
 interface CartItem {
   product: any;
