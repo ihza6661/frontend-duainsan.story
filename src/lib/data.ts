@@ -29,7 +29,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- Amplop : Jasmine 200 gsm\n- isi : Jasmine 200 gsm\n-  Ukuran: 10 x 19 cm\n",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/ap.001.png"],
     category: "Wedding",
@@ -43,7 +43,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- Amplop : Jasmine 200 gsm\n- isi : Jasmine 200 gsm\n-  Ukuran: 10 x 19 cm\n",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/tema-jawa-modern/1.jpg", "/products/tema-jawa-modern/2.jpg", "/products/tema-jawa-modern/3.jpg", "/products/tema-jawa-modern/4.jpg"],
     category: "Wedding",
@@ -57,7 +57,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1200000,
+    price: 1200,
 
     images: ["/products/detail-produk/ap.002.png"],
     category: "Wedding",
@@ -71,7 +71,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/ap.003.png"],
     category: "Wedding",
@@ -85,7 +85,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/ap.004.png"],
     category: "Wedding",
@@ -99,7 +99,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/lp.001.png"],
     category: "Wedding",
@@ -113,7 +113,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/lp.002.png"],
     category: "Wedding",
@@ -127,7 +127,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/lp.003.png"],
     category: "Wedding",
@@ -141,7 +141,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/lp.004.png"],
     category: "Wedding",
@@ -155,7 +155,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/lp.005.png"],
     category: "Wedding",
@@ -169,7 +169,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/rs.001.png"],
     category: "Wedding",
@@ -183,7 +183,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/rs.002.png"],
     category: "Wedding",
@@ -197,7 +197,7 @@ export const products: Product[] = [
     description:
       "Jenis Bahan:\n- isi : Linen White 200gsm\n- Hardboard: Yellow Board k.40\n- Ukuran: 10 x 19 cm\nLama Pengerjaan:\n- Desain Awal: 3-7 hari kerja\n - Persetujuan: Maksimal 5 kali persetujuan desain\n - Produksi: -+30 hari kerja (tidak termasuk tgl merah)\n - Pemesanan dibawah 50 hubungi WA.",
 
-    price: 1000000,
+    price: 1000,
 
     images: ["/products/detail-produk/rs.003.png"],
     category: "Wedding",
@@ -219,11 +219,11 @@ export const products: Product[] = [
     variants: [
       {
         type: "Popup",
-        price: 120000,
+        price: 12000,
       },
       {
         type: "Regular",
-        price: 100000,
+        price: 10000,
       },
     ],
   }
