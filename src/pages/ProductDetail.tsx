@@ -18,6 +18,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
+import { toast } from "@/hooks/use-toast";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,14 +42,21 @@ const ProductDetail = () => {
     }
   };
 
-  const handleAddToCart = (quantity: number) => {
+  const handleAddToCart = (quantity: number, selectedVariantType: string) => {
     if (product) {
       if (quantity < 100) {
-        // toast.error("Minimum order quantity is 100.");
+        toast({
+          title: "Minimal pemesanan 100 lembar",
+          variant: "destructive",
+        });
         return;
       }
 
-      addToCart(product, quantity);
+      const selectedVariant = product.variants?.find(
+        (v) => v.type === selectedVariantType
+      );
+
+      addToCart(product, quantity, selectedVariantType);
     }
   };
 
@@ -101,7 +109,6 @@ const ProductDetail = () => {
         <RelatedProducts product={product} />
 
         <ActualBrandSlider />
-
 
         {/* PRODUCT RECOMENDATION */}
 

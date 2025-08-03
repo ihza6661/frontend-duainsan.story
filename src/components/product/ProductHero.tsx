@@ -12,12 +12,13 @@ import ExtraItems from "../layout/ExtraItemSelector";
 import GuestbookSizeSelect from "./GuestbookTypeSelect";
 import GuestbookVariantSelect from "../layout/ProductVariantSelect";
 import ExtraItemSelector from "../layout/ExtraItemSelector";
+import { toast } from "@/hooks/use-toast";
 
 interface ProductHeroProps {
   product: Product;
   quantity: number;
   onQuantityChange: (change: number) => void;
-  onAddToCart: (quantity: number) => void;
+  onAddToCart: (quantity: number, selectedVariantType: string) => void; // ✅ updated
 }
 
 const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
@@ -140,11 +141,24 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
             onReset={() => setQuantity(100)}
           />
 
-          {product.category === "Wedding" && <ExtraItemSelector quantity={quantity} />}
+          {product.category === "Wedding" && (
+            <ExtraItemSelector quantity={quantity} />
+          )}
 
           <div className="flex justify-center items-center">
             <Button
-              onClick={() => onAddToCart(quantity)}
+              onClick={() => {
+                // If product has variants, ensure one is selected
+                if (product.variants?.length && !selectedVariantType) {
+                  toast({
+                    title: "Pilih varian terlebih dahulu",
+                    variant: "destructive",
+                  });
+                  return;
+                }
+
+                onAddToCart(quantity, selectedVariantType || "");
+              }}
               className="bg-shop-accent hover:bg-shop-accent/90 text-white py-4 w-full rounded tracking-widest flex items-center justify-center gap-2"
             >
               <ShoppingCart className="w-5 h-5" />

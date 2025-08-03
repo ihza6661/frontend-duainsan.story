@@ -254,3 +254,8 @@
 .swiper-pagination-bullet-active {
   background-color: #000 !important;
 }
+
+h1 {
+  font-size: 2rem;
+  margin: 1rem 0;
+}

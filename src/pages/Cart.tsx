@@ -15,15 +15,19 @@ import InvitationNameModal from "../components/modal/InvitationForm";
 interface CartItem {
   product: any;
   quantity: number;
+  selectedVariant: string; // ✅ new
 }
 
 export default function Cart() {
   const { cartItems, updateQuantity, removeItem, clearCart } = useCart();
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
+  const total = cartItems.reduce((sum, item) => {
+    const variant = item.product.variants?.find(
+      (v) => v.type === item.selectedVariant
+    );
+    const price = variant?.price ?? item.product.price ?? 0;
+    return sum + price * item.quantity;
+  }, 0);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -47,8 +51,16 @@ export default function Cart() {
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.product.name}</h3>
                   <p className="text-gray-600">
-                    Rp {item.product.price.toLocaleString()}
+                    Rp{" "}
+                    {(
+                      item.product.variants?.find(
+                        (v) => v.type === item.selectedVariant
+                      )?.price ??
+                      item.product.price ??
+                      0
+                    ).toLocaleString("id-ID")}
                   </p>
+
                   <div className="flex flex-wrap items-center gap-2 mt-2">
                     {/* Quantity Controls */}
                     <div className="flex items-center gap-1 flex-1 max-w-[200px]">

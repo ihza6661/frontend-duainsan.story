@@ -20,6 +20,7 @@ export interface ProductVariant {
 export interface CartItem {
   product: Product;
   quantity: number;
+  selectedVariant: string;
 }
 
 export const products: Product[] = [
@@ -45,7 +46,50 @@ export const products: Product[] = [
 
     price: 1000,
 
-    images: ["/products/tema-jawa-modern/1.jpg", "/products/tema-jawa-modern/2.jpg", "/products/tema-jawa-modern/3.jpg", "/products/tema-jawa-modern/4.jpg"],
+    images: [
+      "/products/tema-jawa-modern/1.jpg",
+      "/products/tema-jawa-modern/2.jpg",
+      "/products/tema-jawa-modern/3.jpg",
+      "/products/tema-jawa-modern/4.jpg",
+    ],
+    category: "Wedding",
+    featured: true,
+    inStock: true,
+    bestseller: true,
+  },
+  {
+    id: "21",
+    name: "Alice in Wonderland",
+    description:
+      "Jenis Bahan:\n- Amplop : Jasmine 200 gsm\n- isi : Jasmine 200 gsm\n-  Ukuran: 10 x 19 cm\n",
+
+    price: 1000,
+
+    images: [
+      "/products/alice-wonderland-theme/1.jpg",
+      "/products/alice-wonderland-theme/2.jpg",
+      "/products/alice-wonderland-theme/3.jpg",
+      "/products/alice-wonderland-theme/4.jpg",
+      "/products/alice-wonderland-theme/5.jpg",
+    ],
+    category: "Wedding",
+    featured: true,
+    inStock: true,
+    bestseller: true,
+  },
+  {
+    id: "22",
+    name: "Fairy Tale",
+    description:
+      "Jenis Bahan:\n- Amplop : Jasmine 200 gsm\n- isi : Jasmine 200 gsm\n-  Ukuran: 10 x 19 cm\n",
+
+    price: 1000,
+
+    images: [
+      "/products/fairy-tale/1.jpg",
+      "/products/fairy-tale/2.jpg",
+      "/products/fairy-tale/3.jpg",
+    ],
     category: "Wedding",
     featured: true,
     inStock: true,
@@ -226,12 +270,10 @@ export const products: Product[] = [
         price: 10000,
       },
     ],
-  }
-
-
+  },
 ];
 
-export const categories = ["Wedding","Guestbook"];
+export const categories = ["Wedding", "Guestbook"];
 
 export function getProductById(id: string): Product | undefined {
   return products.find((product) => product.id === id);

@@ -4,7 +4,11 @@ import { Product, CartItem } from "@/lib/data";
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
+  addToCart: (
+    product: Product,
+    quantity: number,
+    selectedVariant: string
+  ) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   removeItem: (productId: number) => void;
   clearCart: () => void;
@@ -31,36 +35,48 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
 
-    const total = cartItems.reduce(
-      (sum, item) => sum + item.product.price * item.quantity,
-      0
-    );
+    const total = cartItems.reduce((sum, item) => {
+      const variant = item.product.variants?.find(
+        (v) => v.type === item.selectedVariant
+      );
+      const price = variant?.price ?? 0;
+      return sum + price * item.quantity;
+    }, 0);
+
     setCartTotal(total);
   }, [cartItems]);
 
-  const addToCart = (product: Product, quantity: number = 1) => {
+  const addToCart = (
+    product: Product,
+    quantity: number = 1,
+    selectedVariant: string
+  ) => {
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex(
-        (item) => item.product.id === product.id
+        (item) =>
+          item.product.id === product.id &&
+          item.selectedVariant === selectedVariant
       );
 
       let updatedItems;
 
       if (existingItemIndex > -1) {
-        const existingQuantity = Number(prevItems[existingItemIndex].quantity);
+        const existingQuantity = prevItems[existingItemIndex].quantity;
         updatedItems = [...prevItems];
         updatedItems[existingItemIndex] = {
           ...updatedItems[existingItemIndex],
-          quantity: existingQuantity + Number(quantity),
+          quantity: existingQuantity + quantity,
         };
       } else {
-        updatedItems = [...prevItems, { product, quantity: Number(quantity) }];
+        updatedItems = [...prevItems, { product, quantity, selectedVariant }];
       }
 
       return updatedItems;
     });
 
-    toast.success(`${product.name} added to cart (x${quantity})`);
+    toast.success(
+      `${product.name} (${selectedVariant}) added to cart (x${quantity})`
+    );
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
