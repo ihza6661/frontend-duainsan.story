@@ -125,16 +125,13 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           {/* Footer */}
           <div className="mt-8 space-y-3 text-sm">
             <Link to="/login" className="block" onClick={onClose}>
-              Log in
+              Masuk
             </Link>
             <Link to="/CaraPesan" className="block" onClick={onClose}>
               Cara Memesan
             </Link>
             <Link to="/shipping" className="block" onClick={onClose}>
-              Shipping
-            </Link>
-            <Link to="/contact" className="block" onClick={onClose}>
-              Contact
+              Pengiriman
             </Link>
           </div>
         </div>

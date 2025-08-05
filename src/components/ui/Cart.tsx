@@ -15,6 +15,15 @@ interface CartContextType {
   cartTotal: number;
 }
 
+// Definisikan tipe payload agar bisa di-impor di komponen lain
+export interface AddToCartPayload {
+  productId: number;
+  quantity: number;
+  options?: number[];
+  addOns?: number[];
+}
+
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({

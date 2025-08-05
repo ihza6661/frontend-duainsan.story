@@ -15,7 +15,7 @@ import InvitationNameModal from "../components/modal/InvitationForm";
 interface CartItem {
   product: any;
   quantity: number;
-  selectedVariant: string; // ✅ new
+  selectedVariant: string;
 }
 
 export default function Cart() {

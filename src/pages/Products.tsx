@@ -1,117 +1,117 @@
+// src/pages/Products.tsx (Refactored)
 
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Product, getProductsByCategory, categories } from "@/lib/data";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProducts, fetchCategories } from "@/services/productService";
 import ProductCard from "@/components/ui/ProductCard";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import ProductCardSkeleton from "@/components/ui/ProductCardSkeleton"; // Komponen skeleton untuk loading
 
 const Products = () => {
-  const { category } = useParams<{ category?: string }>();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>(category || "All");
-  const [sortOption, setSortOption] = useState<string>("default");
+  const { category: categorySlugFromUrl } = useParams<{ category?: string }>();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (category) {
-      setSelectedCategory(category);
+  // State untuk interaksi pengguna di halaman ini
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(categorySlugFromUrl);
+  // const [sortOption, setSortOption] = useState<string>("default"); // Jika backend mendukung sorting
+
+  // 1. Fetching Kategori menggunakan React Query
+  const { data: categories, isLoading: isLoadingCategories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
+
+  // 2. Fetching Produk menggunakan React Query
+  // queryKey akan menyertakan filter. Jika filter berubah, React Query otomatis refetch.
+  const { data: paginatedProducts, isLoading, isError, error } = useQuery({
+    queryKey: ['products', { category: selectedCategory }],
+    queryFn: () => fetchProducts({ category: selectedCategory }),
+  });
+
+  const products = paginatedProducts?.data || [];
+
+  const handleCategoryChange = (categorySlug: string | undefined) => {
+    setSelectedCategory(categorySlug);
+    // Update URL tanpa reload halaman untuk UX yang lebih baik
+    if (categorySlug) {
+      navigate(`/products/category/${categorySlug}`);
+    } else {
+      navigate('/products');
     }
-
-    let filteredProducts = getProductsByCategory(selectedCategory);
-
-    // Apply sorting
-    switch (sortOption) {
-      case "price-low-high":
-        filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
-        break;
-      case "price-high-low":
-        filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
-        break;
-      case "name-a-z":
-        filteredProducts = [...filteredProducts].sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case "name-z-a":
-        filteredProducts = [...filteredProducts].sort((a, b) => b.name.localeCompare(a.name));
-        break;
-      default:
-        // Default sorting (featured first)
-        break;
-    }
-
-    setProducts(filteredProducts);
-  }, [category, selectedCategory, sortOption]);
-
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
   };
+
+  if (isError) {
+    return <div className="text-center py-20 text-red-500">Terjadi kesalahan: {error.message}</div>;
+  }
+  
+  const activeCategory = categories?.find(cat => cat.slug === selectedCategory);
 
   return (
     <div className="min-h-screen flex flex-col pt-16">
       <main className="flex-grow py-8">
         <div className="container">
           <h1 className="text-3xl font-medium mb-8">
-            {selectedCategory === "All" ? "Semua Produk" : selectedCategory}
+             {activeCategory ? activeCategory.name : "Semua Produk"}
           </h1>
-
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters */}
+            {/* --- Sisi Kiri: Filter Kategori --- */}
             <div className="lg:w-1/4">
               <div className="bg-white p-6 rounded-lg border border-shop-medium-gray mb-6">
                 <h2 className="text-lg font-medium mb-4">Kategori</h2>
                 <div className="space-y-2">
-                  {categories.map((cat) => (
-                    <Button
-                      key={cat}
-                      variant={selectedCategory === cat ? "default" : "ghost"}
-                      className={`w-full justify-start text-left ${selectedCategory === cat
-                        ? "bg-shop-accent text-white hover:bg-shop-accent/80"
-                        : "text-shop-dark-gray hover:text-shop-text hover:bg-shop-light-gray"
-                        }`}
-                      onClick={() => handleCategoryChange(cat)}
-                    >
-                      {cat}
-                    </Button>
-                  ))}
+                  <Button
+                    variant={!selectedCategory ? "default" : "ghost"}
+                    onClick={() => handleCategoryChange(undefined)}
+                    // ... (className sama seperti di bawah)
+                  >
+                    Semua Produk
+                  </Button>
+                  {isLoadingCategories ? (
+                    <p>Loading kategori...</p>
+                  ) : (
+                    categories?.map((cat) => (
+                      <Button
+                        key={cat.id}
+                        variant={selectedCategory === cat.slug ? "default" : "ghost"}
+                        onClick={() => handleCategoryChange(cat.slug)}
+                         // ... (className sama seperti kode asli Anda)
+                      >
+                        {cat.name}
+                      </Button>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Products */}
+            {/* --- Sisi Kanan: Daftar Produk --- */}
             <div className="lg:w-3/4">
               <div className="flex justify-between items-center mb-6">
                 <p className="text-shop-dark-gray">
-                  Menampilkan {products.length} produk
+                  {/* Menampilkan jumlah produk dari data paginasi */}
+                  Menampilkan {paginatedProducts?.meta?.total || 0} produk
                 </p>
-
-                <select
-                  className="border border-shop-medium-gray rounded-md px-3 py-2"
-                  value={sortOption}
-                  onChange={(e) => setSortOption(e.target.value)}
-                >
-                  <option value="default">Featured</option>
-                  <option value="price-low-high">Harga: Rendah ke Tinggi</option>
-                  <option value="price-high-low">Harga: Tinggi ke Rendah</option>
-                  <option value="name-a-z">Nama: A ke Z</option>
-                  <option value="name-z-a">Nama: Z ke A</option>
-                </select>
+                {/* Opsi sorting bisa ditambahkan kembali jika backend mendukung */}
               </div>
-
+              
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                {products.map((product) => (
-                  <div key={product.id} className="animate-fade-in">
-                    <ProductCard product={product} />
+                {isLoading ? (
+                  // 3. Tampilkan Skeleton saat loading
+                  Array.from({ length: 6 }).map((_, index) => <ProductCardSkeleton key={index} />)
+                ) : products.length > 0 ? (
+                  products.map((product) => (
+                    <div key={product.id} className="animate-fade-in">
+                      <ProductCard product={product} />
+                    </div>
+                  ))
+                ) : (
+                  // Tampilan jika tidak ada produk
+                  <div className="col-span-full py-12 text-center">
+                    <p className="text-lg text-shop-dark-gray">Produk tidak ditemukan.</p>
                   </div>
-                ))}
+                )}
               </div>
-
-              {products.length === 0 && (
-                <div className="py-12 text-center">
-                  <p className="text-lg text-shop-dark-gray">
-                    Produk tidak ditemukan untuk kategori ini.
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>

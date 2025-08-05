@@ -1,49 +1,44 @@
+// src/components/ui/ProductCard.tsx (Perbaikan dengan Placeholder)
+
 import { Link } from "react-router-dom";
-import { Product } from "@/lib/data";
-import { Button } from "@/components/ui/button";
-import { useCart } from "./Cart";
+import { Product } from "@/services/productService";
 
 interface ProductCardProps {
   product: Product;
-  featured?: boolean;
 }
 
-const ProductCard = ({ product, featured = false }: ProductCardProps) => {
-  const { addToCart } = useCart();
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    addToCart(product);
-  };
+const ProductCard = ({ product }: ProductCardProps) => {
+  // Tentukan path ke gambar placeholder Anda
+  const placeholderImage = "/images/placeholder.svg";
 
   return (
     <Link
       to={`/product/${product.id}`}
-      className="group product-card block bg-white overflow-hidden transition-all duration-300 h-full"
+      className="group product-card block bg-white overflow-hidden transition-all duration-300 h-full border rounded-lg hover:shadow-md"
     >
       <div className="aspect-square relative w-full overflow-hidden bg-gray-100">
         <img
-          src={product.images[0]}
-          alt={product.name}
-          className="product-card-image w-full h-full object-cover"
+          // Gunakan optional chaining (?.) untuk akses aman dan nullish coalescing (??) untuk fallback
+          src={product.featured_image?.url ?? placeholderImage}
+          alt={product.featured_image?.alt_text ?? product.name} // Lakukan hal yang sama untuk alt text
+          className="product-card-image w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          // Tambahkan onError untuk menangani kasus jika URL gambar dari API rusak/error
+          onError={(e) => (e.currentTarget.src = placeholderImage)}
         />
       </div>
 
-      <div className="">
-        <h3 className="text-base font-medium text-shop-text mt-2 mb-1">
+      <div className="p-3"> {/* Sedikit padding agar lebih rapi */}
+        <h3 className="text-base font-medium text-shop-text mt-1 mb-1 truncate" title={product.name}>
           {product.name}
         </h3>
 
-        <p className="text-shop-accent font- mb-3">
-  {new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(product.variants?.[0]?.price ?? product.price ?? 0)}
-</p>
-
-
-        <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <p className="text-shop-accent font-semibold mb-2">
+          {new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }).format(product.base_price)}
+        </p>
       </div>
     </Link>
   );

@@ -46,7 +46,7 @@ const ProductDetail = () => {
     if (product) {
       if (quantity < 100) {
         toast({
-          title: "Minimal pemesanan 100 lembar",
+          title: "Minimal pemesanan 1000 lembar",
           variant: "destructive",
         });
         return;
@@ -76,14 +76,14 @@ const ProductDetail = () => {
       <div className="min-h-screen flex flex-col">
         <main className="flex-grow py-16">
           <div className="container text-center">
-            <h1 className="text-3xl font-medium mb-6">Product Not Found</h1>
+            <h1 className="text-3xl font-medium mb-6">Produk tidak ditemukan</h1>
             <p className="text-shop-dark-gray mb-8">
-              We couldn't find the product you're looking for.
+              Kami tidak bisa menemukan produk yang anda cari.
             </p>
             <Button asChild>
               <Link to="/products">
                 <ArrowLeftIcon className="mr-2 h-4 w-4" />
-                Back to Products
+                Kembali ke halaman produk
               </Link>
             </Button>
           </div>
@@ -106,7 +106,7 @@ const ProductDetail = () => {
 
         <ProductServices />
 
-        <RelatedProducts product={product} />
+        {/* <RelatedProducts product={product} /> */}
 
         <ActualBrandSlider />
 

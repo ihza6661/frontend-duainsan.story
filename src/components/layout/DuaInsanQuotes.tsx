@@ -1,4 +1,3 @@
-import { ChevronRight } from "lucide-react";
 
 const VogueQuote = () => {
   return (
