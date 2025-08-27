@@ -9,7 +9,7 @@ import MenuIcon from "/svg/menu.svg";
 import Sidebar from "./Sidebar";
 
 // --- Impor Hook Kustom & Konteks ---
-import { useCart } from "@/components/ui/Cart";
+import { useCart } from "@/hooks/useCart";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { useAuth } from "@/context/AuthContext";
 
@@ -137,6 +137,13 @@ const Header = () => {
                         className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700"
                       >
                         Profil Saya
+                      </Link>
+                      <Link
+                        to="/status-pesanan"
+                        onClick={() => setShowUserDropdown(false)}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700"
+                      >
+                        Status Pesanan
                       </Link>
                       <button
                         onClick={handleLogout}

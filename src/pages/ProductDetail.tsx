@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 // --- Imports from Service Layer & Contexts ---
 import { fetchProductById } from "@/services/productService";
 import type { ProductDetail as ProductDetailType } from "@/services/productService";
-import { AddToCartPayload, useCart } from "@/components/ui/Cart";
+import { AddToCartPayload, useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
 
 // --- Import UI & Layout Components ---

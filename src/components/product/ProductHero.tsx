@@ -6,7 +6,7 @@ import {
   ProductVariant,
   AttributeValue,
 } from "@/services/productService";
-import { AddToCartPayload } from "@/components/ui/Cart";
+import { AddToCartPayload } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { Plus, Minus, ShoppingCart } from "lucide-react";

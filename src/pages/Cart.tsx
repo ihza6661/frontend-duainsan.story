@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useCart } from "@/components/ui/Cart";
+import { useCart } from "@/hooks/useCart";  ;
 import { Button } from "@/components/ui/button";
 import {
   Card,

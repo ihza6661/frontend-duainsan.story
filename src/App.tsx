@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 // --- Imports Provider Konteks ---
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { CartProvider } from "@/components/ui/Cart";
+import { CartProvider } from "@/hooks/useCart";
 import { AuthProvider } from "@/context/AuthContext";
 
 // --- Imports Komponen UI & Layout ---
@@ -29,7 +29,9 @@ import Gallery from "./pages/Gallery";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CaraMemesan from "./pages/CaraMemesan";
-import ProfilePage from "./pages/ProfilePage"; // ✅ Pastikan impor ini aktif
+import ProfilePage from "./pages/ProfilePage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrderStatusPage from "./pages/OrderStatusPage";
 
 // Inisialisasi Query Client
 const queryClient = new QueryClient();
@@ -66,6 +68,9 @@ const App = () => (
                 {/* Routes only for authenticated users */}
                 <Route element={<ProtectedRoute />}>
                   <Route path="profile" element={<ProfilePage />} />
+                  <Route path="checkout" element={<CheckoutPage />} />
+                  <Route path="status-pesanan" element={<OrderStatusPage />} />
+                  <Route path="status-pesanan/:orderId" element={<OrderStatusPage />} />
                 </Route>
 
                 {/* Public routes */}
