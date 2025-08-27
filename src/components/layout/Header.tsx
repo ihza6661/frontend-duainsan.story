@@ -9,48 +9,42 @@ import MenuIcon from "/svg/menu.svg";
 import Sidebar from "./Sidebar";
 
 // --- Impor Hook Kustom & Konteks ---
-import { useCart } from "@/components/ui/Cart"; // Asumsi path ini benar
+import { useCart } from "@/components/ui/Cart";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
-import { useAuth } from "@/context/AuthContext"; // <-- 1. Mengimpor useAuth sebagai sumber kebenaran
+import { useAuth } from "@/context/AuthContext";
 
 const Header = () => {
-  // State yang berhubungan dengan UI internal komponen Header
+  // --- State Lokal untuk UI ---
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // --- Menggunakan Hook ---
-  // 2. Mengambil state & fungsi global dari AuthContext
-  const { user, logout, isLoading } = useAuth();
-  
-  // State dari hook/konteks lain
-  const { cartItems } = useCart();
+  // --- Menggunakan Hook dari Konteks dan Kustom ---
+  const { user, logout, isLoading: isAuthLoading } = useAuth();
+  const { cart, isLoading: isCartLoading } = useCart(); // Ambil seluruh objek cart dan status loading-nya
   const { isVisible } = useScrollDirection();
   const location = useLocation();
 
   // --- Logika Internal Komponen ---
   const path = location.pathname;
   const isProductDetailPage = path.startsWith("/product/");
-  const totalItems = cartItems.length;
 
-  // Efek untuk menangani gaya header saat scroll (tidak berubah)
+  // Perbaikan: Lakukan pengecekan keamanan sebelum mengakses properti.
+  // Jika 'cart' atau 'cart.items' belum ada, anggap totalnya 0.
+  const totalItems = cart?.items?.length || 0;
+
+  // --- Efek Samping (Side Effects) ---
   useEffect(() => {
-    const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0);
-    };
-    handleScroll(); // Panggil sekali di awal untuk set state
+    const handleScroll = () => setIsAtTop(window.scrollY === 0);
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Efek untuk menutup dropdown saat klik di luar (tidak berubah)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowUserDropdown(false);
       }
     };
@@ -58,15 +52,14 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // 3. Fungsi logout menjadi sangat sederhana, hanya memanggil fungsi dari konteks
+  // --- Fungsi Handler ---
   const handleLogout = async () => {
-    setShowUserDropdown(false); // Tutup dropdown
-    await logout(); // Panggil fungsi logout global
+    setShowUserDropdown(false);
+    await logout();
   };
 
-  // --- Kalkulasi Class untuk Styling Dinamis (tidak berubah) ---
-  const baseHeaderClasses =
-    "fixed top-0 left-0 right-0 z-40 w-full transition-transform duration-300";
+  // --- Kalkulasi Class untuk Styling Dinamis ---
+  const baseHeaderClasses = "fixed top-0 left-0 right-0 z-40 w-full transition-transform duration-300";
   const showHideClass = isVisible ? "translate-y-0" : "-translate-y-full";
   const pageStyle = isProductDetailPage
     ? isAtTop
@@ -80,6 +73,7 @@ const Header = () => {
 
       <header className={`${baseHeaderClasses} ${showHideClass} ${pageStyle}`}>
         <div className="px-0 sm:px-8 flex items-center justify-between h-16 md:h-20">
+          
           {/* ================== Sisi Kiri (Navigasi) ================== */}
           <div className="flex items-center pl-3">
             <button
@@ -88,10 +82,6 @@ const Header = () => {
             >
               <img src={MenuIcon} alt="Menu Icon" className="w-6" />
             </button>
-            {/* <button className="flex items-center justify-center w-6 h-6 md:hidden ml-1">
-              <img src={Search} alt="Search Icon" />
-            </button> */}
-
             <div className="hidden md:flex items-center space-x-8">
               <button
                 className="text-shop-text"
@@ -105,9 +95,6 @@ const Header = () => {
                 </Link>
                 <Link to="/gallery" className="text-sm uppercase link-underline-animation">
                   Gallery
-                </Link>
-                <Link to="/collection" className="text-sm uppercase link-underline-animation">
-                  Shop By Collection
                 </Link>
               </nav>
             </div>
@@ -126,18 +113,12 @@ const Header = () => {
           {/* ================== Sisi Kanan (Aksi Pengguna) ================== */}
           <div className="flex items-center">
             <div className="flex items-center justify-center pr-2 gap-0 sm:gap-1">
-              {/* <button className="hidden md:flex items-center justify-center w-8 h-10">
-                <img src={Search} alt="Search Icon" />
-              </button> */}
-
-              {/* 4. Logika render ikon pengguna yang cerdas dan reaktif */}
-              {isLoading ? (
-                // Saat aplikasi sedang memvalidasi token, tampilkan placeholder agar tidak berkedip
+              {/* Ikon User */}
+              {isAuthLoading ? (
                 <div className="relative flex items-center justify-center w-8 h-10">
                    <div className="w-5 h-5 bg-gray-200 rounded-full animate-pulse"></div>
                 </div>
               ) : user ? (
-                // Jika pengguna sudah login, tampilkan ikon dengan dropdown
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setShowUserDropdown(!showUserDropdown)}
@@ -167,9 +148,8 @@ const Header = () => {
                   )}
                 </div>
               ) : (
-                // Jika tidak ada pengguna, tampilkan link ke halaman login
-                <Link to="/login" className="relative flex items-center justify-center w-8 h-10">
-                  <img src={UserIcon} alt="Login Icon" />
+                <Link to="/login" className="relative flex items-center justify-center w-10 h-10">
+                  <p>Login</p>
                 </Link>
               )}
 

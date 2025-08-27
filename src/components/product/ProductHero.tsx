@@ -1,66 +1,171 @@
-import { useEffect } from "react";
-import { Product } from "@/lib/data";
+// src/components/product/ProductHero.tsx (Corrected)
+
+import { useState, useEffect, useMemo, FC } from "react";
+import {
+  ProductDetail,
+  ProductVariant,
+  AttributeValue,
+} from "@/services/productService";
+import { AddToCartPayload } from "@/components/ui/Cart";
 import { Button } from "@/components/ui/button";
-import { Plus, Minus } from "lucide-react";
-import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
+import { Plus, Minus, ShoppingCart } from "lucide-react";
 import ProductGallery from "./ProductGallery";
 import ProductQuantitySelector from "./ProductQuantitySelector";
-import PaperTypeSelect from "./PaperTypeSelect";
-import InvitationSizeSelect from "./InvitationSizeSelect";
-import ExtraItems from "../layout/ExtraItemSelector";
-import GuestbookSizeSelect from "./GuestbookTypeSelect";
-import GuestbookVariantSelect from "../layout/ProductVariantSelect";
-import ExtraItemSelector from "../layout/ExtraItemSelector";
-import { toast } from "@/hooks/use-toast";
+import AddOnSelector from "./AddOnSelector";
+
+// This helper component needs to be updated to accept AttributeValue[]
+const OptionSelector: FC<{
+  title: string;
+  options: AttributeValue[];
+  selectedValueId: number | undefined;
+  onOptionChange: (valueId: number) => void;
+}> = ({ title, options, selectedValueId, onOptionChange }) => {
+  // ... UI for a single group of options
+  return (
+    <div>
+      <p className="font-semibold mb-2 capitalize">{title.replace("_", " ")}</p>
+      <div className="flex flex-wrap gap-2">
+        {options.map((value) => (
+          <Button
+            key={value.id}
+            variant={selectedValueId === value.id ? "default" : "outline"}
+            onClick={() => onOptionChange(value.id)}
+            className="rounded-md"
+          >
+            {value.value}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 interface ProductHeroProps {
-  product: Product;
-  quantity: number;
-  onQuantityChange: (change: number) => void;
-  onAddToCart: (quantity: number, selectedVariantType: string) => void; // ✅ updated
+  product: ProductDetail;
+  onAddToCart: (payload: AddToCartPayload) => void;
 }
 
-const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
+const ProductHero: FC<ProductHeroProps> = ({ product, onAddToCart }) => {
+  const [quantity, setQuantity] = useState(product.min_order_quantity || 100);
   const [showDescription, setShowDescription] = useState(false);
-  const [quantity, setQuantity] = useState(100);
-  const [paperType, setPaperType] = useState("");
-  const [size, setSize] = useState("");
-  const [selectedVariantType, setSelectedVariantType] = useState("");
-  const selectedVariant = product.variants?.find(
-    (v) => v.type === selectedVariantType
-  );
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, number>
+  >({});
+  const [selectedAddOns, setSelectedAddOns] = useState<number[]>([]);
 
   useEffect(() => {
-    if (
-      product.type === "guestbook" &&
-      product.variants &&
-      product.variants.length > 0 &&
-      !selectedVariantType
-    ) {
-      setSelectedVariantType(product.variants[0].type);
-    }
-  }, [product, selectedVariantType]);
+    setQuantity(product.min_order_quantity || 100);
+    setSelectedOptions({});
+    setSelectedAddOns([]);
+  }, [product]);
 
-  const [guestbookSize, setGuestbookSize] = useState("");
+  const activeVariant = useMemo<ProductVariant | undefined>(() => {
+    const optionGroups = Object.keys(product.grouped_options);
+    if (Object.keys(selectedOptions).length !== optionGroups.length) {
+      return undefined;
+    }
+    const selectedIds = new Set(Object.values(selectedOptions));
+    return product.variants.find(
+      (variant) =>
+        variant.options.length === selectedIds.size &&
+        variant.options.every((opt) => selectedIds.has(opt.id))
+    );
+  }, [selectedOptions, product.variants, product.grouped_options]);
+
+  const price = activeVariant ? activeVariant.price : product.base_price;
+
+  const totalPrice = useMemo(() => {
+    let finalPrice = price;
+    selectedAddOns.forEach((addOnId) => {
+      // This line uses `product.add_ons`
+      const addOn = product.add_ons.find((add) => add.id === addOnId);
+      if (addOn) finalPrice += addOn.price;
+    });
+    return finalPrice * quantity;
+  }, [price, selectedAddOns, quantity, product.add_ons]); // <-- Add it here
+
+  const pricePerItem = quantity > 0 ? totalPrice / quantity : 0;
+
+  const handleOptionChange = (groupName: string, valueId: number) => {
+    setSelectedOptions((prev) => ({ ...prev, [groupName]: valueId }));
+  };
+
+  const handleAddOnChange = (addOnId: number, isSelected: boolean) => {
+    setSelectedAddOns((prev) =>
+      isSelected ? [...prev, addOnId] : prev.filter((id) => id !== addOnId)
+    );
+  };
+
+  const handleQuantityChange = (change: number) => {
+    const newQuantity = quantity + change;
+    if (newQuantity >= product.min_order_quantity) {
+      setQuantity(newQuantity);
+    }
+  };
+
+  const handleAddToCartClick = () => {
+    if (!activeVariant) {
+      toast({
+        title: "Harap lengkapi semua pilihan varian.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const payload: AddToCartPayload = {
+      variantId: activeVariant.id,
+      quantity: quantity,
+      addOns: selectedAddOns,
+    };
+    onAddToCart(payload);
+  };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
-      <ProductGallery images={product.images} productName={product.name} />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <ProductGallery
+        images={
+          activeVariant?.images.length
+            ? activeVariant.images
+            : product.featured_image
+            ? [product.featured_image]
+            : []
+        }
+        productName={product.name}
+      />
 
-      <div className="pt-10 sm:pt-0 px-4 sm:px-44 sticky top-20 self-start">
-        <p className="border-2 border-gray-200 bg-gray-200 inline-block px-4 py-1 rounded text-xs">
-          PRE-ORDER 25 HARI
-        </p>
+      <div className="pt-0 md:pt-20 px-4 sm:px-8 md:px-12 lg:px-16 sticky top-24 self-start">
+        <h1 className="text-2xl lg:text-3xl tracking-wide my-4 font-bold uppercase">
+          {product.name}
+        </h1>
 
-        <h1 className="text-xl tracking-wide my-4 uppercase">{product.name}</h1>
+        <div className="mb-4">
+          <div className="text-lg text-gray-600">
+            Harga Satuan:
+            {!activeVariant && <span className="text-sm"> Mulai dari </span>}
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(pricePerItem)}
+          </div>
+          <div className="text-2xl text-shop-accent font-bold pt-1">
+            Total:{" "}
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(totalPrice)}
+          </div>
+        </div>
 
-        <div className="mt-2 py-4 border-y">
+        <div className="py-4 border-y">
           <button
             onClick={() => setShowDescription(!showDescription)}
             className="text-black flex flex-row justify-between w-full items-center"
           >
-            <p className="text-base tracking-widest">DESCRIPTION</p>
+            <p className="text-base tracking-widest font-normal">
+              Deskripsi produk
+            </p>
             {showDescription ? (
               <Minus className="w-5 h-5" />
             ) : (
@@ -69,110 +174,56 @@ const ProductHero = ({ product, onAddToCart }: ProductHeroProps) => {
           </button>
           <div
             className={`transition-all duration-300 ease-in-out overflow-hidden ${
-              showDescription ? "max-h-[1000px] mt-6" : "max-h-0"
+              showDescription ? "max-h-[1000px] mt-4" : "max-h-0"
             }`}
           >
-            <p className="text-normal text-gray-700">
-              {product.description.split("\n").map((line, index) => {
-                const trimmed = line.trim().toLowerCase();
-                const isBold =
-                  trimmed.startsWith("jenis bahan:") ||
-                  trimmed.startsWith("lama pengerjaan:");
-                return (
-                  <span key={index}>
-                    {isBold ? <strong>{line}</strong> : line}
-                    <br />
-                  </span>
-                );
-              })}
+            <p className="text-base text-gray-700 whitespace-pre-line">
+              {product.description ?? "Tidak ada deskripsi untuk produk ini."}
             </p>
           </div>
         </div>
 
-        <p className="text-lg text-shop-accent pt-2">
-          {new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,
-          }).format(selectedVariant ? selectedVariant.price : product.price)}
-        </p>
-
-        <div className="pb-6 my-4">
-          {product.type === "guestbook" && (
-            <div className="">
-              <GuestbookVariantSelect
-                value={selectedVariantType}
-                onChange={setSelectedVariantType}
-                variants={product.variants}
+        <div className="space-y-6 my-6">
+          {Object.entries(product.grouped_options).map(
+            ([groupName, values]) => (
+              <OptionSelector
+                key={groupName}
+                title={groupName}
+                options={values}
+                selectedValueId={selectedOptions[groupName]}
+                onOptionChange={(valueId) =>
+                  handleOptionChange(groupName, valueId)
+                }
               />
-            </div>
+            )
           )}
 
-          {product?.category === "Wedding" && (
-            <div className="">
-              <InvitationSizeSelect value={size} onChange={setSize} />
-              {/* <p className="text-sm text-gray-600 pb-4">
-      Ukuran dipilih: {size || "Belum dipilih"}
-    </p> */}
-            </div>
-          )}
-
-          <div>
-            {product?.category === "guestbook" && (
-              <GuestbookSizeSelect
-                value={guestbookSize}
-                onChange={setGuestbookSize}
-              />
-            )}
-          </div>
-
-          <div className="">
-            <PaperTypeSelect value={paperType} onChange={setPaperType} />
-            {/* <p className="text-sm text-gray-600 pb-4">
-              Jenis kertas dipilih: {paperType || "Belum dipilih"}
-            </p> */}
-          </div>
+          <AddOnSelector
+            addOns={product.add_ons}
+            selectedAddOnIds={selectedAddOns}
+            onAddOnChange={handleAddOnChange}
+          />
 
           <ProductQuantitySelector
             quantity={quantity}
-            onQuantityChange={(change) =>
-              setQuantity((prev) => Math.max(100, prev + change))
-            }
-            onReset={() => setQuantity(100)}
+            onQuantityChange={handleQuantityChange}
+            minOrder={product.min_order_quantity}
           />
 
-          {product.category === "Wedding" && (
-            <ExtraItemSelector quantity={quantity} />
+          <Button
+            onClick={handleAddToCartClick}
+            size="lg"
+            className="bg-shop-accent hover:bg-shop-accent/90 text-white w-full rounded-lg tracking-widest flex items-center justify-center gap-2 text-base"
+            disabled={!activeVariant}
+          >
+            <ShoppingCart className="w-5 h-5" />
+            TAMBAH KE KERANJANG
+          </Button>
+          {!activeVariant && (
+            <p className="text-sm text-center text-gray-500 mt-2">
+              Pilih semua opsi untuk melanjutkan.
+            </p>
           )}
-
-          <div className="flex justify-center items-center">
-            <Button
-              onClick={() => {
-                // If product has variants, ensure one is selected
-                if (product.variants?.length && !selectedVariantType) {
-                  toast({
-                    title: "Pilih varian terlebih dahulu",
-                    variant: "destructive",
-                  });
-                  return;
-                }
-
-                onAddToCart(quantity, selectedVariantType || "");
-              }}
-              className="bg-shop-accent hover:bg-shop-accent/90 text-white py-4 w-full rounded tracking-widest flex items-center justify-center gap-2"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              Keranjang
-            </Button>
-          </div>
-        </div>
-
-        <div>
-          <ul className="text-sm list-disc list-inside mb-10">
-            <li>Minimal Pemesanan 100 lembar</li>
-            <li>Beragam Opsi Kertas</li>
-            <li>Gratis E-Invitation Static</li>
-          </ul>
         </div>
       </div>
     </div>

@@ -1,47 +1,67 @@
+// src/services/productService.ts (Sesuai API v1.1.0)
+
 import apiClient from "@/lib/api";
 
 // =================================================================================
-// --- DEFINISI TIPE DATA (SESUAI DOKUMENTASI OPENAPI) ---
+// --- DEFINISI TIPE DATA (SESUAI DOKUMENTASI OPENAPI v1.1.0) ---
 // =================================================================================
 
 /**
  * Mendefinisikan struktur data untuk Kategori Produk.
+ * ✅ BENAR: `image` telah ditambahkan.
  */
 export interface ProductCategory {
   id: number;
   name: string;
   slug: string;
   description: string | null;
+  image: string | null;
 }
 
 /**
  * Mendefinisikan struktur data untuk Gambar Produk.
+ * ✅ BENAR: Properti sekarang adalah `image`.
  */
 export interface ProductImage {
   id: number;
-  url: string;
+  image: string; // Sebelumnya `url` atau `image_url`
   alt_text: string | null;
   is_featured: boolean;
 }
 
 /**
- * Mendefinisikan struktur data untuk Opsi Produk.
- * Contoh: Ukuran (Besar, Kecil), Warna (Merah, Biru).
- * Opsi ini dapat menyesuaikan harga dasar produk.
+ * [BARU] Mendefinisikan nilai atribut tunggal.
+ * Contoh: "Merah", atau "Ukuran M".
  */
-export interface ProductOption {
+export interface AttributeValue {
   id: number;
-  price_adjustment: number; // Nilai bisa positif atau negatif
-  value: {
-    id: number;
-    value: string; // Misal: "Kecil", "Besar"
-  };
+  value: string;
 }
 
 /**
+ * [BARU] Mendefinisikan Varian Produk yang spesifik.
+ * Sebuah varian adalah kombinasi dari beberapa pilihan (AttributeValue)
+ * dan memiliki harga serta stok sendiri.
+ */
+export interface ProductVariant {
+  id: number;
+  price: number;
+  stock: number;
+  options: AttributeValue[];
+  images: ProductImage[];
+}
+
+// Biar link dari sidebar bisa bekerja
+interface FetchProductsParams {
+  category?: string;
+  search?: string;
+  sort?: string; // Add this line
+}
+
+
+/**
  * Mendefinisikan struktur data untuk Tambahan (Add-On) Produk.
- * Contoh: Denah Lokasi, Tali Rami.
- * Tambahan ini memiliki harga sendiri.
+ * (Tidak ada perubahan di sini)
  */
 export interface AddOn {
   id: number;
@@ -51,7 +71,7 @@ export interface AddOn {
 
 /**
  * Mendefinisikan struktur data dasar untuk sebuah Produk.
- * Ini adalah data yang biasanya ditampilkan di halaman daftar produk.
+ * ✅ BENAR: `featured_image` dibuat opsional.
  */
 export interface Product {
   id: number;
@@ -60,82 +80,68 @@ export interface Product {
   base_price: number;
   min_order_quantity: number;
   is_active: boolean;
-  featured_image: ProductImage;
+  featured_image?: ProductImage; // Dibuat opsional
 }
 
 /**
- * Mendefinisikan struktur data LENGKAP untuk sebuah Produk.
- * Tipe ini menggabungkan tipe `Product` dasar dengan semua relasi detailnya.
- * Digunakan di halaman detail produk.
+ * [PERUBAHAN BESAR] Mendefinisikan struktur data LENGKAP untuk sebuah Produk.
+ * Menggunakan sistem `variants` dan `grouped_options` yang baru.
  */
 export interface ProductDetail extends Product {
   category: ProductCategory;
-  images: ProductImage[];   // Galeri semua gambar produk
-  options: ProductOption[]; // Daftar semua opsi yang tersedia
-  add_ons: AddOn[];         // Daftar semua tambahan yang tersedia
+  add_ons: AddOn[];
+  grouped_options: Record<string, AttributeValue[]>; // Contoh: { "Warna": [...], "Ukuran": [...] }
+  variants: ProductVariant[];
 }
 
+// --- Tipe Data untuk Pembungkus Respons API (Tidak ada perubahan) ---
+export interface PaginationMeta {
+    current_page: number;
+    from: number;
+    last_page: number;
+    path: string;
+    per_page: number;
+    to: number;
+    total: number;
+}
 
-// --- Tipe Data untuk Pembungkus Respons API ---
-
-/**
- * Tipe untuk respons API yang berisi daftar produk dengan paginasi.
- */
 export interface PaginatedProducts {
-  data: Product[]; // Array dari produk dasar
+  data: Product[];
   links: Record<string, string | null>;
-  meta: Record<string, any>;
+  meta: PaginationMeta;
 }
 
-/**
- * Tipe untuk respons API yang berisi satu detail produk.
- */
 interface ProductDetailResponse {
-    data: ProductDetail;
+  data: ProductDetail;
 }
-
-
-// =================================================================================
-// --- FUNGSI-FUNGSI UNTUK MENGAMBIL DATA DARI API ---
-// =================================================================================
 
 /**
  * Mengambil daftar semua kategori produk dari API.
- * Digunakan untuk filter di halaman produk.
- * @returns Promise yang resolve dengan array ProductCategory.
  */
 export const fetchCategories = async (): Promise<ProductCategory[]> => {
   const response = await apiClient.get<{ data: ProductCategory[] }>("/customer/product-categories");
   return response.data.data;
 };
 
-// Interface untuk parameter fungsi fetchProducts
 interface FetchProductsParams {
-  category?: string; // slug dari kategori
+  category?: string;
   search?: string;
-  // Anda bisa menambahkan parameter lain di sini jika backend mendukung,
-  // seperti 'sort', 'page', dll.
 }
 
 /**
  * Mengambil daftar produk dari API, mendukung filter dan paginasi.
- * @param params - Objek yang berisi parameter query (misal: { category: 'undangan-pernikahan' }).
- * @returns Promise yang resolve dengan objek PaginatedProducts.
  */
 export const fetchProducts = async (params: FetchProductsParams): Promise<PaginatedProducts> => {
   const response = await apiClient.get<PaginatedProducts>("/customer/products", {
-    params: params, // Axios akan mengubah objek ini menjadi query string, misal: ?category=...
+    params: params,
   });
   return response.data;
 };
 
 /**
  * Mengambil data detail lengkap untuk satu produk berdasarkan ID-nya.
- * @param productId - ID dari produk yang ingin diambil.
- * @returns Promise yang resolve dengan objek ProductDetail.
  */
 export const fetchProductById = async (productId: string): Promise<ProductDetail> => {
   const response = await apiClient.get<ProductDetailResponse>(`/customer/products/${productId}`);
   return response.data.data;
 };
-

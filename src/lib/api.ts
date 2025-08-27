@@ -2,63 +2,68 @@
 
 import axios from "axios";
 
-/**
- * Membuat instance Axios yang akan digunakan di seluruh aplikasi.
- * Ini adalah 'Single Source of Truth' untuk semua konfigurasi terkait API.
- * Dengan pendekatan ini, kita tidak perlu mengulang-ulang konfigurasi
- * seperti base URL atau header di setiap panggilan fetch/axios.
- */
+// ===================================================================
+// --- Manajemen Session ID In-Memory ---
+// ===================================================================
+
+// 1. Baca session ID dari localStorage HANYA SEKALI saat modul ini dimuat.
+let inMemoryCartSessionId: string | null = localStorage.getItem('cartSessionId');
+
+// 2. Buat helper yang bekerja dengan variabel in-memory.
+const getCartSessionId = (): string | null => {
+  return inMemoryCartSessionId;
+};
+
+// 3. Saat menyimpan, update variabel in-memory DAN localStorage.
+const setCartSessionId = (id: string) => {
+  inMemoryCartSessionId = id;
+  localStorage.setItem('cartSessionId', id);
+};
+// ===================================================================
+
+const getAuthToken = () => localStorage.getItem("authToken");
+
 const apiClient = axios.create({
-  // Mengambil base URL dari environment variable.
-  // Ini adalah best practice agar aplikasi fleksibel untuk environment
-  // yang berbeda (development, staging, production).
-  // Pastikan Anda memiliki file .env.local di root proyek.
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  
-  // Header default yang akan dikirim pada setiap request.
   headers: {
-    // Memberitahu backend bahwa kita ingin menerima response dalam format JSON.
     "Accept": "application/json",
-    // Memberitahu backend bahwa body request yang kita kirim (jika ada) adalah JSON.
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
-/**
- * Interceptor Request.
- * Ini adalah fungsi 'middleware' yang akan dijalankan oleh Axios
- * SEBELUM setiap request dikirim.
- *
- * Kegunaan utamanya di sini adalah untuk secara dinamis menyisipkan
- * token otorisasi ke dalam header setiap request yang memerlukan autentikasi.
- * Ini menghindarkan kita dari keharusan menambahkan token secara manual.
- */
+
+// --- Request Interceptor ---
 apiClient.interceptors.request.use(
   (config) => {
-    // Mencoba mengambil token dari localStorage.
-    // Kita akan menyimpan token di sini setelah pengguna berhasil login.
-    const token = localStorage.getItem("authToken");
-
-    // Jika token ditemukan di localStorage...
+    const token = getAuthToken();
     if (token) {
-      // ...maka tambahkan token tersebut ke header 'Authorization'
-      // dengan format "Bearer <token>", sesuai standar (dan skema Sanctum).
       config.headers.Authorization = `Bearer ${token}`;
+    } else if (config.url?.includes('/cart')) {
+      // Sekarang membaca dari variabel in-memory yang cepat
+      const sessionId = getCartSessionId();
+      if (sessionId) {
+        config.headers['X-Session-ID'] = sessionId;
+      }
     }
-    
-    // Kembalikan objek konfigurasi yang sudah dimodifikasi agar request dapat dilanjutkan.
     return config;
   },
+  (error) => Promise.reject(error)
+);
+
+// --- Response Interceptor ---
+apiClient.interceptors.response.use(
+  (response) => {
+    const newSessionId = response.headers['x-session-id'];
+    // Selalu gunakan helper untuk menyimpan, yang akan mengupdate in-memory dan localStorage
+    if (newSessionId && newSessionId !== getCartSessionId()) {
+      setCartSessionId(newSessionId);
+    }
+    return response;
+  },
   (error) => {
-    // Jika terjadi error pada saat konfigurasi request, reject promise-nya.
     return Promise.reject(error);
   }
 );
 
-// Di sini kita juga bisa menambahkan interceptor untuk RESPONSE.
-// Contohnya: jika server mengembalikan status 401 (Unauthorized),
-// kita bisa secara otomatis menghapus token dan me-redirect pengguna ke halaman login.
-// apiClient.interceptors.response.use(...)
-
-// Ekspor instance apiClient yang sudah lengkap dan siap pakai.
 export default apiClient;

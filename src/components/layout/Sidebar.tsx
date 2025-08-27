@@ -1,6 +1,11 @@
+// src/components/layout/Sidebar.tsx
+
 import { Link } from "react-router-dom";
 import { XIcon } from "lucide-react";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCategories } from "@/services/productService";
+import type { ProductCategory } from "@/services/productService";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -9,28 +14,19 @@ interface SidebarProps {
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [productsOpen, setProductsOpen] = useState(false);
-  const [priceOpen, setPriceOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
 
-  const shopItems = [
-    { name: "Undangan Cetak", path: "/shop/cetak" },
-    { name: "Undangan Digital Statis", path: "/shop/statis" },
-    { name: "Hantaran", path: "/shop/hantaran" },
-    { name: "Keleksi", path: "/collection" },
-  ];
-
-  const priceItems = [
-    { name: "Undangan Cetak", path: "shop/cetak" },
-    { name: "Undangan Digital Statis", path: "/shop/statis" },
-    { name: "Latest Promo", path: "/shop/promo" },
-  ];
+  // --- Perbaikan: Mengambil Kategori dari API ---
+  const { data: categories, isLoading, isError } = useQuery<ProductCategory[]>({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
 
   const companyItems = [
-    { name: "Contact", path: "/contact" },
     { name: "Gallery", path: "/gallery" },
-    { name: "Collection", path: "/collection" },
     { name: "About", path: "/about" },
-          
+    { name: "Cara Memesan", path: "/CaraPesan" },
+    { name: "Pengiriman", path: "/shipping" },
   ];
 
   const renderDropdown = (
@@ -73,6 +69,11 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     </div>
   );
 
+  const productLinks = categories?.map(cat => ({
+    name: cat.name,
+    path: `/products/category/${cat.slug}`,
+  })) || [];
+
   return (
     <>
       {/* Overlay */}
@@ -100,17 +101,18 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
           {/* Navigation */}
           <nav className="flex-1 space-y-4 tracking-widest">
-            {renderDropdown(
-              "Products",
-              productsOpen,
-              () => setProductsOpen(!productsOpen),
-              shopItems
-            )}
-            {renderDropdown(
-              "Price",
-              priceOpen,
-              () => setPriceOpen(!priceOpen),
-              priceItems
+            {/* Perbaikan: Menggunakan data kategori dari API */}
+            {isLoading ? (
+              <p>Memuat kategori...</p>
+            ) : isError ? (
+              <p className="text-red-500">Gagal memuat kategori.</p>
+            ) : (
+              renderDropdown(
+                "Products",
+                productsOpen,
+                () => setProductsOpen(!productsOpen),
+                productLinks
+              )
             )}
             {renderDropdown(
               "Company",
@@ -122,16 +124,11 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
         
 
-          {/* Footer */}
+          {/* Footer (Login/Logout) */}
+          {/* Tautan masuk dan cara memesan sebaiknya dimasukkan ke dalam 'Company' atau ditempatkan di luar navigasi */}
           <div className="mt-8 space-y-3 text-sm">
             <Link to="/login" className="block" onClick={onClose}>
               Masuk
-            </Link>
-            <Link to="/CaraPesan" className="block" onClick={onClose}>
-              Cara Memesan
-            </Link>
-            <Link to="/shipping" className="block" onClick={onClose}>
-              Pengiriman
             </Link>
           </div>
         </div>

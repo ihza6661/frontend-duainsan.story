@@ -1,120 +1,77 @@
-import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "@/components/ui/Cart";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
-import { Trash2Icon } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { useCart } from "@/components/ui/Cart";
-import InvitationNameModal from "../components/modal/InvitationForm";
+import { Trash2, Loader2, ShoppingCart } from "lucide-react";
+import { useDebouncedCallback } from "use-debounce";
+import { formatRupiah } from "@/lib/utils"; // Import utilitas
+import { CartItem } from "@/components/CartItem"; // Import komponen baru
 
-interface CartItem {
-  product: any;
-  quantity: number;
-  selectedVariant: string;
-}
+export default function CartPage() {
+  const { cart, isLoading, updateQuantity, removeItem, clearCart, isMutating } =
+    useCart();
+  const navigate = useNavigate();
 
-export default function Cart() {
-  const { cartItems, updateQuantity, removeItem, clearCart } = useCart();
+  const debouncedUpdateQuantity = useDebouncedCallback(updateQuantity, 500);
 
-  const total = cartItems.reduce((sum, item) => {
-    const variant = item.product.variants?.find(
-      (v) => v.type === item.selectedVariant
+  if (isLoading) {
+    return (
+      <div className="container mt-20 mx-auto text-center py-20">
+        <Loader2 className="h-12 w-12 animate-spin mx-auto text-gray-400" />
+        <p className="mt-4 text-lg">Memuat Keranjang Anda...</p>
+      </div>
     );
-    const price = variant?.price ?? item.product.price ?? 0;
-    return sum + price * item.quantity;
-  }, 0);
+  }
 
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  if (!cart || cart.items.length === 0) {
+    return (
+      <div className="container mt-20 mx-auto text-center py-20">
+        <ShoppingCart className="h-20 w-20 mx-auto text-gray-300" />
+        <h1 className="text-3xl font-semibold mt-4">Keranjang Anda Kosong</h1>
+        <p className="text-gray-500 mt-2">
+          Jelajahi produk kami dan temukan produk yang Anda sukai!
+        </p>
+        <Button asChild className="mt-6">
+          <Link to="/products">Mulai Belanja</Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-20 mx-auto px-4 py-8">
-      <h1 className="text-xl py-2">Keranjang Belanja Anda</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Keranjang Belanja Anda</h1>
+        <Button variant="outline" onClick={clearCart} disabled={isMutating}>
+          <Trash2 className="w-4 h-4 mr-2" />
+          Kosongkan Keranjang
+        </Button>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          {cartItems.map((item) => (
-            <Card key={item.product.id} className="mb-4">
-              <CardContent className="flex items-start gap-4 p-4">
-                <img
-                  src={item.product.images[0]}
-                  alt={item.product.name}
-                  className="w-24 h-24 object-cover rounded"
-                />
-                <div className="flex-1">
-                  <h3 className="font-semibold">{item.product.name}</h3>
-                  <p className="text-gray-600">
-                    Rp{" "}
-                    {(
-                      item.product.variants?.find(
-                        (v) => v.type === item.selectedVariant
-                      )?.price ??
-                      item.product.price ??
-                      0
-                    ).toLocaleString("id-ID")}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-2 mt-2">
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-1 flex-1 max-w-[200px]">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="w-8 h-8"
-                        onClick={() =>
-                          updateQuantity(item.product.id, item.quantity - 1)
-                        }
-                      >
-                        -
-                      </Button>
-                      <Input
-                        type="number"
-                        value={item.quantity}
-                        onChange={(e) =>
-                          updateQuantity(
-                            item.product.id,
-                            parseInt(e.target.value) || 1
-                          )
-                        }
-                        className="text-center w-full h-8"
-                      />
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="w-8 h-8"
-                        onClick={() =>
-                          updateQuantity(item.product.id, item.quantity + 1)
-                        }
-                      >
-                        +
-                      </Button>
-                    </div>
-
-                    {/* Delete Button */}
-                    <Button
-                      variant="outline"
-                      size="default"
-                      onClick={() => removeItem(Number(item.product.id))}
-                      className="ml-auto sm:ml-0 sm:mt-0 mt-2 w-full sm:w-auto"
-                    >
-                      Hapus
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+      <div
+        className={`grid grid-cols-1 lg:grid-cols-3 gap-8 relative ${isMutating ? "opacity-50 pointer-events-none" : ""}`}
+      >
+        {/* Kolom Kiri: Daftar Item */}
+        <div className="lg:col-span-2 space-y-4">
+          {cart.items.map((item) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              onUpdateQuantity={debouncedUpdateQuantity}
+              onRemoveItem={removeItem}
+            />
           ))}
         </div>
 
+        {/* Kolom Kanan: Ringkasan Belanja */}
         <div className="lg:col-span-1">
-          <Card>
+          <Card className="sticky top-24">
             <CardHeader>
               <CardTitle>Ringkasan Belanja</CardTitle>
             </CardHeader>
@@ -122,35 +79,30 @@ export default function Cart() {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>Rp {total.toLocaleString()}</span>
+                  {/* Gunakan fungsi formatRupiah */}
+                  <span>{formatRupiah(cart.subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Pengiriman</span>
-                  <span>Dihitung Nanti</span>
+                  <span>Akan dihitung saat checkout</span>
                 </div>
                 <div className="border-t pt-2 mt-2">
-                  <div className="flex justify-between font-bold">
+                  <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>Rp {total.toLocaleString()}</span>
+                    {/* Gunakan fungsi formatRupiah */}
+                    <span>{formatRupiah(cart.subtotal)}</span>
                   </div>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={clearCart}
-                    className="my-2 self-start flex items-center gap-2 rounded"
-                  >
-                    <Trash2Icon className="w-4 h-4" />
-                    Kosongkan Keranjang
-                  </Button>
                 </div>
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={openModal} className="w-full">
-                Lanjut ke Pembayaran
+              <Button
+                onClick={() => navigate("/checkout")}
+                className="w-full"
+                disabled={isMutating}
+              >
+                Lanjut ke Checkout
               </Button>
-              {/* Modal opens conditionally */}
-              <InvitationNameModal isOpen={showModal} onClose={closeModal} />
             </CardFooter>
           </Card>
         </div>
@@ -158,3 +110,4 @@ export default function Cart() {
     </div>
   );
 }
+

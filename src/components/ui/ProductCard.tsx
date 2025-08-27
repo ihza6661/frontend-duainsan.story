@@ -1,4 +1,4 @@
-// src/components/ui/ProductCard.tsx (Perbaikan dengan Placeholder)
+// src/components/ui/ProductCard.tsx
 
 import { Link } from "react-router-dom";
 import { Product } from "@/services/productService";
@@ -8,8 +8,13 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  // Tentukan path ke gambar placeholder Anda
+  const STORAGE_URL = import.meta.env.VITE_PUBLIC_STORAGE_URL;
   const placeholderImage = "/images/placeholder.svg";
+
+  // This is the critical part that prevents errors.
+  const imageUrl = product.featured_image?.image
+    ? `${STORAGE_URL}${product.featured_image.image}`
+    : placeholderImage;
 
   return (
     <Link
@@ -18,20 +23,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
     >
       <div className="aspect-square relative w-full overflow-hidden bg-gray-100">
         <img
-          // Gunakan optional chaining (?.) untuk akses aman dan nullish coalescing (??) untuk fallback
-          src={product.featured_image?.url ?? placeholderImage}
-          alt={product.featured_image?.alt_text ?? product.name} // Lakukan hal yang sama untuk alt text
+          src={imageUrl}
+          alt={product.featured_image?.alt_text ?? product.name}
           className="product-card-image w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          // Tambahkan onError untuk menangani kasus jika URL gambar dari API rusak/error
           onError={(e) => (e.currentTarget.src = placeholderImage)}
         />
       </div>
 
-      <div className="p-3"> {/* Sedikit padding agar lebih rapi */}
-        <h3 className="text-base font-medium text-shop-text mt-1 mb-1 truncate" title={product.name}>
+      <div className="p-3">
+        <h3
+          className="text-base font-medium text-shop-text mt-1 mb-1 truncate"
+          title={product.name}
+        >
           {product.name}
         </h3>
-
         <p className="text-shop-accent font-semibold mb-2">
           {new Intl.NumberFormat("id-ID", {
             style: "currency",

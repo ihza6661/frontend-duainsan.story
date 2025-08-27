@@ -1,48 +1,55 @@
+// src/components/CategoryGrid.tsx (Refactored)
+
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCategories } from "@/services/productService"; // Import the API function
+import type { ProductCategory } from "@/services/productService"; // Import the type
 
-interface Category {
-  id: string;
-  name: string;
-  image: string;
-  link: string;
-}
-
-const categories: Category[] = [
-  {
-    id: "1",
-    name: "Wedding",
-    image:
-      "/category/wedding.jpg",
-    link: "/products/category/Wedding",
-  },
-  // {
-  //   id: "2",
-  //   name: "Undangan Digital",
-  //   image:
-  //     "/hero.jpg",
-  //   link: "/products/category/Undangan Digital",
-
-  // },
-  {
-    id: "3",
-    name: "Guestbook",
-    image:
-      "/category/guestbook.jpg",
-    link: "/products/category/guestbook"
-  },
-];
+// Skeleton component for a better loading experience
+const CategorySkeleton = () => (
+  <div className="relative h-[500px] bg-gray-200 animate-pulse"></div>
+);
 
 const CategoryGrid = () => {
-  return (
-    <section className="">
-      <div className="">
+  const STORAGE = import.meta.env.VITE_PUBLIC_STORAGE_URL;
+  // Fetch categories from the API using React Query
+  const { data: categories, isLoading, isError, error } = useQuery<ProductCategory[]>({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
+
+  // Handle the loading state
+  if (isLoading) {
+    return (
+      <section>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-          {categories.map((category) => (
+          <CategorySkeleton />
+        </div>
+      </section>
+    );
+  }
+
+  // Handle the error state
+  if (isError) {
+    return (
+      <section className="text-center py-20">
+        <p className="text-red-500">Ada kesalahan dalam memuat kategori: {error.message}</p>
+      </section>
+    );
+  }
+
+  return (
+    <section>
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          {categories?.map((category) => (
             <div key={category.id} className="relative group overflow-hidden">
-              <Link to={category.link} className="block">
+              {/* Use the category slug from the API for the link */}
+              <Link to={`/products/category/${category.slug}`} className="block">
                 <div className="relative h-[500px] overflow-hidden">
                   <img
-                    src={category.image}
+                    // Use the image_url from the API
+                    src={`${STORAGE}`+category.image}
                     alt={category.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -50,9 +57,6 @@ const CategoryGrid = () => {
                     <h3 className="text-3xl text-white shadow-sm font-medium mb-2 tracking-wider">
                       {category.name}
                     </h3>
-                    {/* <span className="text-sm uppercase tracking-wider">
-                      VIEW ALL
-                    </span> */}
                   </div>
                 </div>
               </Link>

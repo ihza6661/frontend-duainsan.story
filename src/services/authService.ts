@@ -1,12 +1,23 @@
-// src/services/authService.ts
+// src/services/authService.ts (Final & Corrected)
 
-import apiClient from "../lib/api"; // Mengimpor instance Axios terpusat kita.
+import apiClient from "../lib/api";
+
+// ===================================================================
+// --- DEFINISI TIPE (Bersih & Sesuai API) ---
+// ===================================================================
 
 /**
- * Interface untuk mendefinisikan struktur data (payload)
- * yang dibutuhkan saat mendaftarkan pengguna baru.
- * Diekspor agar bisa digunakan kembali di komponen atau hook.
+ * Tipe data inti untuk objek pengguna.
  */
+export interface User {
+  id: number;
+  full_name: string;
+  email: string;
+  phone_number: string | null;
+  role: "customer" | "admin";
+}
+
+// --- Payload untuk Permintaan API ---
 export interface RegisterPayload {
   full_name: string;
   email: string;
@@ -15,67 +26,33 @@ export interface RegisterPayload {
   phone_number?: string;
 }
 
-/**
- * Interface untuk mendefinisikan struktur data yang diterima dari API
- * setelah registrasi berhasil. Sesuai dengan skema UserResponse di OpenAPI.
- */
-interface RegisterResponse {
-  message: string;
-  data: {
-    id: number;
-    full_name: string;
-    email: string;
-    phone_number: string | null;
-    role: 'customer' | 'admin';
-  };
-}
-
-/**
- * Fungsi untuk mengirim permintaan registrasi ke backend.
- * Fungsi ini bersifat 'async' karena panggilan API bersifat asynchronous.
- * * @param data - Objek yang berisi data pengguna baru, sesuai dengan tipe RegisterPayload.
- * @returns Sebuah Promise yang akan resolve dengan data response dari API jika berhasil.
- * Jika gagal, apiClient akan secara otomatis melempar (throw) error.
- */
-export const registerUser = async (data: RegisterPayload): Promise<RegisterResponse> => {
-  // Menggunakan metode .post() dari apiClient untuk mengirim data ke endpoint '/register'.
-  // apiClient sudah memiliki baseURL, jadi kita hanya perlu path relatifnya.
-  // Tipe <RegisterResponse> memberikan type-safety untuk data yang diterima.
-  const response = await apiClient.post<RegisterResponse>("/register", data);
-
-  // Mengembalikan hanya bagian 'data' dari response Axios.
-  return response.data;
-};
-
-
-// login 
-
-/**
- * Interface untuk mendefinisikan struktur data (payload)
- * yang dibutuhkan saat login.
- */
 export interface LoginPayload {
   email: string;
   password: string;
 }
 
-/**
- * Interface untuk mendefinisikan data Pengguna (User)
- * sesuai skema OpenAPI.
- */
-export interface User {
-  id: number;
+export interface UpdateProfilePayload {
   full_name: string;
   email: string;
-  phone_number: string | null;
-  role: 'customer' | 'admin';
+  phone_number?: string;
 }
 
-/**
- * Interface untuk mendefinisikan struktur data yang diterima dari API
- * setelah login berhasil. Sesuai skema LoginSuccessResponse di OpenAPI.
- */
-interface LoginResponse {
+export interface ChangePasswordPayload {
+  current_password: string;
+  new_password: string;
+  new_password_confirmation: string;
+}
+
+// --- Tipe Data untuk Respons API (Pembungkus) ---
+// Frontend harus selalu mengharapkan respons dalam format ini
+// dan mengambil data dari properti 'data'.
+interface ApiResponse<T> {
+  message: string;
+  data: T;
+}
+
+// Tipe khusus untuk respons login
+interface LoginApiResponse {
   message: string;
   data: {
     user: User;
@@ -83,30 +60,57 @@ interface LoginResponse {
   };
 }
 
+
+// ===================================================================
+// --- FUNGSI-FUNGSI API ---
+// ===================================================================
+
 /**
- * Fungsi untuk mengirim permintaan login ke backend.
- * @param credentials - Objek yang berisi email dan password.
- * @returns Sebuah Promise yang resolve dengan data user dan token jika berhasil.
+ * Mengirim permintaan registrasi pengguna baru.
  */
-export const loginUser = async (credentials: LoginPayload): Promise<LoginResponse> => {
-  const response = await apiClient.post<LoginResponse>("/login", credentials);
+export const registerUser = async (data: RegisterPayload): Promise<ApiResponse<User>> => {
+  const response = await apiClient.post<ApiResponse<User>>("/register", data);
   return response.data;
 };
 
-
-// export const getMyProfile = async (): Promise<User> => {
-//   // API ini akan otomatis menggunakan token dari header yang disisipkan oleh interceptor apiClient.
-//   const response = await apiClient.get<User>("/user"); 
-//   // Berdasarkan banyak API, data user langsung menjadi body response, bukan di dalam { data: ... }
-//   return response.data;
-// };
+/**
+ * Mengirim permintaan login pengguna.
+ */
+export const loginUser = async (credentials: LoginPayload): Promise<LoginApiResponse> => {
+  const response = await apiClient.post<LoginApiResponse>("/login", credentials);
+  return response.data;
+};
 
 /**
- * [BARU & PENTING]
- * Fungsi untuk memanggil endpoint logout di server.
- * Ini akan membatalkan token di sisi server.
+ * Mengirim permintaan logout.
  */
 export const logoutUser = async (): Promise<{ message: string }> => {
-  const response = await apiClient.post("/logout");
+  const response = await apiClient.post<{ message: string }>("/logout");
+  return response.data;
+};
+
+/**
+ * Mengambil data profil pengguna yang sedang login.
+ * ✅ PERBAIKAN: Mengharap ApiResponse<User> dan mengembalikan response.data.data
+ */
+export const getMyProfile = async (): Promise<User> => {
+  const response = await apiClient.get<ApiResponse<User>>("/user");
+  return response.data.data;
+};
+
+/**
+ * Memperbarui data profil pengguna yang sedang login.
+ * ✅ PERBAIKAN: Mengharap ApiResponse<User> dan mengembalikan response.data
+ */
+export const updateProfile = async (payload: UpdateProfilePayload): Promise<ApiResponse<User>> => {
+  const response = await apiClient.put<ApiResponse<User>>("/user", payload);
+  return response.data;
+};
+
+/**
+ * Mengubah password pengguna.
+ */
+export const changePassword = async (payload: ChangePasswordPayload): Promise<{ message: string }> => {
+  const response = await apiClient.post<{ message: string }>("/user/change-password", payload);
   return response.data;
 };

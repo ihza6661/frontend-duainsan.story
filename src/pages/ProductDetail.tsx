@@ -1,89 +1,104 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Product, getProductById } from "@/lib/data";
-import { Button } from "@/components/ui/button";
+// src/pages/ProductDetail.tsx (Updated & Final)
+
+import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+// --- Imports from Service Layer & Contexts ---
+import { fetchProductById } from "@/services/productService";
+import type { ProductDetail as ProductDetailType } from "@/services/productService";
+import { AddToCartPayload, useCart } from "@/components/ui/Cart";
+import { toast } from "@/hooks/use-toast";
+
+// --- Import UI & Layout Components ---
 import { ArrowLeftIcon } from "lucide-react";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import { useCart } from "@/components/ui/Cart";
-import ProductServices from "@/components/product/ProductServices";
-import ProductHero from "@/components/product/ProductHero";
-import RelatedProducts from "@/components/product/RelatedProducts";
+import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
 import {
   Breadcrumb,
-  BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
+  BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import ActualBrandSlider from "@/components/ui/ActualBrandSlider";
-import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
+import ProductHero from "@/components/product/ProductHero";
+import ProductServices from "@/components/product/ProductServices";
+import RelatedProducts from "@/components/product/RelatedProducts";
+import { log } from "console";
+// import ProductDetailSkeleton from "@/components/ui/ProductDetailSkeleton"; // Ensure this import is active
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
   const { addToCart } = useCart();
 
-  useEffect(() => {
-    if (id) {
-      const foundProduct = getProductById(id);
-      setProduct(foundProduct || null);
-    }
-    setLoading(false);
-  }, [id]);
+  // Fetch product data from the API using React Query
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<ProductDetailType>({
+    queryKey: ["product", id],
+    queryFn: () => fetchProductById(id!),
+    enabled: !!id,
+    retry: false,
+  });
 
-  const handleQuantityChange = (change: number) => {
-    const newQuantity = quantity + change;
-    if (newQuantity >= 1) {
-      setQuantity(newQuantity);
+  // Handler to add the product to the cart, passed down to ProductHero
+  const handleAddToCart = (payload: AddToCartPayload) => {
+    if (!product) return;
+
+    if (payload.quantity < product.min_order_quantity) {
+      toast({
+        title: `Minimal pemesanan ${product.min_order_quantity} lembar`,
+        variant: "destructive",
+      });
+      return;
     }
+
+    addToCart(payload, {
+      onSuccess: () => {
+        // Optional: You can add success actions here, e.g., opening a cart drawer
+      },
+    });
   };
 
-  const handleAddToCart = (quantity: number, selectedVariantType: string) => {
-    if (product) {
-      if (quantity < 100) {
-        toast({
-          title: "Minimal pemesanan 1000 lembar",
-          variant: "destructive",
-        });
-        return;
-      }
+  // ================= RENDER LOGIC =================
 
-      const selectedVariant = product.variants?.find(
-        (v) => v.type === selectedVariantType
-      );
-
-      addToCart(product, quantity, selectedVariantType);
-    }
-  };
-
-  if (loading) {
+  // 1. Display skeleton while data is loading
+  if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col">
-        <main className="flex-grow flex items-center justify-center">
-          <div className="animate-pulse">Loading...</div>
+        <Header />
+        <main className="flex-grow pt-8">
+          {/* <ProductDetailSkeleton /> */}
         </main>
         <Footer />
       </div>
     );
   }
 
-  if (!product) {
+  // 2. Display error message if fetching fails or product is not found
+  if (isError || !product) {
     return (
       <div className="min-h-screen flex flex-col">
+        <Header />
         <main className="flex-grow py-16">
           <div className="container text-center">
-            <h1 className="text-3xl font-medium mb-6">Produk tidak ditemukan</h1>
+            <h1 className="text-3xl font-medium mb-6">
+              Produk Tidak Ditemukan
+            </h1>
             <p className="text-shop-dark-gray mb-8">
-              Kami tidak bisa menemukan produk yang anda cari.
+              {error instanceof Error
+                ? error.message
+                : "Kami tidak dapat menemukan produk yang Anda cari."}
             </p>
             <Button asChild>
               <Link to="/products">
                 <ArrowLeftIcon className="mr-2 h-4 w-4" />
-                Kembali ke halaman produk
+                Kembali ke Halaman Produk
               </Link>
             </Button>
           </div>
@@ -93,26 +108,17 @@ const ProductDetail = () => {
     );
   }
 
+  // 3. Display the main content if data is loaded successfully
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-grow">
-        <ProductHero
-          product={product}
-          quantity={quantity}
-          onQuantityChange={handleQuantityChange}
-          onAddToCart={handleAddToCart}
-        />
-
+        <ProductHero product={product} onAddToCart={handleAddToCart} />
         <ProductServices />
-
-        {/* <RelatedProducts product={product} /> */}
-
-        <ActualBrandSlider />
-
-        {/* PRODUCT RECOMENDATION */}
-
-        <div className="px-4 sm:px-8 my-6">
+        <RelatedProducts
+          categorySlug={product.category.slug}
+          currentProductId={product.id}
+        />
+        <div className=" py-4 px-4 sm:px-8">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -133,6 +139,8 @@ const ProductDetail = () => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
+
+        <ActualBrandSlider />
       </main>
     </div>
   );

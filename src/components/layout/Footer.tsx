@@ -1,25 +1,36 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCategories } from "@/services/productService";
+import type { ProductCategory } from "@/services/productService";
 import "../../index.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
-  // State for toggling sections on mobile
-  const [openSection, setOpenSection] = useState(null);
+  // Fetch product categories from the API
+  const {
+    data: categories,
+    isLoading,
+    isError,
+  } = useQuery<ProductCategory[]>({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
 
-  const toggleSection = (section) => {
+  const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
 
   return (
-    <footer className="bg-white pt-8 sm:pt:16 pb-8 border-t">
+    <footer className="bg-white pt-8 sm:pt-16 pb-8 border-t">
       <div className="px-4 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 mb-12 gap-4 sm:gap-8">
-          {/* Example for one section - repeat similar for others */}
+          {/* Products Section (Now Dynamic) */}
           <div>
             <button
-              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              className="sm:border-none border-b pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("products")}
             >
               Produk
@@ -28,42 +39,41 @@ const Footer = () => {
               </span>
             </button>
             <ul
-              className={`transition-all ease-in-out duration-1000 overflow-hidden md:block ${openSection === "products"
+              className={`transition-all ease-in-out duration-1000 overflow-hidden md:block ${
+                openSection === "products"
                   ? "max-h-96"
                   : "max-h-0 md:max-h-full"
-                }`}
+              }`}
             >
-              <li>
-                <Link
-                  to="/products/category/Wedding"
-                  className="text-gray-800 text-sm block py-1"
-                >
-                  Wedding
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/category/Guestbook"
-                  className="text-gray-800 text-sm block py-1"
-                >
-                  Guestbook
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  to="/products/category/hantaran"
-                  className="text-gray-800 text-sm block py-1"
-                >
-                  Hantaran
-                </Link>
-              </li> */}
+              {isLoading && (
+                <li>
+                  <span className="text-gray-500 text-sm">Loading...</span>
+                </li>
+              )}
+              {isError && (
+                <li>
+                  <span className="text-red-500 text-sm">
+                    Error loading categories.
+                  </span>
+                </li>
+              )}
+              {categories?.map((category) => (
+                <li key={category.id}>
+                  <Link
+                    to={`/products/category/${category.slug}`}
+                    className="text-gray-800 text-sm block py-1 hover:text-black"
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Repeat the same pattern for Service and Information */}
+          {/* Service Section (Static) */}
           <div>
             <button
-              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              className="sm:border-none border-b pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("service")}
             >
               Layanan
@@ -71,20 +81,23 @@ const Footer = () => {
                 {openSection === "service" ? "−" : "+"}
               </span>
             </button>
-
             <ul
-              className={`transition-all duration-300 overflow-hidden md:block ${openSection === "service" ? "max-h-96" : "max-h-0 md:max-h-full"
-                }`}
+              className={`transition-all duration-300 overflow-hidden md:block ${
+                openSection === "service" ? "max-h-96" : "max-h-0 md:max-h-full"
+              }`}
             >
               <li>
-                <Link to="/faq" className="text-gray-800 text-sm block py-1">
+                <Link
+                  to="/faq"
+                  className="text-gray-800 text-sm block py-1 hover:text-black"
+                >
                   FAQ
                 </Link>
               </li>
               <li>
                 <Link
                   to="/shipping"
-                  className="text-gray-800 text-sm block py-1"
+                  className="text-gray-800 text-sm block py-1 hover:text-black"
                 >
                   Pengiriman
                 </Link>
@@ -92,7 +105,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/contact"
-                  className="text-gray-800 text-sm block py-1"
+                  className="text-gray-800 text-sm block py-1 hover:text-black"
                 >
                   Kontak
                 </Link>
@@ -100,9 +113,10 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Information Section (Static) */}
           <div>
             <button
-              className="sm:border-none border-b border-1 pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
+              className="sm:border-none border-b pb-8 sm:pb-0 border-gray-200 w-full flex items-center justify-between text-left text-lg uppercase mb-4 font-normal tracking-widest md:cursor-default md:pointer-events-none"
               onClick={() => toggleSection("info")}
             >
               Informasi
@@ -110,45 +124,35 @@ const Footer = () => {
                 {openSection === "info" ? "−" : "+"}
               </span>
             </button>
-
             <ul
-              className={`transition-all duration-300 overflow-hidden md:block ${openSection === "info" ? "max-h-96" : "max-h-0 md:max-h-full"
-                }`}
+              className={`transition-all duration-300 overflow-hidden md:block ${
+                openSection === "info" ? "max-h-96" : "max-h-0 md:max-h-full"
+              }`}
             >
-              {/* <li>
-                <Link to="/about" className="text-gray-800 text-sm block py-1">
-                  Pengembalian & Refund
-                </Link>
-              </li> */}
               <li>
                 <Link
                   to="/refunds"
-                  className="text-gray-800 text-sm block py-1"
+                  className="text-gray-800 text-sm block py-1 hover:text-black"
                 >
                   Syarat & Ketentuan
                 </Link>
               </li>
               <li>
-                <Link to="/legal" className="text-gray-800 text-sm block py-1">
+                <Link
+                  to="/legal"
+                  className="text-gray-800 text-sm block py-1 hover:text-black"
+                >
                   Kebijakan Privasi
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* The About Us block (unchanged since it's not a dropdown) */}
+          {/* Social Media Section (Static) */}
           <div>
-            <h3 className="text-xl uppercase mb-4 font-normal tracking-widest">
+            <h3 className="text-lg uppercase mb-4 font-normal tracking-widest">
               Sosial Media
             </h3>
-            {/* <p className="text-shop-dark-gray text-sm mb-4">
-              Solusi undangan custom.
-              Kunjungi{" "}
-              <Link to="/about" className="text-black underline">
-                Halaman Kami.
-              </Link>{" "}
-            </p> */}
-            {/* Social media icons remain unchanged */}
             <div className="flex items-center space-x-4 mt-4">
               <a
                 href="#"
@@ -165,10 +169,13 @@ const Footer = () => {
                   <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
                 </svg>
               </a>
+
               <a
-                href="#"
+                href="https://www.instagram.com/duainsan.story/"
                 aria-label="Instagram"
                 className="text-shop-dark-gray hover:text-black transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -201,17 +208,15 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom copyright and branding */}
         <div className="border-t border-shop-medium-gray pt-8 flex flex-col md:flex-row items-center justify-between">
-          {/* <p className="text-xs text-shop-dark-gray">
-            © {currentYear} CASABLANCAS. All rights reserved.
-          </p> */}
+          <p className="text-xs text-shop-dark-gray">
+            © {currentYear} DuaInsan.Story. All rights reserved.
+          </p>
         </div>
 
         <div className="mt-16 flex justify-center">
           <Link
             to="/"
-            // className="sm:text-5xl text-4xl font-light uppercase tracking-widest"
             className="text-xl md:text-3xl font-semibold font-fancy tracking-widest text-start italic text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
           >
             DuaInsan.Story
@@ -223,3 +228,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

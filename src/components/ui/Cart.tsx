@@ -1,129 +1,90 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+// src/components/ui/Cart.tsx (Refactored dengan API & React Query)
+
+import React, { createContext, useContext } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Product, CartItem } from "@/lib/data";
+import { 
+  fetchCart, 
+  addToCart as apiAddToCart, 
+  updateCartItem as apiUpdateCartItem,
+  removeCartItem as apiRemoveCartItem,
+  clearCart as apiClearCart,
+  Cart
+} from "@/services/cartService";
+import type { AddToCartPayload } from "@/services/cartService";
+
+// Ekspor kembali tipe ini agar mudah diakses
+export type { AddToCartPayload };
 
 interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (
-    product: Product,
-    quantity: number,
-    selectedVariant: string
-  ) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  removeItem: (productId: number) => void;
+  cart: Cart | undefined;
+  isLoading: boolean;
+  addToCart: (payload: AddToCartPayload, callbacks?: { onSuccess?: () => void }) => void;
+  updateQuantity: (itemId: number, quantity: number) => void;
+  removeItem: (itemId: number) => void;
   clearCart: () => void;
-  cartTotal: number;
+  isMutating: boolean; // Status loading untuk semua aksi perubahan
 }
-
-// Definisikan tipe payload agar bisa di-impor di komponen lain
-export interface AddToCartPayload {
-  productId: number;
-  quantity: number;
-  options?: number[];
-  addOns?: number[];
-}
-
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    try {
-      const savedCart = localStorage.getItem("cart");
-      return savedCart ? JSON.parse(savedCart) : [];
-    } catch (e) {
-      console.error("Error parsing saved cart", e);
-      return [];
-    }
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const queryClient = useQueryClient();
+
+  // 1. MENGAMBIL DATA KERANJANG (FETCHING)
+  const { data: cart, isLoading } = useQuery<Cart>({
+    queryKey: ['cart'],
+    queryFn: fetchCart,
   });
 
-  const [cartTotal, setCartTotal] = useState<number>(0);
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-
-    const total = cartItems.reduce((sum, item) => {
-      const variant = item.product.variants?.find(
-        (v) => v.type === item.selectedVariant
-      );
-      const price = variant?.price ?? 0;
-      return sum + price * item.quantity;
-    }, 0);
-
-    setCartTotal(total);
-  }, [cartItems]);
-
-  const addToCart = (
-    product: Product,
-    quantity: number = 1,
-    selectedVariant: string
-  ) => {
-    setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(
-        (item) =>
-          item.product.id === product.id &&
-          item.selectedVariant === selectedVariant
-      );
-
-      let updatedItems;
-
-      if (existingItemIndex > -1) {
-        const existingQuantity = prevItems[existingItemIndex].quantity;
-        updatedItems = [...prevItems];
-        updatedItems[existingItemIndex] = {
-          ...updatedItems[existingItemIndex],
-          quantity: existingQuantity + quantity,
-        };
-      } else {
-        updatedItems = [...prevItems, { product, quantity, selectedVariant }];
-      }
-
-      return updatedItems;
-    });
-
-    toast.success(
-      `${product.name} (${selectedVariant}) added to cart (x${quantity})`
-    );
+  const onMutationSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ['cart'] });
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
-      )
-    );
-  };
+  // 2. SEMUA AKSI PERUBAHAN (MUTATIONS)
+  const { mutate: addToCartMutate, isPending: isAdding } = useMutation({
+    mutationFn: apiAddToCart,
+    onSuccess: (data, variables, context: any) => {
+      onMutationSuccess();
+      toast.success("Produk berhasil ditambahkan!");
+      context?.onSuccess?.();
+    },
+    onError: (error) => toast.error(`Gagal: ${error.message}`),
+  });
 
-  const removeItem = (id: number) => {
-    setCartItems((items) => {
-      const updatedItems = items.filter(
-        (item) => Number(item.product.id) !== id
-      );
+  const { mutate: updateQuantityMutate, isPending: isUpdating } = useMutation({
+    mutationFn: apiUpdateCartItem,
+    onSuccess: onMutationSuccess,
+    onError: (error) => toast.error(`Gagal update: ${error.message}`),
+  });
 
-      localStorage.setItem("cart", JSON.stringify(updatedItems));
+  const { mutate: removeItemMutate, isPending: isRemoving } = useMutation({
+    mutationFn: apiRemoveCartItem,
+    onSuccess: () => {
+        onMutationSuccess();
+        toast.info("Item dihapus dari keranjang.");
+    },
+    onError: (error) => toast.error(`Gagal menghapus: ${error.message}`),
+  });
+  
+  const { mutate: clearCartMutate, isPending: isClearing } = useMutation({
+    mutationFn: apiClearCart,
+    onSuccess: onMutationSuccess,
+    onError: (error) => toast.error(`Gagal: ${error.message}`),
+  });
 
-      return updatedItems;
-    });
-  };
-
-  const clearCart = () => {
-    setCartItems([]);
-    localStorage.removeItem("cart");
-    localStorage.setItem("cart", JSON.stringify({}));
-    toast.info("Cart cleared");
-  };
+  const isMutating = isAdding || isUpdating || isRemoving || isClearing;
 
   return (
     <CartContext.Provider
       value={{
-        cartItems,
-        addToCart,
-        updateQuantity,
-        removeItem,
-        clearCart,
-        cartTotal,
+        cart,
+        isLoading,
+        addToCart: (payload, callbacks) => addToCartMutate(payload, { onSuccess: callbacks?.onSuccess }),
+        updateQuantity: (itemId, quantity) => updateQuantityMutate({ itemId, quantity }),
+        removeItem: removeItemMutate,
+        clearCart: clearCartMutate,
+        isMutating,
       }}
     >
       {children}
