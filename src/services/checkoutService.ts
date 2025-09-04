@@ -12,7 +12,10 @@ export const createOrder = async (checkoutData: FormData) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    return response.data;
+
+    const orderData = response.data.data;
+
+    return orderData;
   } catch (error) {
     // Biarkan error ditangani oleh pemanggil fungsi ini
     // agar bisa menampilkan notifikasi yang sesuai di UI.

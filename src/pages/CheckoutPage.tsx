@@ -10,10 +10,15 @@ import { createOrder } from '@/services/checkoutService';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+
 const CheckoutPage = () => {
   const { cart, isLoading: isCartLoading } = useCart();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState({
     shipping_address: '',
@@ -60,12 +65,13 @@ const CheckoutPage = () => {
     });
 
     try {
-      await createOrder(data);
+      const order = await createOrder(data);
       toast({
         title: "Pesanan Berhasil Dibuat!",
         description: "Anda akan segera dihubungi oleh tim kami untuk proses selanjutnya.",
       });
-      // Optionally, you can redirect the user or clear the cart here
+      const orderId = order.id; // Access order.id directly
+      navigate(`/order-confirmation/${orderId}`);
     } catch (error: any) {
       console.error("Checkout error:", error);
       toast({
@@ -200,7 +206,7 @@ const CheckoutPage = () => {
           <Card>
             <CardHeader>
               <CardTitle>Alamat Pengiriman</CardTitle>
-              <p className="text-sm text-gray-500">Alamat untuk pengiriman produk fisik (jika ada).</p>
+              <p className="text-sm text-gray-500">Alamat untuk pengiriman produk fisik.</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -231,7 +237,7 @@ const CheckoutPage = () => {
                         <img src={imageUrl} alt={item.product.name} className="w-16 h-16 object-cover rounded-md" onError={(e) => (e.currentTarget.src = placeholderImage)} />
                         <div>
                           <p className="font-semibold">{item.product.name}</p>
-                          <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                          <p className="text-sm text-gray-500">Jumlah: {item.quantity}</p>
                         </div>
                       </div>
                       <p>{formatRupiah(item.sub_total)}</p>

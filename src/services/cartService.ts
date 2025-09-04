@@ -56,7 +56,9 @@ export interface AddToCartPayload {
  * Fetches the current user's or guest's cart from the server.
  */
 export const fetchCart = async (): Promise<Cart> => {
+  console.log('fetchCart: Making API call to /cart'); // ADDED LOG
   const response = await apiClient.get<CartResponse>('/cart');
+  console.log('fetchCart: API response received:', response.data); // ADDED LOG
   return response.data.data;
 };
 
@@ -76,7 +78,7 @@ export const addToCart = async (payload: AddToCartPayload): Promise<Cart> => {
 /**
  * Updates the quantity of a specific item in the cart.
  */
-export const updateCartItem = async ({ itemId, quantity }: { itemId: number; quantity: number }): Promise<Cart> => {
+export const updateCartItem = async ({ itemId, quantity }: { itemId: number; quantity: number }) => {
   const response = await apiClient.patch<CartResponse>(`/cart/items/${itemId}`, { quantity });
   return response.data.data;
 };
@@ -93,6 +95,6 @@ export const removeCartItem = async (itemId: number): Promise<Cart> => {
  * Removes all items from the cart.
  */
 export const clearCart = async (): Promise<Cart> => {
-  const response = await apiClient.delete<CartResponse>('/cart');
+  const response = await apiClient.post<CartResponse>('/cart/clear');
   return response.data.data;
 };

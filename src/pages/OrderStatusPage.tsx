@@ -5,7 +5,7 @@ import { formatRupiah } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { fetchOrderById, fetchOrders } from '@/services/orderService';
+import { getOrderById, fetchOrders } from '@/services/orderService';
 import { Loader2 } from 'lucide-react';
 
 const statusMap: { [key: string]: { text: string; variant: "default" | "secondary" | "destructive" } } = {
@@ -22,7 +22,7 @@ const OrderStatusPage = () => {
   // Fetch single order if orderId is present
   const { data: orderData, isLoading: isOrderLoading, isError: isOrderError } = useQuery({
     queryKey: ['order', orderId],
-    queryFn: () => fetchOrderById(orderId!),
+    queryFn: () => getOrderById(orderId!),
     enabled: !!orderId,
   });
 
@@ -57,7 +57,7 @@ const OrderStatusPage = () => {
 
   // --- Render Single Order Detail ---
   if (orderId) {
-    const order = orderData?.data;
+    const order = orderData;
     if (!order) {
       return (
         <div className="container mt-20 mx-auto text-center py-20">
@@ -112,7 +112,7 @@ const OrderStatusPage = () => {
                         <img src={imageUrl} alt={item.product.name} className="w-20 h-20 object-cover rounded-md border" />
                         <div className="flex-grow">
                           <p className="font-semibold">{item.product.name}</p>
-                          <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                          <p className="text-sm text-gray-500">Jumlah: {item.quantity}</p>
                           <p className="text-sm text-gray-500">Varian: {item.variant?.options?.map(o => o.value).join(', ') || '-'}</p>
                         </div>
                         <p className="text-sm font-medium">{formatRupiah(item.sub_total)}</p>
@@ -148,7 +148,7 @@ const OrderStatusPage = () => {
   }
 
   // --- Render List of Orders ---
-  const orders = ordersData?.data;
+  const orders = ordersData;
   if (!orders || orders.length === 0) {
     return (
       <div className="container mt-20 mx-auto text-center py-20">

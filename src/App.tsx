@@ -29,9 +29,11 @@ import Gallery from "./pages/Gallery";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CaraMemesan from "./pages/CaraMemesan";
+import InfoPemesananCetak from "./pages/InfoPemesananCetak";
 import ProfilePage from "./pages/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderStatusPage from "./pages/OrderStatusPage";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 // Inisialisasi Query Client
 const queryClient = new QueryClient();
@@ -71,6 +73,7 @@ const App = () => (
                   <Route path="checkout" element={<CheckoutPage />} />
                   <Route path="status-pesanan" element={<OrderStatusPage />} />
                   <Route path="status-pesanan/:orderId" element={<OrderStatusPage />} />
+                  <Route path="order-confirmation/:orderId" element={<OrderConfirmationPage />} />
                 </Route>
 
                 {/* Public routes */}
@@ -84,6 +87,7 @@ const App = () => (
                 <Route path="cart" element={<Cart />} />
                 <Route path="gallery" element={<Gallery />} />
                 <Route path="CaraPesan" element={<CaraMemesan />} />
+                <Route path="info-pemesanan-cetak" element={<InfoPemesananCetak />} />
 
                 <Route path="*" element={<NotFound />} />
               </Route>

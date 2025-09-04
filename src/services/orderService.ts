@@ -1,29 +1,49 @@
 import api from '@/lib/api';
-import { Order } from '@/services/cartService'; // Re-use Order type if it's the same
 
-// Define a type for a paginated list of orders if the API returns one
-interface PaginatedOrders {
-  data: Order[];
-  // Add pagination links and meta if available from API
-  links: { first: string; last: string; prev: string | null; next: string | null; };
-  meta: { current_page: number; from: number; last_page: number; path: string; per_page: number; to: number; total: number; };
+export interface OrderItem {
+  id: number;
+  product_id: number;
+  product_variant_id: number;
+  quantity: number;
+  unit_price: number;
+  sub_total: number;
+  product: {
+    id: number;
+    name: string;
+    featured_image?: { // Assuming featured_image might be a relationship or direct object
+      image_url: string;
+    };
+  };
+  // Add other fields as needed from your backend OrderItem structure
 }
 
-/**
- * Fetches a list of orders for the authenticated user.
- * @returns A paginated list of orders.
- */
-export const fetchOrders = async (): Promise<PaginatedOrders> => {
-  const response = await api.get('/orders');
-  return response.data;
+export interface Order {
+  id: number;
+  order_number: string;
+  total_amount: number;
+  shipping_address: string;
+  order_status: string;
+  created_at: string;
+  items: OrderItem[];
+  // Add other fields as needed from your backend Order structure
+  custom_data?: any; // Add custom_data as it's used in OrderStatusPage
+}
+
+interface OrderResponse {
+  data: Order;
+}
+
+interface OrdersResponse {
+  data: Order[]; // Assuming the API returns an array of orders under 'data'
+}
+
+export const getOrderById = async (orderId: string): Promise<Order> => {
+  const response = await api.get<OrderResponse>(`/orders/${orderId}`);
+  return response.data.data;
 };
 
-/**
- * Fetches a single order by its ID.
- * @param orderId The ID of the order to fetch.
- * @returns The details of the specified order.
- */
-export const fetchOrderById = async (orderId: string): Promise<{ data: Order }> => {
-  const response = await api.get(`/orders/${orderId}`);
-  return response.data;
+// ADD THIS NEW FUNCTION
+export const fetchOrders = async (): Promise<Order[]> => {
+  const response = await api.get<OrdersResponse>('/orders');
+  return response.data.data;
 };

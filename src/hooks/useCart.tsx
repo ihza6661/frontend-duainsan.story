@@ -34,10 +34,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // 1. MENGAMBIL DATA KERANJANG (FETCHING)
   const { data: cart, isLoading } = useQuery<Cart>({
     queryKey: ['cart'],
-    queryFn: fetchCart,
+    queryFn: async () => {
+      console.log('useCart: fetchCart called');
+      const fetchedCart = await fetchCart();
+      console.log('useCart: fetchedCart result:', fetchedCart);
+      return fetchedCart;
+    },
   });
 
   const onMutationSuccess = () => {
+    console.log('useCart: onMutationSuccess - invalidating cart query');
     queryClient.invalidateQueries({ queryKey: ['cart'] });
   };
 

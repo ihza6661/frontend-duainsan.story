@@ -51,68 +51,12 @@ export interface ProductVariant {
   images: ProductImage[];
 }
 
-// Biar link dari sidebar bisa bekerja
 interface FetchProductsParams {
   category?: string;
   search?: string;
-  sort?: string; // Add this line
-}
-
-
-/**
- * Mendefinisikan struktur data untuk Tambahan (Add-On) Produk.
- * (Tidak ada perubahan di sini)
- */
-export interface AddOn {
-  id: number;
-  name: string;
-  price: number;
-}
-
-/**
- * Mendefinisikan struktur data dasar untuk sebuah Produk.
- * ✅ BENAR: `featured_image` dibuat opsional.
- */
-export interface Product {
-  id: number;
-  name: string;
-  description: string | null;
-  base_price: number;
-  min_order_quantity: number;
-  is_active: boolean;
-  featured_image?: ProductImage; // Dibuat opsional
-}
-
-/**
- * [PERUBAHAN BESAR] Mendefinisikan struktur data LENGKAP untuk sebuah Produk.
- * Menggunakan sistem `variants` dan `grouped_options` yang baru.
- */
-export interface ProductDetail extends Product {
-  category: ProductCategory;
-  add_ons: AddOn[];
-  grouped_options: Record<string, AttributeValue[]>; // Contoh: { "Warna": [...], "Ukuran": [...] }
-  variants: ProductVariant[];
-}
-
-// --- Tipe Data untuk Pembungkus Respons API (Tidak ada perubahan) ---
-export interface PaginationMeta {
-    current_page: number;
-    from: number;
-    last_page: number;
-    path: string;
-    per_page: number;
-    to: number;
-    total: number;
-}
-
-export interface PaginatedProducts {
-  data: Product[];
-  links: Record<string, string | null>;
-  meta: PaginationMeta;
-}
-
-interface ProductDetailResponse {
-  data: ProductDetail;
+  sort?: string;
+  min_price?: string;
+  max_price?: string;
 }
 
 /**
@@ -122,11 +66,6 @@ export const fetchCategories = async (): Promise<ProductCategory[]> => {
   const response = await apiClient.get<{ data: ProductCategory[] }>("/customer/product-categories");
   return response.data.data;
 };
-
-interface FetchProductsParams {
-  category?: string;
-  search?: string;
-}
 
 /**
  * Mengambil daftar produk dari API, mendukung filter dan paginasi.

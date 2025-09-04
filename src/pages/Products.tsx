@@ -1,23 +1,47 @@
-// src/pages/Products.tsx (Refactored & Final)
+// src/pages/Products.tsx (With Slider Filter)
 
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts, fetchCategories } from "@/services/productService";
 import type { ProductCategory } from "@/services/productService";
 import ProductCard from "@/components/ui/ProductCard";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider"; // Import Slider
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import ProductCardSkeleton from "@/components/ui/ProductCardSkeleton";
-import { useState } from "react";
+
+// Helper for formatting currency
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  }).format(value);
+};
 
 const Products = () => {
-  // --- PERBAIKAN: Gunakan parameter URL secara langsung ---
-  // Kita tidak lagi menggunakan state lokal untuk menyimpan kategori yang dipilih.
   const { category: categorySlugFromUrl } = useParams<{ category?: string }>();
   const navigate = useNavigate();
 
-  // State lokal sekarang hanya untuk sorting (jika ada)
-  const [sortOption, setSortOption] = useState<string>("default");
+  // --- STATE MANAGEMENT ---
+  const [sortOption, setSortOption] = useState<string>("latest");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
+  // Price filter state
+  const MAX_PRICE = 100000; // Define a max price for the slider
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, MAX_PRICE]);
+  const [debouncedPriceRange, setDebouncedPriceRange] = useState<[number, number]>([0, MAX_PRICE]);
+
+  // --- DATA FETCHING ---
   const { data: categories, isLoading: isLoadingCategories } = useQuery<
     ProductCategory[]
   >({
@@ -25,31 +49,58 @@ const Products = () => {
     queryFn: fetchCategories,
   });
 
-  // --- PERBAIKAN: useQuery bergantung langsung pada parameter URL ---
   const {
     data: paginatedProducts,
     isLoading,
     isError,
     error,
   } = useQuery({
-    // queryKey sekarang langsung menggunakan `categorySlugFromUrl`
-    queryKey: ["products", { category: categorySlugFromUrl, sort: sortOption }],
+    queryKey: [
+      "products",
+      {
+        category: categorySlugFromUrl,
+        sort: sortOption,
+        search: debouncedSearchTerm,
+        min_price: debouncedPriceRange[0],
+        max_price: debouncedPriceRange[1] === MAX_PRICE ? '' : debouncedPriceRange[1], // Don't send max price if it's the default max
+      },
+    ],
     queryFn: () =>
-      fetchProducts({ category: categorySlugFromUrl, sort: sortOption }),
+      fetchProducts({
+        category: categorySlugFromUrl,
+        sort: sortOption,
+        search: debouncedSearchTerm,
+        min_price: debouncedPriceRange[0].toString(),
+        max_price: debouncedPriceRange[1] === MAX_PRICE ? undefined : debouncedPriceRange[1].toString(),
+      }),
+    keepPreviousData: true,
   });
 
   const products = paginatedProducts?.data || [];
 
-  // --- PERBAIKAN: handleCategoryChange sekarang mengubah URL ---
-  // Mengubah URL akan otomatis memicu useQuery untuk me-fetch data baru.
+  // --- EFFECTS ---
+  // Debounce search term
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [searchTerm]);
+
+  // Debounce price range
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedPriceRange(priceRange);
+    }, 600); // A slightly longer delay for the slider
+    return () => clearTimeout(handler);
+  }, [priceRange]);
+
+  // --- HANDLERS ---
   const handleCategoryChange = (categorySlug: string | undefined) => {
-    if (categorySlug) {
-      navigate(`/products/category/${categorySlug}`);
-    } else {
-      navigate("/products");
-    }
+    navigate(categorySlug ? `/products/category/${categorySlug}` : "/products");
   };
 
+  // --- RENDER ---
   if (isError) {
     return (
       <div className="text-center py-20 text-red-500">
@@ -59,7 +110,7 @@ const Products = () => {
   }
 
   const activeCategory = categories?.find(
-    (cat) => cat.slug === categorySlugFromUrl,
+    (cat) => cat.slug === categorySlugFromUrl
   );
 
   return (
@@ -70,22 +121,23 @@ const Products = () => {
             {activeCategory ? activeCategory.name : "Semua Produk"}
           </h1>
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Sisi Kiri: Filter Kategori */}
+            {/* --- SIDEBAR FILTERS --- */}
             <div className="lg:w-1/4">
+              {/* Category Filter */}
               <div className="bg-white p-6 rounded-lg border border-shop-medium-gray mb-6">
                 <h2 className="text-lg font-medium mb-4">Kategori</h2>
                 <div className="space-y-2">
                   <Button
                     variant={!categorySlugFromUrl ? "default" : "ghost"}
                     onClick={() => handleCategoryChange(undefined)}
-                    className={`w-full justify-start text-left ${!categorySlugFromUrl ? "bg-shop-accent text-white" : ""}`}
+                    className={`w-full justify-start text-left ${
+                      !categorySlugFromUrl ? "bg-shop-accent text-white" : ""
+                    }`}
                   >
                     Semua Produk
                   </Button>
                   {isLoadingCategories ? (
                     <p>Memuat kategori...</p>
-                  ) : isError ? (
-                    <p className="text-red-500">Gagal memuat kategori.</p>
                   ) : (
                     categories?.map((cat) => (
                       <Button
@@ -94,7 +146,11 @@ const Products = () => {
                           categorySlugFromUrl === cat.slug ? "default" : "ghost"
                         }
                         onClick={() => handleCategoryChange(cat.slug)}
-                        className={`w-full justify-start text-left ${categorySlugFromUrl === cat.slug ? "bg-shop-accent text-white" : ""}`}
+                        className={`w-full justify-start text-left ${
+                          categorySlugFromUrl === cat.slug
+                            ? "bg-shop-accent text-white"
+                            : ""
+                        }`}
                       >
                         {cat.name}
                       </Button>
@@ -102,11 +158,52 @@ const Products = () => {
                   )}
                 </div>
               </div>
+
+              {/* Price Filter with Slider */}
+              <div className="bg-white p-6 rounded-lg border border-shop-medium-gray">
+                <h2 className="text-lg font-medium mb-4">Filter Harga</h2>
+                <div className="space-y-4">
+                    <Slider
+                        value={priceRange}
+                        onValueChange={setPriceRange}
+                        max={MAX_PRICE}
+                        step={1000}
+                        className="w-full"
+                    />
+                    <div className="flex justify-between text-sm text-shop-dark-gray">
+                        <span>{formatCurrency(priceRange[0])}</span>
+                        <span>{formatCurrency(priceRange[1])}</span>
+                    </div>
+                </div>
+              </div>
             </div>
 
-            {/* Sisi Kanan: Daftar Produk */}
+            {/* --- PRODUCT LIST --- */}
             <div className="lg:w-3/4">
-              {/* ... (bagian sorting & jumlah produk) ... */}
+              {/* Search and Sort Controls */}
+              <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <Input
+                  type="text"
+                  placeholder="Cari produk..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full md:max-w-xs"
+                />
+                <div className="flex items-center gap-4 w-full md:w-auto">
+                  <span className="text-shop-dark-gray whitespace-nowrap">Urutkan:</span>
+                  <Select value={sortOption} onValueChange={setSortOption}>
+                    <SelectTrigger className="w-full md:w-[180px]">
+                      <SelectValue placeholder="Pilih Urutan" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="latest">Terbaru</SelectItem>
+                      <SelectItem value="price_asc">Harga: Terendah</SelectItem>
+                      <SelectItem value="price_desc">Harga: Tertinggi</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
               <div className="flex justify-between items-center mb-6">
                 <p className="text-shop-dark-gray">
                   Menampilkan {paginatedProducts?.meta?.total || 0} produk
@@ -115,7 +212,7 @@ const Products = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {isLoading ? (
-                  Array.from({ length: 6 }).map((_, index) => (
+                  Array.from({ length: 9 }).map((_, index) => (
                     <ProductCardSkeleton key={index} />
                   ))
                 ) : products.length > 0 ? (
@@ -127,7 +224,7 @@ const Products = () => {
                 ) : (
                   <div className="col-span-full py-12 text-center">
                     <p className="text-lg text-shop-dark-gray">
-                      Produk tidak ditemukan.
+                      Produk tidak ditemukan. Coba ubah filter Anda.
                     </p>
                   </div>
                 )}
@@ -141,4 +238,3 @@ const Products = () => {
 };
 
 export default Products;
-

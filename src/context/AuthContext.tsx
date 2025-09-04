@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = (newToken: string, newUser: User) => {
+    localStorage.removeItem("cartSessionId"); // Clear guest cart session on login
     localStorage.setItem("authToken", newToken);
     localStorage.setItem("user", JSON.stringify(newUser));
     setToken(newToken);

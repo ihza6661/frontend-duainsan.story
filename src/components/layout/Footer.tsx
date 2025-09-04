@@ -145,6 +145,14 @@ const Footer = () => {
                   Kebijakan Privasi
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/info-pemesanan-cetak"
+                  className="text-gray-800 text-sm block py-1 hover:text-black"
+                >
+                  Pemesanan Undangan Cetak
+                </Link>
+              </li>
             </ul>
           </div>
 

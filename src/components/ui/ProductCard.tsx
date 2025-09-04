@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const STORAGE_URL = import.meta.env.VITE_PUBLIC_STORAGE_URL;
-  const placeholderImage = "/images/placeholder.svg";
+  const placeholderImage = "/placeholder.svg";
 
   // This is the critical part that prevents errors.
   const imageUrl = product.featured_image?.image

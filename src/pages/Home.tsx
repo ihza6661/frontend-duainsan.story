@@ -124,6 +124,7 @@ const Home = () => {
       {/* Termin Pembayaran dan Free items Information */}
       <section className="pt-10 sm:pt-12 md:pt-16">
         <div className="bg-[#f1ede9]">
+          <p className="text-center pt-10 text-xl">Cara Order via WhatsApp</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
             {highlight.map((post) => (
               <Link
